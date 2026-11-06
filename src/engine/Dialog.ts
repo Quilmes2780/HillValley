@@ -35,6 +35,7 @@ export class Dialog {
     story.BindExternalFunction('setFlag', (name: string) => api.setFlag(name as FlagName));
     story.BindExternalFunction('hasFlag', (name: string) => Boolean(api.getFlag(name as FlagName)));
     story.BindExternalFunction('giveItem', (item: string) => api.addItem(item));
+    story.BindExternalFunction('hasItem', (item: string) => api.hasItem(item));
     story.BindExternalFunction('unlock', (who: string) => api.unlockCharacter(who as CharacterId));
 
     for (;;) {

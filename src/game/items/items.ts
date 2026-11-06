@@ -38,6 +38,38 @@ export const ITEMS: readonly ItemDef[] = [
   plain('notizbuch'),
   plain('mr_fusion'),
 
+  // Kapitel 1
+  plain('zeitung'),
+  plain('entschuldigung'),
+  plain('kassette'),
+  plain('kabel'),
+  {
+    ...plain('diktiergeraet'),
+    description: (s) => (s.flags.kassette_eingelegt ? 'item.diktiergeraet.desc_kassette' : 'item.diktiergeraet.desc'),
+    verbs: {
+      druecke: async (g) => {
+        await g.say(g.getFlag('kassette_eingelegt') ? 'say.k1.diktier_zu_leise' : 'say.k1.diktier_leer');
+      },
+    },
+  },
+  plain('brief_an_doc'),
+
+  // Kapitel 2
+  plain('brief_von_marty'),
+  plain('schraubenzieher'),
+  {
+    ...plain('zigarrenkiste'),
+    description: (s) =>
+      s.flags.kiste_hat_spule || s.flags.kiste_hat_roehre ? 'item.zigarrenkiste.desc_halb' : 'item.zigarrenkiste.desc',
+  },
+  plain('kupferspule'),
+  plain('dollar'),
+  plain('roehre'),
+  plain('zettel'),
+  plain('hausaufgabe'),
+  plain('mappe'),
+  plain('verstaerker'),
+
   // Gegenstände der Testräume (Engine-Szenario)
   plain('apfel'),
   plain('schachtel'),

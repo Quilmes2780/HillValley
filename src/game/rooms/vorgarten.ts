@@ -1,6 +1,6 @@
 import type { Hotspot, Polygon, RoomVariant } from '../../engine/types';
 import type { RoomDef } from '../../engine/types';
-import { rect } from './util';
+import { pickup, rect } from './util';
 
 const SCALE = { yFar: 94, sFar: 0.88, yNear: 140, sNear: 1 };
 
@@ -64,6 +64,22 @@ const tannenburg: RoomVariant = {
   scale: SCALE,
   hotspots: [
     ...COMMON,
+    {
+      id: 'zeitung',
+      name: 'item.zeitung.name',
+      area: rect(76, 103, 20, 12),
+      walkTo: [86, 118],
+      face: 'hinten',
+      visible: (s) => !s.flags.zeitung_genommen,
+      sprite: { key: 'backgrounds/sprites/zeitung.png', x: 78, y: 105 },
+      comments: { schauan: 'say.k1.zeitung_rasen' },
+      verbs: {
+        nimm: pickup((g) => {
+          g.setFlag('zeitung_genommen');
+          g.addItem('zeitung');
+        }),
+      },
+    },
     {
       id: 'werbetafel',
       name: 'hotspot.werbetafel',

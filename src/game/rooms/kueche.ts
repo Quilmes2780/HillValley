@@ -100,6 +100,14 @@ export const kueche: RoomDef = {
                 await g.dialog('lorraine');
               },
             },
+            useWith: {
+              zeitung: async (g) => {
+                g.removeItem('zeitung');
+                g.setFlag('entschuldigung_erhalten');
+                g.addItem('entschuldigung');
+                await g.sayAs('lorraine', 'say.k1.lorraine_schreibt');
+              },
+            },
           },
         ],
       },

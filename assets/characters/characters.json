@@ -37,6 +37,46 @@
       "folder": "einstein",
       "textColor": "sand2",
       "portrait": "einstein_portrait.png"
+    },
+    "kowalski": {
+      "folder": "kowalski",
+      "textColor": "blau6",
+      "portrait": "kowalski_portrait.png"
+    },
+    "strickland": {
+      "folder": "strickland",
+      "textColor": "grau6",
+      "portrait": "strickland_portrait.png"
+    },
+    "jennifer": {
+      "folder": "jennifer",
+      "textColor": "pink3",
+      "portrait": "jennifer_portrait.png"
+    },
+    "lou": {
+      "folder": "lou",
+      "textColor": "tuerkis6",
+      "portrait": "lou_portrait.png"
+    },
+    "goldie": {
+      "folder": "goldie",
+      "textColor": "tuerkis5",
+      "portrait": "goldie_portrait.png"
+    },
+    "haendler": {
+      "folder": "haendler",
+      "textColor": "orange3",
+      "portrait": "haendler_portrait.png"
+    },
+    "george_jung": {
+      "folder": "george_jung",
+      "textColor": "gelb3",
+      "portrait": "george_jung_portrait.png"
+    },
+    "biff_jung": {
+      "folder": "biff_jung",
+      "textColor": "gruen7",
+      "portrait": "biff_jung_portrait.png"
     }
   }
 }

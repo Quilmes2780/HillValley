@@ -192,6 +192,12 @@ export function installTestApi(scene: GameScene, validationErrors: readonly stri
       return actor ? { x: actor.x, y: actor.y, depth: actor.sprite.depth } : null;
     },
     actorsInRoom: () => [...scene.rooms.actors.keys()],
+    // Alle Bilder der Szene außerhalb der Bedienleiste, um Reste früherer Räume zu erkennen.
+    worldImages: () =>
+      scene.children.list
+        .filter((o): o is Phaser.GameObjects.Image => o instanceof Phaser.GameObjects.Image)
+        .filter((o) => o.scrollFactorX === 1)
+        .map((o) => o.texture.key),
     walkPathLength: (x: number, y: number) => {
       const actor = scene.actorOf(scene.state.activeCharacter)!;
       return scene.rooms.pathfinder.path([actor.x, actor.y], [x, y]);

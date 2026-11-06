@@ -1,5 +1,5 @@
 import type { RoomDef } from '../../engine/types';
-import { rect } from './util';
+import { pickup, rect } from './util';
 
 const SCALE = { yFar: 92, sFar: 0.88, yNear: 140, sNear: 1 };
 
@@ -38,6 +38,22 @@ export const arbeitszimmer: RoomDef = {
             comments: {
               schauan: 'say.prolog.arbeit_schreibmaschine',
               benutze: 'say.prolog.arbeit_schreibmaschine_benutze',
+            },
+          },
+          {
+            id: 'diktiergeraet',
+            name: 'item.diktiergeraet.name',
+            area: rect(212, 48, 16, 12),
+            walkTo: [215, 96],
+            face: 'hinten',
+            visible: (s) => !s.flags.diktiergeraet_genommen,
+            sprite: { key: 'backgrounds/sprites/diktiergeraet.png', x: 213, y: 50 },
+            comments: { schauan: 'say.k1.diktier_auf_tisch' },
+            verbs: {
+              nimm: pickup((g) => {
+                g.setFlag('diktiergeraet_genommen');
+                g.addItem('diktiergeraet');
+              }),
             },
           },
           {

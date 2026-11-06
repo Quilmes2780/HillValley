@@ -5,6 +5,7 @@ import { buildUi } from './ui.ts';
 import { buildItems } from './items.ts';
 import { buildBackgrounds } from './backgrounds.ts';
 import { buildCharacters } from './characters.ts';
+import { buildK1K2Backgrounds } from './k1k2.ts';
 import { buildPrologBackgrounds } from './prolog.ts';
 
 const DIR = 'assets';
@@ -15,5 +16,6 @@ buildUi(DIR);
 buildItems(DIR);
 buildBackgrounds(DIR);
 buildPrologBackgrounds(DIR);
+buildK1K2Backgrounds(DIR);
 buildCharacters(DIR);
 console.log('Grafiken erzeugt.');

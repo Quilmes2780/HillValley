@@ -33,4 +33,4 @@ Vor Phaser-spezifischen APIs die passende Datei in `node_modules/phaser/skills/<
 
 - `src/engine/` – inhaltsunabhängig, keine Story
 - `src/game/` – Räume, Gegenstände, Dialoge, Flags, Figuren
-- `tests/` – nutzt `window.__hv` (nur mit `?test=1`), klickt aber echt auf das Canvas
+- `tests/` – nutzt `window.__hv` (nur mit `?test=1`), klickt aber echt auf das Canvas. `tests/walkthrough.ts` spielt das Spiel Schritt für Schritt nach `LOESUNGSBUCH.md` und wird mit jedem Kapitel erweitert.

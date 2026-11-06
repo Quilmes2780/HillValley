@@ -7,6 +7,7 @@ export interface HvApi {
   state(): {
     chapter: number;
     photoStage: number;
+    chronopost: { mode: string; year: number };
     timeline: { tannenburg: boolean };
     flags: Record<string, boolean | number>;
     activeCharacter: string;
@@ -21,6 +22,7 @@ export interface HvApi {
   hotspots(): ({ id: string } & GamePoint)[];
   actor(id?: string): ({ depth: number } & GamePoint) | null;
   actorsInRoom(): string[];
+  worldImages(): string[];
   walkPathLength(x: number, y: number): [number, number][];
   verb(verb: string): GamePoint;
   inventory(): ({ id: string } & GamePoint)[];
@@ -88,10 +90,64 @@ export async function clickHotspot(page: Page, id: string, button: 'left' | 'rig
   await clickGame(page, await hotspot(page, id), button);
 }
 
+/** Klickt auf einen Gegenstand und blättert das Inventar dafür bei Bedarf. */
 export async function clickItem(page: Page, id: string): Promise<void> {
-  const item = await page.evaluate((wanted) => window.__hv.inventory().find((i) => i.id === wanted), id);
-  if (!item) throw new Error(`Gegenstand ${id} ist nicht sichtbar`);
-  await clickGame(page, item);
+  const find = (): Promise<({ id: string } & GamePoint) | undefined> =>
+    page.evaluate((wanted) => window.__hv.inventory().find((i) => i.id === wanted), id);
+  const arrow = async (direction: 'up' | 'down'): Promise<void> => {
+    await clickGame(page, await page.evaluate((d) => window.__hv.arrow(d), direction));
+    await page.waitForTimeout(30);
+  };
+  for (const direction of ['down', 'up', 'up', 'up', 'up', 'down', 'down', 'down'] as const) {
+    const item = await find();
+    if (item) {
+      await clickGame(page, item);
+      return;
+    }
+    await arrow(direction);
+  }
+  throw new Error(`Gegenstand ${id} ist nicht im Inventar`);
+}
+
+/** Benutze Gegenstand mit Hotspot oder Gegenstand. */
+export async function useItem(page: Page, id: string, target: string, kind: 'hotspot' | 'item' = 'hotspot'): Promise<void> {
+  await clickVerb(page, 'benutze');
+  await clickItem(page, id);
+  if (kind === 'item') await clickItem(page, target);
+  else await clickHotspot(page, target);
+  await waitIdle(page);
+}
+
+/** Gib Gegenstand an Hotspot. */
+export async function giveItem(page: Page, id: string, target: string): Promise<void> {
+  await clickVerb(page, 'gib');
+  await clickItem(page, id);
+  await clickHotspot(page, target);
+  await waitIdle(page);
+}
+
+/** Klickt mit „Gehe zu“ auf einen Ausgang und prüft das Ziel. */
+export async function go(page: Page, exit: string, target: string): Promise<void> {
+  await clickHotspot(page, exit);
+  await waitIdle(page);
+  expect(await page.evaluate(() => window.__hv.room().id)).toBe(target);
+}
+
+/** Rede mit jemandem und wähle nacheinander die genannten Antworten. */
+export async function talk(page: Page, id: string, answers: string[]): Promise<void> {
+  await clickVerb(page, 'redemit');
+  await clickHotspot(page, id);
+  for (const answer of answers) await chooseAnswer(page, answer);
+  await waitIdle(page);
+}
+
+/** Alle bisher gesprochenen Texte. */
+export async function allSpeech(page: Page): Promise<string> {
+  return page.evaluate(() => window.__hv.speech().map((s) => s.text).join(' | '));
+}
+
+export async function flag(page: Page, name: string): Promise<boolean | number | undefined> {
+  return page.evaluate((n) => window.__hv.state().flags[n], name);
 }
 
 /** Verb + Hotspot, danach warten, bis alles fertig ist. */

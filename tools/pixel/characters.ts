@@ -144,6 +144,14 @@ const FIGURES = [
   { id: 'lorraine', letter: 'L', body: C.pink1, shade: C.rot1, textColor: 'pink4' },
   { id: 'biff', letter: 'B', body: C.gruen3, shade: C.gruen1, textColor: 'gruen6' },
   { id: 'einstein', letter: 'E', body: C.holz4, shade: C.holz2, textColor: 'sand2', dog: true },
+  { id: 'kowalski', letter: 'K', body: C.blau2, shade: C.blau1, textColor: 'blau6' },
+  { id: 'strickland', letter: 'S', body: C.grau3, shade: C.grau1, textColor: 'grau6' },
+  { id: 'jennifer', letter: 'N', body: C.pink2, shade: C.pink1, textColor: 'pink3' },
+  { id: 'lou', letter: 'O', body: C.weiss, shade: C.grau4, textColor: 'tuerkis6' },
+  { id: 'goldie', letter: 'Y', body: C.tuerkis2, shade: C.tuerkis1, textColor: 'tuerkis5' },
+  { id: 'haendler', letter: 'H', body: C.orange1, shade: C.holz2, textColor: 'orange3' },
+  { id: 'george_jung', letter: 'G', body: C.gelb1, shade: C.holz3, textColor: 'gelb3' },
+  { id: 'biff_jung', letter: 'b', body: C.gruen4, shade: C.gruen2, textColor: 'gruen7' },
 ] as const;
 
 export function buildCharacters(dir: string): void {

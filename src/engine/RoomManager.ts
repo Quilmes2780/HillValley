@@ -28,7 +28,7 @@ export class RoomManager {
   readonly actors = new Map<string, Actor>();
 
   private background: Phaser.GameObjects.Image | null = null;
-  private readonly spriteById = new Map<string, Phaser.GameObjects.Image>();
+  private readonly spriteOf = new Map<Hotspot, Phaser.GameObjects.Image>();
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -75,7 +75,7 @@ export class RoomManager {
         .image(hs.sprite.x, hs.sprite.y, assetKey(hs.sprite.key))
         .setOrigin(0, 0)
         .setDepth(hs.sprite.depthY ?? -500);
-      this.spriteById.set(hs.id, image);
+      this.spriteOf.set(hs, image);
     }
 
     const state = this.getState();
@@ -121,7 +121,7 @@ export class RoomManager {
   private refreshSprites(): void {
     const state = this.getState();
     for (const hs of this.variant.hotspots) {
-      const image = this.spriteById.get(hs.id);
+      const image = this.spriteOf.get(hs);
       if (!image || !hs.sprite) continue;
       const hotspotOn = !hs.visible || hs.visible(state);
       image.setVisible(hotspotOn && (!hs.sprite.when || hs.sprite.when(state)));
@@ -150,8 +150,8 @@ export class RoomManager {
   private clear(): void {
     this.background?.destroy();
     this.background = null;
-    for (const image of this.spriteById.values()) image.destroy();
-    this.spriteById.clear();
+    for (const image of this.spriteOf.values()) image.destroy();
+    this.spriteOf.clear();
     for (const actor of this.actors.values()) actor.destroy();
     this.actors.clear();
   }

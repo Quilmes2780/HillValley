@@ -63,12 +63,14 @@
 
 **Ziel:** In den Turm gelangen und per Notbetrieb einen Brief an den jungen Doc nach 1955 schicken.
 
+*Wege:* Rathausplatz, Schule, Haus und Labor über den Stadtplan. Turmeingang und Uhrwerk liegen hinter der Turmtür, Bandraum und Schülerzeitung gehen vom Flur der Schule ab.
+
 ### A – Einlass in die Schule
 1. **Rathausplatz:** *Rede mit* Wachmann Kowalski → „Hier rein nur auf direkten Befehl von Mr. Tannen.“ Er zuckt bei jeder Tannen-Durchsage zusammen.
 2. *Schau an* Lautsprechersäule → Anschlusskasten mit Flügelschraube.
 3. **Hill Valley High, Flur:** *Rede mit* Strickland → ohne Entschuldigungsschreiben der Eltern kein Zutritt.
 4. **Vorgarten:** *Nimm* Zeitung („Tannenburg Tageblatt“).
-5. **Küche:** *Gib* Zeitung *an* Lorraine → sie schreibt ein Entschuldigungsschreiben.
+5. **Küche:** *Gib* Zeitung *an* Lorraine → sie schreibt ein Entschuldigungsschreiben. (Hinweis: Fragt man sie nach Schritt 3 danach, verlangt sie zuerst ihre Morgenzeitung.)
 6. **Flur:** *Gib* Entschuldigungsschreiben *an* Strickland → Zutritt.
 
 ### B – Die Kassette
@@ -82,7 +84,7 @@
 12. *Benutze* Kassette *mit* Diktiergerät, dann *Benutze* Diktiergerät *mit* Kabel.
 13. *Drücke* Wiedergabetaste (Diktiergerät) → Biffs Gebrüll schallt über den Platz, Kowalski rennt los. Der Turm ist frei.
 
-> Abschnitte A und B in beliebiger Reihenfolge. In C ist nur Schritt 13 an die Schritte 10–12 gebunden.
+> Abschnitte A und B in beliebiger Reihenfolge. In C ist nur Schritt 13 an die Schritte 10–12 gebunden. Das Kabel muss vor dem Diktiergerät angeschlossen werden, die Kassette lässt sich auch danach einlegen (*Benutze* Kassette *mit* Diktiergerät am Platz).
 
 ### D – Die Chronopost im Notbetrieb
 14. **Uhrwerk:** *Schau an* Chronopost → Marty erkennt den Kasten aus Docs Notizbuch.
@@ -93,6 +95,8 @@
 19. *Benutze* Brief *mit* Chronopost.
 20. *Ziehe* Sendehebel → Lichtblitz. **Kapitel 2 beginnt.**
 
+> Schritt 18 ist ab Kapitel 1 überall möglich. Mr. Fusion bleibt nach Schritt 15 in der Chronopost (siehe Kapitel 4, Schritt 9).
+
 ---
 
 ## Kapitel 2 – Briefe aus der Zukunft (Dezember 1955, junger Doc)
@@ -102,6 +106,8 @@
 **Zwischensequenz:** Der junge Doc repariert die seit dem Blitz stehende Turmuhr und findet einen Brief im Messingkasten. Er erkennt Martys Handschrift.
 
 **Ziel:** Docs Erfindungsmappe von Biff zurückholen und den Verstärker bauen.
+
+*Wege:* Rathausplatz, Docs Villa und Schule über den Stadtplan von 1955. Uhrwerk, Lous Café und Radioladen haben ihre Türen am Rathausplatz.
 
 ### A – Material für den Verstärker
 1. **Uhrwerk:** *Schau an* Brief → Aufgaben: Mappe zurückholen; Verstärker aus Röhre, Spule und Gehäuse bauen.
@@ -123,9 +129,11 @@
 12. Schule verlassen → **Zwischensequenz:** Biff entdeckt Doc mit der Mappe, jagt ihm hinterher und landet im Mistlaster (Hommage).
 13. **Docs Labor:** *Benutze* Erfindungsmappe *mit* Kamin → „Manche Ideen sind zu gefährlich für diese Zeit. Inklusive meiner.“ Foto → Stufe 2.
 
-> Abschnitte A und B in beliebiger Reihenfolge.
+> Abschnitte A und B in beliebiger Reihenfolge. Die Mappe verbrennen beendet zugleich Tannenburg: Rathausplatz und Stadtplan von 1986 zeigen wieder Hill Valley.
 
 ### C – Verstärker einbauen
+> Erst möglich, wenn die Mappe verbrannt ist (Schritt 13). Vorher sagt Doc, dass zuerst die Mappe aus der Welt muss.
+
 14. **Uhrwerk:** *Benutze* Verstärker *mit* Chronopost → Der Kasten erwacht. Doc entdeckt im Inneren eine eingravierte Messingplatte mit seinen eigenen Initialen: Ein älteres Ich sitzt 1885 fest, der Zug ist defekt, Ersatzteile über den Grundstein.
    → **Kapitel 3 beginnt.** Figurenwechsel freigeschaltet (Marty 1986, Doc 1885; junger Doc nur noch für Gags).
 

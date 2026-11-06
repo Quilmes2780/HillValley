@@ -4,12 +4,12 @@ import { Canvas, seeded } from './png.ts';
 
 const FLOOR_Y = 88;
 
-function baseboard(c: Canvas, color: number, light: number): void {
+export function baseboard(c: Canvas, color: number, light: number): void {
   c.rect(0, FLOOR_Y - 4, c.w, 4, color);
   c.rect(0, FLOOR_Y - 4, c.w, 1, light);
 }
 
-function door(c: Canvas, x: number, y: number, w: number, h: number, wood: number, dark: number, frame: number): void {
+export function door(c: Canvas, x: number, y: number, w: number, h: number, wood: number, dark: number, frame: number): void {
   c.rect(x - 2, y - 2, w + 4, h + 2, frame);
   c.rect(x, y, w, h, wood);
   c.rect(x + 4, y + 5, w - 8, h / 2 - 8, dark);

@@ -1,4 +1,5 @@
 import type { Hotspot, Polygon, RoomDef, Script, ScriptApi } from '../../engine/types';
+import { docsLabor1955 } from './docs_labor_1955';
 import { pickup, rect } from './util';
 
 const NAPF: readonly [number, number] = [96, 128];
@@ -39,6 +40,7 @@ async function zeitwelle(g: ScriptApi): Promise<void> {
     await g.timeWave();
     g.state.timeline.tannenburg = true;
     g.state.chapter = 1;
+    g.setFlag('k1_begonnen');
     g.setPhotoStage(1);
     await g.say('say.prolog.welle_2');
     await g.say('item.foto.stufe1');
@@ -79,6 +81,7 @@ export const docsLabor: RoomDef = {
   id: 'docs_labor',
   name: 'room.docs_labor',
   eras: {
+    1955: [docsLabor1955],
     1986: [
       {
         background: 'backgrounds/docs_labor_1986.png',

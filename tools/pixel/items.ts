@@ -128,6 +128,109 @@ export function buildItems(dir: string): void {
     }
   });
 
+  // Kapitel 1
+  icon(dir, 'zeitung', (c) => {
+    c.poly([[7, 4], [25, 2], [27, 15], [9, 17]], C.grau6);
+    c.line(10, 5, 23, 4, C.schwarz);
+    c.line(10, 8, 16, 7, C.grau3);
+    c.line(11, 11, 16, 10, C.grau3);
+    c.rect(18, 7, 6, 6, C.grau4);
+  });
+  icon(dir, 'entschuldigung', (c) => {
+    c.rect(9, 2, 15, 16, C.weiss);
+    c.frame(9, 2, 15, 16, C.grau4);
+    for (let y = 5; y < 13; y += 3) c.line(11, y, 21, y, C.blau4);
+    c.line(11, 15, 18, 14, C.blau2);
+  });
+  icon(dir, 'kassette', (c) => {
+    c.rect(7, 4, 18, 12, C.grau2);
+    c.frame(7, 4, 18, 12, C.grau1);
+    c.rect(9, 5, 14, 4, C.sand2);
+    c.rect(11, 10, 3, 3, C.schwarz);
+    c.rect(18, 10, 3, 3, C.schwarz);
+  });
+  icon(dir, 'kabel', (c) => {
+    c.poly([[10, 4], [22, 4], [26, 10], [22, 16], [10, 16], [6, 10]], C.orange1);
+    c.poly([[12, 7], [20, 7], [22, 10], [20, 13], [12, 13], [10, 10]], C.schwarz);
+    c.rect(24, 13, 4, 3, C.grau5);
+  });
+  icon(dir, 'diktiergeraet', (c) => {
+    c.rect(9, 2, 14, 16, C.grau2);
+    c.frame(9, 2, 14, 16, C.grau1);
+    c.rect(11, 4, 10, 6, C.grau4);
+    c.rect(11, 12, 3, 3, C.rot4);
+    c.rect(15, 12, 3, 3, C.gruen5);
+  });
+  icon(dir, 'brief_an_doc', (c) => {
+    c.rect(7, 4, 18, 12, C.sand2);
+    c.frame(7, 4, 18, 12, C.holz4);
+    c.line(10, 8, 22, 8, C.blau4);
+    c.line(10, 11, 19, 11, C.blau4);
+  });
+
+  // Kapitel 2
+  icon(dir, 'brief_von_marty', (c) => {
+    c.rect(7, 4, 18, 12, C.sand1);
+    c.frame(7, 4, 18, 12, C.holz3);
+    c.line(10, 8, 22, 8, C.blau3);
+    c.line(10, 11, 19, 11, C.blau3);
+  });
+  icon(dir, 'schraubenzieher', (c) => {
+    c.line(8, 15, 13, 11, C.rot4);
+    c.line(9, 16, 14, 12, C.rot4);
+    c.line(8, 14, 12, 11, C.rot5);
+    c.line(14, 11, 24, 3, C.grau6);
+  });
+  icon(dir, 'zigarrenkiste', (c) => {
+    c.rect(6, 5, 20, 12, C.holz4);
+    c.frame(6, 5, 20, 12, C.holz2);
+    c.rect(11, 8, 10, 5, C.sand2);
+  });
+  icon(dir, 'kupferspule', (c) => {
+    c.rect(11, 3, 10, 14, C.orange1);
+    for (let y = 4; y < 16; y += 2) c.rect(11, y, 10, 1, C.orange3);
+    c.rect(9, 2, 14, 1, C.grau4);
+    c.rect(9, 17, 14, 1, C.grau4);
+  });
+  icon(dir, 'dollar', (c) => {
+    c.rect(5, 5, 22, 11, C.gruen5);
+    c.frame(5, 5, 22, 11, C.gruen3);
+    c.rect(13, 8, 6, 5, C.gruen7);
+    c.rect(8, 3, 22, 1, C.gruen3);
+  });
+  icon(dir, 'roehre', (c) => {
+    c.poly([[12, 4], [15, 1], [18, 1], [21, 4], [21, 13], [12, 13]], C.blau8);
+    c.rect(14, 5, 5, 6, C.grau4);
+    c.rect(11, 13, 11, 4, C.grau2);
+    c.rect(13, 17, 1, 2, C.grau5);
+    c.rect(19, 17, 1, 2, C.grau5);
+  });
+  icon(dir, 'zettel', (c) => {
+    c.rect(9, 4, 15, 12, C.gelb3);
+    c.frame(9, 4, 15, 12, C.gelb1);
+    c.line(11, 9, 22, 9, C.blau3);
+    c.line(11, 12, 18, 12, C.blau3);
+  });
+  icon(dir, 'hausaufgabe', (c) => {
+    c.rect(9, 2, 15, 16, C.weiss);
+    c.frame(9, 2, 15, 16, C.grau4);
+    for (let y = 5; y < 16; y += 2) c.line(11, y, 22, y, C.grau4);
+    c.rect(19, 3, 4, 2, C.rot4);
+  });
+  icon(dir, 'mappe', (c) => {
+    c.rect(6, 4, 21, 14, C.holz4);
+    c.frame(6, 4, 21, 14, C.holz1);
+    c.rect(11, 2, 8, 2, C.holz2);
+    c.rect(11, 9, 11, 3, C.sand2);
+  });
+  icon(dir, 'verstaerker', (c) => {
+    c.rect(6, 6, 20, 12, C.holz4);
+    c.frame(6, 6, 20, 12, C.holz2);
+    c.rect(10, 8, 5, 8, C.orange2);
+    c.rect(18, 1, 4, 6, C.blau8);
+    c.rect(18, 7, 4, 2, C.grau3);
+  });
+
   // Vier schlichte Zusatzdinge, um das Blättern im Inventar zu prüfen.
   ['1', '2', '3', '4'].forEach((digit, i) => {
     icon(dir, `ding${digit}`, (c) => {

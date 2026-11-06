@@ -210,6 +210,8 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Porträts | Spalte rechts neben dem Inventar |
 | Wege in der Stadt | Stadtplan, je Zeitebene ein eigener |
 | Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |
+| Rathausplatz 1955 | Lous Café und Radioladen mit Türen direkt am Platz |
+| Verstärker (K2) | Einbau erst nach der verbrannten Erfindungsmappe |
 
 ---
 
