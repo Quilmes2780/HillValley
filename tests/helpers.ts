@@ -31,6 +31,10 @@ export interface HvApi {
   choices(): ({ text: string } & GamePoint)[];
   menu(): ({ text: string } & GamePoint)[] | null;
   debugOpen(): boolean;
+  music(): string | null;
+  musicPlaying(): boolean;
+  muted(): boolean;
+  sfx(): string[];
   frames(id: string, anim: string): number;
   zoom(): number;
 }

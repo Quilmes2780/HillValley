@@ -27,6 +27,7 @@ const faehrte: Script = async (g) => {
 const gitarrenGag: Script = async (g) => {
   await g.cutscene(async () => {
     await g.say('say.prolog.labor_gag_1');
+    g.sfx('gitarre');
     g.flash();
     g.shake(500);
     await g.walkTo([80, 98], undefined, 7);

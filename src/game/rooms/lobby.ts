@@ -8,6 +8,7 @@ const scannen: Script = async (g) => {
   }
   g.removeItem('folie');
   g.setFlag('aufzug_offen');
+  g.sfx('scanner');
   g.flash(120);
   await g.say('say.k5.scanner_ok');
 };
@@ -97,6 +98,7 @@ export const lobby: RoomDef = {
             comments: { schauan: 'say.k5.knopf_schau' },
             verbs: {
               druecke: async (g) => {
+                g.sfx('aufzug');
                 await g.goToRoom('buero', 2015, [290, 112], 'links');
               },
             },

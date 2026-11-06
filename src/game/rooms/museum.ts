@@ -116,6 +116,7 @@ const normal: RoomVariant = {
           if (g.getFlag('kofferraum_offen')) {
             await g.say('say.k5.kofferraum_schon');
           } else if (!g.getFlag('roboter_fuehrt')) {
+            g.sfx('alarm');
             g.flash(120);
             g.shake(300);
             await g.sayAs('museumsroboter', 'say.k5.museum_alarm');

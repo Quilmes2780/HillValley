@@ -50,10 +50,12 @@ export const mietstall: RoomDef = {
                 g.removeItem('knallfrosch_brennend');
                 await g.cutscene(async () => {
                   await g.say('say.k3.frosch_wirft');
+                  g.sfx('knall');
                   g.flash(150);
                   g.shake(600);
                   await g.sayAs('buford', 'say.k3.buford_fliegt');
                   g.setFlag('buford_im_mist');
+                  g.sfx('platsch');
                   await g.wait(400);
                   await g.sayAs('buford', 'say.k3.buford_mist');
                   await g.say('say.k3.guertel_gerissen');

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { colorValue } from '../../tools/pixel/palette';
 import type { GameScene } from './GameScene';
+import { audio } from './Audio';
 import { t } from './i18n';
 import { SaveSystem, SLOT_COUNT } from './SaveSystem';
 import { UI_DEPTH } from './VerbUI';
@@ -8,7 +9,7 @@ import { UI_DEPTH } from './VerbUI';
 const DEPTH = UI_DEPTH + 100;
 const LEFT = 40;
 const TOP = 25;
-const SLOT_Y = 66;
+const SLOT_Y = 58;
 const SLOT_H = 13;
 const COLOR_NORMAL = colorValue('tuerkis5');
 const COLOR_HOVER = colorValue('gelb3');
@@ -81,7 +82,7 @@ export class SaveMenu {
     );
     this.label(LEFT + 8, TOP + 5, t(this.mode === 'save' ? 'save.title_save' : 'save.title_load'), COLOR_TITLE);
     const other: Mode = this.mode === 'save' ? 'load' : 'save';
-    this.row(TOP + 21, t(other === 'save' ? 'save.tab_save' : 'save.tab_load'), () => {
+    this.row(TOP + 18, t(other === 'save' ? 'save.tab_save' : 'save.tab_load'), () => {
       this.mode = other;
       this.message = '';
       this.draw();
@@ -91,7 +92,11 @@ export class SaveMenu {
       this.row(SLOT_Y + slot * SLOT_H, this.slotLabel(slot), () => this.useSlot(slot));
     }
     if (this.message) this.label(LEFT + 8, SLOT_Y + SLOT_COUNT * SLOT_H, this.message, COLOR_DIM);
-    this.row(TOP + 135, t('save.close'), () => this.close());
+    this.row(TOP + 124, t(audio().muted ? 'title.ton_aus' : 'title.ton_an'), () => {
+      audio().toggleMute();
+      this.draw();
+    });
+    this.row(TOP + 137, t('save.close'), () => this.close());
   }
 
   private slotLabel(slot: number): string {

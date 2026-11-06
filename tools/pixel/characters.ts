@@ -1,6 +1,6 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { C } from './palette.ts';
-import { Canvas } from './png.ts';
+import { Canvas, FORCE, saveReplaceable } from './png.ts';
 import { drawGlyph } from './font.ts';
 
 const FW = 32;
@@ -175,14 +175,14 @@ export function buildCharacters(dir: string): void {
         const draw = 'dog' in figure ? drawDog : drawFigure;
         draw(sheet, i * FW, pose, figure.body, figure.shade, figure.letter);
       });
-      sheet.save(`${folder}/${figure.id}_${anim}.png`);
+      saveReplaceable(sheet, `${folder}/${figure.id}_${anim}.png`);
     }
     // Porträt für den Figurenwechsel: 22×13
     const portrait = new Canvas(22, 13, figure.shade);
     portrait.rect(6, 1, 10, 11, C.grau5);
     portrait.frame(6, 1, 10, 11, C.grau3);
     drawGlyph(portrait, figure.letter, 9, 2, figure.body);
-    portrait.save(`${folder}/${figure.id}_portrait.png`);
+    saveReplaceable(portrait, `${folder}/${figure.id}_portrait.png`);
 
     config[figure.id] = {
       folder: figure.id,
@@ -190,9 +190,15 @@ export function buildCharacters(dir: string): void {
       portrait: `${figure.id}_portrait.png`,
     };
   }
-  writeFileSync(
-    `${dir}/characters/characters.json`,
-    JSON.stringify({ frameWidth: FW, frameHeight: FH, fps: 8, characters: config }, null, 2) + '\n',
-    'utf8',
-  );
+  // Eigene Einstellungen in der Konfiguration bleiben erhalten, neue Figuren kommen hinzu.
+  const path = `${dir}/characters/characters.json`;
+  const existing = !FORCE && existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {};
+  const merged = {
+    frameWidth: FW,
+    frameHeight: FH,
+    fps: 8,
+    ...existing,
+    characters: { ...config, ...existing.characters },
+  };
+  writeFileSync(path, JSON.stringify(merged, null, 2) + '\n', 'utf8');
 }

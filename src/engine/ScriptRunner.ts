@@ -1,6 +1,7 @@
 import type { AnimName } from './CharacterLoader';
 import type { GameScene } from './GameScene';
-import { t } from './i18n';
+import { audio } from './Audio';
+import { t, textList } from './i18n';
 import type { Script, ScriptApi } from './types';
 
 /** Führt Skripte aus und sperrt währenddessen die Bedienung. */
@@ -21,6 +22,7 @@ export class ScriptRunner {
       },
       face: (dir, actor) => self.actorOf(actor ?? self.state.activeCharacter)?.face(dir),
       playAnim: async (anim, actor) => {
+        if (anim === 'pickup') audio().sfx('nimm');
         await self.actorOf(actor ?? self.state.activeCharacter)?.playOnce(anim as AnimName);
       },
       addItem: (id) => self.addItem(id),
@@ -50,6 +52,8 @@ export class ScriptRunner {
       },
       showCard: (titleKey, subtitleKey) => self.showCard(t(titleKey), subtitleKey && t(subtitleKey)),
       timeWave: () => self.playTimeWave(),
+      showCredits: (key) => self.showCredits(textList(key)),
+      sfx: (name) => audio().sfx(name),
       shake: (ms = 400) => void self.cameras.main.shake(ms, 0.01),
       flash: (ms = 250) => void self.cameras.main.flash(ms),
     };

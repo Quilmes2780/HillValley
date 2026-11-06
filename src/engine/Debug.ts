@@ -4,6 +4,7 @@ import type { CharacterId } from '../game/state';
 import { ERAS, type Era } from './types';
 import type { GameScene } from './GameScene';
 import { frameCountOf, type AnimName } from './CharacterLoader';
+import { audio } from './Audio';
 import { t } from './i18n';
 
 const OVERLAY_DEPTH = 1500;
@@ -209,6 +210,10 @@ export function installTestApi(scene: GameScene, validationErrors: readonly stri
     choices: () => scene.dialog.layout(),
     menu: () => (scene.saveMenu.open ? scene.saveMenu.layout() : null),
     debugOpen: () => scene.debug.open,
+    music: () => audio().currentMusic,
+    musicPlaying: () => audio().musicPlaying,
+    muted: () => audio().muted,
+    sfx: () => audio().sfxLog,
     frames: (id: string, anim: AnimName) => frameCountOf(scene, id, anim),
     zoom: () => scene.scale.zoom,
   };

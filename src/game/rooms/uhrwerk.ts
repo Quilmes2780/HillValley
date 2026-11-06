@@ -66,6 +66,7 @@ const briefEinwerfen: Script = async (g) => {
 async function kapitel2Starten(g: ScriptApi): Promise<void> {
   await g.cutscene(async () => {
     await g.say('say.k1.hebel_los');
+    g.sfx('senden');
     g.flash(700);
     g.shake(700);
     await g.wait(900);
@@ -98,6 +99,7 @@ const sicherungEinwerfen: Script = async (g) => {
 };
 
 const sicherungSenden = async (g: ScriptApi): Promise<void> => {
+  g.sfx('senden');
   g.flash(400);
   g.shake(300);
   g.setFlag('sicherung_im_schlitz', false);
@@ -269,6 +271,7 @@ const verstaerkerEinbauen: Script = async (g) => {
   g.setFlag('verstaerker_eingebaut');
   g.state.chronopost.mode = 'verstaerkt';
   await g.cutscene(async () => {
+    g.sfx('senden');
     g.flash(300);
     await g.say('say.k2.platte_1');
     await g.say('say.k2.platte_2');

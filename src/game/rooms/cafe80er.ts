@@ -54,6 +54,7 @@ export const cafe80er: RoomDef = {
                   await g.say('say.k5.automat_1');
                   g.flash(150);
                   await g.wait(500);
+                  g.sfx('rekord');
                   g.flash(150);
                   await g.say('say.k5.automat_2');
                   await g.say('say.k5.automat_3');

@@ -1,7 +1,7 @@
 import { mkdirSync } from 'node:fs';
 import { drawText } from './font.ts';
 import { C } from './palette.ts';
-import { Canvas, seeded } from './png.ts';
+import { Canvas, saveReplaceable, seeded } from './png.ts';
 import { baseboard, door } from './prolog.ts';
 
 const FLOOR_Y = 88;
@@ -372,7 +372,7 @@ function zeitzug(dir: string): void {
   }
   drawText(c, 'ZEITZUG', 30, 18, C.weiss);
   mkdirSync(`${dir}/characters/zeitzug`, { recursive: true });
-  c.save(`${dir}/characters/zeitzug/zeitzug.png`);
+  saveReplaceable(c, `${dir}/characters/zeitzug/zeitzug.png`);
 }
 
 export function buildK3K4Backgrounds(dir: string): void {

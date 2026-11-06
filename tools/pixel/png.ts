@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { PNG } from 'pngjs';
 import { PALETTE } from './palette.ts';
@@ -111,6 +111,14 @@ export class Canvas {
     mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, PNG.sync.write(png));
   }
+}
+
+/** Mit --force werden auch austauschbare Dateien neu erzeugt. */
+export const FORCE = process.argv.includes('--force');
+
+/** Für Platzhalter, die du durch eigene Grafik ersetzen kannst: Vorhandenes bleibt unangetastet. */
+export function saveReplaceable(canvas: Canvas, path: string): void {
+  if (FORCE || !existsSync(path)) canvas.save(path);
 }
 
 /** Reproduzierbarer Zufall, damit `npm run pixel` immer dieselben Bilder erzeugt. */

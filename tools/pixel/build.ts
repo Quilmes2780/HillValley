@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { toGpl } from './palette.ts';
 import { buildFont } from './font.ts';
+import { buildTitle } from './titel.ts';
 import { buildUi } from './ui.ts';
 import { buildItems } from './items.ts';
 import { buildBackgrounds } from './backgrounds.ts';
@@ -15,6 +16,7 @@ mkdirSync(DIR, { recursive: true });
 writeFileSync(`${DIR}/palette.gpl`, toGpl(), 'utf8');
 buildFont(`${DIR}/ui/font.png`, `${DIR}/ui/font.xml`);
 buildUi(DIR);
+buildTitle(DIR);
 buildItems(DIR);
 buildBackgrounds(DIR);
 buildPrologBackgrounds(DIR);

@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
+import { colorValue } from '../../tools/pixel/palette';
+import { MUSIC, SFX } from '../game/audio';
 import { ITEMS } from '../game/items/items';
 import { ROOMS } from '../game/rooms';
+import { initAudio } from './Audio';
 import { buildCharacterAnimations, queueCharacters } from './CharacterLoader';
 import { assetKey } from './RoomManager';
 
@@ -14,6 +17,7 @@ const UI_IMAGES = [
   'cursor',
   'portrait_active',
   'menu',
+  'title',
 ];
 
 /** Lädt alles, was die Spieldaten verlangen. Neue Räume brauchen hier keinen Eintrag. */
@@ -43,11 +47,21 @@ export class BootScene extends Phaser.Scene {
         }
       }
     }
+    for (const name of [...MUSIC, ...SFX]) this.load.audio(`audio/${name}`, `audio/${name}.wav`);
     queueCharacters(this);
+
+    // Ladebalken: Musik und Grafik brauchen beim ersten Start einen Moment.
+    this.add.rectangle(60, 98, 200, 4, colorValue('grau2')).setOrigin(0, 0);
+    const bar = this.add.rectangle(60, 98, 1, 4, colorValue('tuerkis5')).setOrigin(0, 0);
+    this.load.on('progress', (value: number) => bar.setSize(Math.max(1, 200 * value), 4));
   }
 
   create(): void {
     buildCharacterAnimations(this);
-    this.scene.start('game');
+    const params = new URLSearchParams(location.search);
+    const testMode = params.has('test');
+    initAudio(this.game, !testMode);
+    // Tests starten direkt im Spiel, außer sie prüfen ausdrücklich das Titelbild.
+    this.scene.start(testMode && !params.has('titel') ? 'game' : 'title');
   }
 }

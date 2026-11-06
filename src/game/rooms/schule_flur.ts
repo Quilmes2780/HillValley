@@ -96,6 +96,7 @@ const verfolgung: Script = async (g) => {
     await g.walkTo([262, 126], undefined, 2);
     await g.walkTo([236, 100], 'biff_jung', 2.5);
     g.setFlag('biff_im_mist');
+    g.sfx('platsch');
     g.shake(300);
     await g.sayAs('biff_jung', 'say.k2.biff_mist');
     await g.say('say.k2.nach_mist');

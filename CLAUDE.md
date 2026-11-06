@@ -7,7 +7,8 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 ## Befehle
 
 - `npm run dev` – Dev-Server auf Port 5173
-- `npm run pixel` – alle Grafiken in `assets/` neu erzeugen
+- `npm run pixel` – Grafiken in `assets/` neu erzeugen; Figuren, Zeitzug und DeLorean nur, wenn sie fehlen (`npm run pixel -- --force` überschreibt auch sie)
+- `npm run audio` – Musik und Effekte in `assets/audio/` erzeugen, sofern sie fehlen (`-- --force` wie oben)
 - `npm run typecheck` / `npm run build`
 - `npm test` – Playwright-Durchläufe (`tests/`); nach jedem Meilenstein muss alles grün sein
 
@@ -20,6 +21,7 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 - **Grafik:** nur per Skript aus `tools/pixel/` mit der festen 64-Farben-Palette (`assets/palette.gpl`). Keine Filmfiguren und kein Film-Fahrzeug zeichnen, dafür neutrale Platzhalter.
 - **Figuren:** nur über `assets/characters/characters.json`. Sprites in `assets/characters/<figur>/<figur>_<animation>.png`, 32×56 je Frame, alle Frames in einer Zeile; die Frame-Anzahl ergibt sich aus der Bildbreite. Eigene PNGs müssen ohne Codeänderung funktionieren.
 - **Fahrzeuge:** Zeitzug und DeLorean sind Platzhalter unter `assets/characters/<name>/`, eingebunden als Hotspot-Sprite.
+- **Audio:** eigene Stücke, nie Filmmusik. Musikliste und Zuordnung zur Zeitebene in `src/game/audio.ts`, Dateien unter `assets/audio/<name>.wav`; gleichnamige Datei ersetzen genügt. `M` schaltet stumm.
 - **Räume sind Daten:** ein Modul pro Raum in `src/game/rooms/`, in `rooms/index.ts` eintragen. Neue Räume dürfen keine Engine-Änderung brauchen. Walkboxes sind konvexe, zusammenhängende Polygone; `engine/validate.ts` prüft das beim Start.
 - **Wege:** Innerhalb eines Gebäudes über Türen, zwischen Orten über den Stadtplan (`rooms/stadtplan.ts`, je Zeitebene eine Fassung). Neue Orte dort als Ziel eintragen.
 - **Testräume:** `testraum` und `testflur` dienen nur den Engine-Tests (`?szenario=engine`) und bleiben im echten Spiel unerreichbar, außer über den Debug-Modus.

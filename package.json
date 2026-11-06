@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "pixel": "tsx tools/pixel/build.ts",
+    "audio": "tsx tools/audio/build.ts",
     "test": "playwright test"
   },
   "dependencies": {

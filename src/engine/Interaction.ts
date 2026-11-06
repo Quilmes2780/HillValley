@@ -146,6 +146,8 @@ export class Interaction {
   }
 }
 
+const lastComment = new Map<string, number>();
+
 function commentScript(verb: Verb, comments?: Comments): Script {
   return async (g) => {
     const specific = comments?.[verb] ?? comments?.default;
@@ -162,7 +164,11 @@ function commentScript(verb: Verb, comments?: Comments): Script {
     ]) {
       const pool = textList(key);
       if (pool.length > 0) {
-        await g.say(`${key}.${Math.floor(Math.random() * pool.length)}`);
+        // Nicht zweimal hintereinander derselbe Spruch.
+        let index = Math.floor(Math.random() * pool.length);
+        if (pool.length > 1 && index === lastComment.get(key)) index = (index + 1) % pool.length;
+        lastComment.set(key, index);
+        await g.say(`${key}.${index}`);
         return;
       }
     }

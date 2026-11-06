@@ -8,6 +8,7 @@ export const epilog: Script = async (g) => {
   g.removeItem('brief_brix');
   await g.cutscene(async () => {
     await g.say('say.epilog.vernichten');
+    g.sfx('reissen');
     await g.timeWave();
     g.setFlag('zeitlinie_geheilt');
     g.state.chapter = 6;
@@ -41,7 +42,6 @@ export const epilog: Script = async (g) => {
     await g.say('item.foto.stufe4');
 
     await g.showCard('chapter.ende.title', 'chapter.ende.subtitle');
-    await g.showCard('chapter.abspann1.title', 'chapter.abspann1.subtitle');
-    await g.showCard('chapter.abspann2.title', 'chapter.abspann2.subtitle');
+    await g.showCredits('credits');
   });
 };

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { colorValue } from '../../tools/pixel/palette';
+import { musicFor, SPEECH_SFX } from '../game/audio';
 import { COMBOS } from '../game/items/combos';
 import { ITEMS } from '../game/items/items';
 import { ROOMS } from '../game/rooms';
@@ -12,6 +13,7 @@ import {
   type Scenario,
 } from '../game/state';
 import type { Actor } from './Actor';
+import { audio } from './Audio';
 import { textColorOf } from './CharacterLoader';
 import { Debug, installTestApi } from './Debug';
 import { Dialog } from './Dialog';
@@ -32,6 +34,8 @@ const SPEECH_MAX_WIDTH = 220;
 const MS_PER_CHAR = 55;
 const MIN_SPEECH_MS = 1400;
 const CARD_MS = 3500;
+const FADE_MS = 180;
+const CREDITS_SPEED = 14;
 
 /** Hauptszene: verbindet Raum, Figuren, Bedienung und Skripte. */
 export class GameScene extends Phaser.Scene {
@@ -50,6 +54,7 @@ export class GameScene extends Phaser.Scene {
   private interaction!: Interaction;
   private panel!: Phaser.GameObjects.Image;
   private cursor!: Phaser.GameObjects.Image;
+  private fader!: Phaser.GameObjects.Rectangle;
   private testMode = false;
   private uiVisible = true;
   private pendingToken = 0;
@@ -63,11 +68,11 @@ export class GameScene extends Phaser.Scene {
     super('game');
   }
 
-  create(): void {
+  create(data: { state?: GameState } = {}): void {
     const params = new URLSearchParams(location.search);
     this.testMode = params.has('test');
     const scenario: Scenario = params.get('szenario') === 'engine' ? 'engine' : 'spiel';
-    this.state = createInitialState(scenario);
+    this.state = data.state ?? createInitialState(scenario);
     this.input.mouse?.disableContextMenu();
     this.input.setDefaultCursor('none');
 
@@ -100,7 +105,9 @@ export class GameScene extends Phaser.Scene {
 
     this.showCurrentRoom();
     this.refreshUi();
-    if (scenario === 'spiel') void this.runner.run(START_SCRIPT);
+    this.fader = this.add.rectangle(0, 0, 320, SCENE_HEIGHT, 0x000000).setOrigin(0, 0).setScrollFactor(0).setDepth(UI_DEPTH - 2).setAlpha(0);
+    if (!data.state && scenario === 'spiel') void this.runner.run(START_SCRIPT);
+    else void this.fade(0, 1);
   }
 
   update(_time: number, delta: number): void {
@@ -152,6 +159,7 @@ export class GameScene extends Phaser.Scene {
   private showCurrentRoom(): void {
     const c = this.activeState();
     this.rooms.enter(c.room, c.era);
+    audio().playMusic(musicFor(this.state));
     this.cameras.main.setScroll(0, 0);
     this.followActive();
     this.debug.refresh();
@@ -206,6 +214,7 @@ export class GameScene extends Phaser.Scene {
     this.interaction.reset();
     this.showCurrentRoom();
     this.refreshUi();
+    void this.fade(0, 1);
   }
 
   debugJump(room: string, era: Era): void {
@@ -247,6 +256,49 @@ export class GameScene extends Phaser.Scene {
     return actor.walk(this.rooms.pathfinder.path([actor.x, actor.y], to), speed);
   }
 
+  /** Blendet die Szene aus oder ein; die Bedienleiste bleibt stehen. Im Testmodus sofort. */
+  private fade(to: 0 | 1, from?: 0 | 1): Promise<void> {
+    if (from !== undefined) this.fader.setAlpha(from);
+    if (this.testMode) {
+      this.fader.setAlpha(to);
+      return Promise.resolve();
+    }
+    return new Promise((resolve) => {
+      this.tweens.add({ targets: this.fader, alpha: to, duration: FADE_MS, onComplete: () => resolve() });
+    });
+  }
+
+  /** Rollender Abspann. Ein Klick beendet ihn vorzeitig. */
+  showCredits(lines: readonly string[]): Promise<void> {
+    const text = lines.join('\n');
+    this.speechLog.push({ actor: 'abspann', text });
+    const depth = UI_DEPTH + 300;
+    const back = this.add.rectangle(0, 0, 320, 200, 0x000000).setOrigin(0, 0).setScrollFactor(0).setDepth(depth);
+    const label = this.add
+      .bitmapText(160, 200, 'hv', text, 10)
+      .setCenterAlign()
+      .setOrigin(0.5, 0)
+      .setTint(colorValue('tuerkis6'))
+      .setScrollFactor(0)
+      .setDepth(depth + 1);
+    return new Promise((resolve) => {
+      const distance = 200 + label.height;
+      const tween = this.tweens.add({
+        targets: label,
+        y: -label.height,
+        duration: this.testMode ? 40 : (distance / CREDITS_SPEED) * 1000,
+        onComplete: () => this.finishSpeech?.(),
+      });
+      this.finishSpeech = () => {
+        this.finishSpeech = null;
+        tween.stop();
+        back.destroy();
+        label.destroy();
+        resolve();
+      };
+    });
+  }
+
   /** Schwarze Titelkarte. Ein Klick beendet sie vorzeitig. */
   showCard(title: string, subtitle?: string): Promise<void> {
     this.speechLog.push({ actor: 'karte', text: subtitle ? `${title} – ${subtitle}` : title });
@@ -283,6 +335,7 @@ export class GameScene extends Phaser.Scene {
 
   /** Die Zeitwelle: Das Bild blitzt, bebt und kippt hin und her. */
   async playTimeWave(): Promise<void> {
+    audio().sfx('welle');
     const camera = this.cameras.main;
     const scale = this.testMode ? 0.125 : 1;
     camera.flash(500 * scale, 255, 255, 255);
@@ -304,13 +357,17 @@ export class GameScene extends Phaser.Scene {
     if (era !== undefined) c.era = era;
     if (at) [c.x, c.y] = at;
     if (face) c.face = face;
+    await this.fade(1);
     this.showCurrentRoom();
+    await this.fade(0);
     await this.rooms.variant.onEnter?.(this.runner.api);
   }
 
   /** Zeigt eine Zeile über dem Kopf in der Figurenfarbe. Ein Klick beendet sie vorzeitig. */
   sayLine(actorId: string, text: string): Promise<void> {
     this.speechLog.push({ actor: actorId, text });
+    const speechSfx = SPEECH_SFX[actorId];
+    if (speechSfx) audio().sfx(speechSfx);
     const actor = this.actorOf(actorId);
     const view = this.cameras.main.scrollX;
     const label = this.add
@@ -434,6 +491,7 @@ export class GameScene extends Phaser.Scene {
     const verb = this.verbUi.hit(x, y);
     if (verb) {
       this.cancelPending();
+      audio().sfx('klick');
       this.interaction.selectVerb(verb);
       return;
     }
@@ -495,6 +553,8 @@ export class GameScene extends Phaser.Scene {
       }
       await this.runner.run(async (g) => {
         if (exit.guard && !(await exit.guard(g))) return;
+        // Karte und Straße sind keine Türen.
+        if (!this.rooms.variant.hidePlayer && exit.room !== 'stadtplan') audio().sfx('tuer');
         await g.goToRoom(exit.room, exit.era, exit.at, exit.face);
       });
       return;

@@ -24,6 +24,7 @@ const brixStuerzt: Script = async (g) => {
     g.setFlag('brix_gestuerzt');
     await g.goToRoom('gasse', 2015, [296, 122], 'links');
     await g.sayAs('brix', 'say.k5.showdown_rutschpartie');
+    g.sfx('platsch');
     g.shake(500);
     await g.say('say.k5.showdown_mist');
     await g.goToRoom('buero', 2015, [170, 112], 'links');

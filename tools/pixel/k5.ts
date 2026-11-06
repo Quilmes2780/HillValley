@@ -1,7 +1,7 @@
 import { mkdirSync } from 'node:fs';
 import { drawText } from './font.ts';
 import { C } from './palette.ts';
-import { Canvas, seeded } from './png.ts';
+import { Canvas, saveReplaceable, seeded } from './png.ts';
 import { door } from './prolog.ts';
 
 const FLOOR_Y = 88;
@@ -158,7 +158,7 @@ function deloreanPlatzhalter(dir: string): void {
   }
   drawText(c, 'WAGEN', 49, 14, C.weiss);
   mkdirSync(`${dir}/characters/delorean`, { recursive: true });
-  c.save(`${dir}/characters/delorean/delorean.png`);
+  saveReplaceable(c, `${dir}/characters/delorean/delorean.png`);
 }
 
 function lobby(dir: string): void {

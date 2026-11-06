@@ -1,3 +1,4 @@
+import type { SfxName } from '../game/audio';
 import type { FlagName } from '../game/flags';
 import type { CharacterId, GameState } from '../game/state';
 
@@ -66,6 +67,9 @@ export interface ScriptApi {
   showCard(titleKey: string, subtitleKey?: string): Promise<void>;
   /** Die Zeitwelle: Das Bild blitzt, bebt und kippt. */
   timeWave(): Promise<void>;
+  /** Rollender Abspann: Zeilen aus de.json. */
+  showCredits(key: string): Promise<void>;
+  sfx(name: SfxName): void;
   shake(ms?: number): void;
   flash(ms?: number): void;
 }
