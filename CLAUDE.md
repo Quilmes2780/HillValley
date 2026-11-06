@@ -7,7 +7,8 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 ## Befehle
 
 - `npm run dev` – Dev-Server auf Port 5173
-- `npm run pixel` – Grafiken in `assets/` neu erzeugen; Figuren, Zeitzug und DeLorean nur, wenn sie fehlen (`npm run pixel -- --force` überschreibt auch sie)
+- `npm run paint` – Hintergründe, große Sprites und Titelbild in `assets/` malen, sofern sie fehlen (`-- --force` überschreibt alle, `-- saloon` malt nur Bilder mit „saloon“ im Namen neu)
+- `npm run pixel` – Schrift, Oberfläche, Icons, kleine Sprites und Testräume neu erzeugen; Figuren, Zeitzug und DeLorean nur, wenn sie fehlen (`npm run pixel -- --force` überschreibt auch sie)
 - `npm run audio` – Musik und Effekte in `assets/audio/` erzeugen, sofern sie fehlen (`-- --force` wie oben)
 - `npm run typecheck` / `npm run build`
 - Veröffentlichung: Jeder Push nach `main` baut das Spiel und stellt es auf GitHub Pages (`.github/workflows/pages.yml`): https://quilmes2780.github.io/HillValley/
@@ -19,7 +20,7 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 - **Texte:** nie im Code. UI, Gegenstände, Hotspots und Kommentare in `src/i18n/de.json`, Dialogtexte direkt in `src/game/dialogs/*.ink`.
 - **Keine Sackgassen, kein Tod.** Scheitern führt zu einem Gag und zurück zum Ausgangspunkt. Nichts Benötigtes darf unerreichbar werden.
 - **Jede Aktion bekommt eine Antwort.** Reihenfolge: Hotspot-Skript → Kombinationsregel → objektspezifischer Kommentar → Standardspruch der Figur.
-- **Grafik:** nur per Skript aus `tools/pixel/` mit der festen 64-Farben-Palette (`assets/palette.gpl`). Keine Filmfiguren und kein Film-Fahrzeug zeichnen, dafür neutrale Platzhalter.
+- **Grafik:** Hintergründe, große Sprites und Titelbild malt `tools/paint/` in Echtfarben (`painter.ts`, Materialien in `kit.ts`, je Ort ein Modul); jedes Bild bekommt dann seine eigene 256-Farben-Palette. Stil: The Dig, Full Throttle, jede Zeitebene mit eigener Stimmung. Klickflächen stehen in `src/game/rooms/` und bestimmen, wo gemalt wird. Schrift, Oberfläche, Icons, kleine Sprites und Figuren-Platzhalter kommen aus `tools/pixel/` mit der festen 64-Farben-Palette (`assets/palette.gpl`). Eigene PNGs gleichen Namens ersetzen jedes Bild; `npm run paint` lässt vorhandene Dateien liegen. Keine Filmfiguren und kein Film-Fahrzeug zeichnen, dafür neutrale Platzhalter.
 - **Figuren:** nur über `assets/characters/characters.json`. Sprites in `assets/characters/<figur>/<figur>_<animation>.png`, 32×56 je Frame, alle Frames in einer Zeile; die Frame-Anzahl ergibt sich aus der Bildbreite. Eigene PNGs müssen ohne Codeänderung funktionieren.
 - **Fahrzeuge:** Zeitzug und DeLorean sind Platzhalter unter `assets/characters/<name>/`, eingebunden als Hotspot-Sprite.
 - **Audio:** eigene Stücke, nie Filmmusik. Musikliste und Zuordnung zur Zeitebene in `src/game/audio.ts`, Dateien unter `assets/audio/<name>.wav`; gleichnamige Datei ersetzen genügt. `M` schaltet stumm.

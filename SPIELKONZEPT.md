@@ -40,7 +40,7 @@ Danach Claude Code neu starten und mit `/mcp` prüfen, ob „playwright“ verbu
 
 ### Grafik & Sound
 
-- Claude Code erzeugt Hintergründe, Gegenstände, Inventar-Icons, UI und Schrift als Pixelgrafik per Skript (feste Retro-Palette).
+- Claude Code malt die Hintergründe per Skript im Stil von The Dig und Full Throttle (Echtfarbe, je Bild eine eigene 256-Farben-Palette). Gegenstände, Inventar-Icons, UI und Schrift entstehen als Pixelgrafik per Skript (feste Retro-Palette).
 - **Figuren und die Zeitmaschine:** Claude Code zeichnet keine Filmfiguren und kein Film-Fahrzeug. Es verwendet neutrale Platzhalter. Alle Figuren-Sprites liegen als austauschbare PNGs in `assets/characters/<figur>/` und werden über eine Konfigurationsdatei eingebunden – eigene Sprites ersetzen die Platzhalter ohne Codeänderung.
 - **Musik:** BeepBox (Browser, kostenlos), eigenes Thema – nicht die Filmmusik.
 - **Soundeffekte:** jsfxr (Browser, kostenlos).
@@ -102,7 +102,8 @@ src/
   i18n/de.json
 assets/
   backgrounds/  characters/<figur>/  items/  ui/  audio/  palette.gpl
-tools/pixel/     # Skripte, die Pixelgrafik als PNG erzeugen
+tools/paint/     # Skripte, die Hintergründe, große Sprites und Titelbild malen
+tools/pixel/     # Skripte, die Schrift, UI, Icons und Platzhalter als Pixelgrafik erzeugen
 tests/           # Playwright-Durchläufe je Kapitel anhand LOESUNGSBUCH.md
 ```
 
@@ -206,7 +207,7 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Grafik | Platzhalter-Figuren, später eigene Sprites per Piskel |
 | Sprache | Nur Deutsch |
 | Dialogtexte | Direkt in den `.ink`-Dateien, alle übrigen Texte in `src/i18n/de.json` |
-| Palette | 64 Farben (`assets/palette.gpl`) |
+| Palette | Figuren, UI, Icons: 64 Farben (`assets/palette.gpl`); Hintergründe: je Bild 256 Farben |
 | Porträts | Spalte rechts neben dem Inventar |
 | Wege in der Stadt | Stadtplan, je Zeitebene ein eigener |
 | Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |

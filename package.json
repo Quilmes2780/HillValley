@@ -8,6 +8,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "paint": "tsx tools/paint/build.ts",
     "pixel": "tsx tools/pixel/build.ts",
     "audio": "tsx tools/audio/build.ts",
     "test": "playwright test"
