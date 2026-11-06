@@ -20,7 +20,7 @@ import {
 test.describe('Meilenstein 1: Engine-Kern', () => {
   test('Darstellung: ganzzahliger Zoom, Pixel bleiben gleich groß', async ({ page }) => {
     await page.setViewportSize({ width: 1000, height: 700 });
-    await openGame(page);
+    await openGame(page, 'engine');
     expect(await page.evaluate(() => window.__hv.zoom())).toBe(3);
     await expect.poll(async () => (await page.locator('canvas').boundingBox())?.width).toBe(960);
 
@@ -31,7 +31,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Laufen: Weg führt um den Tisch herum, Figur steht hinter dem Tisch', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
 
     const path = await page.evaluate(() => window.__hv.walkPathLength(210, 105));
     expect(path.length).toBeGreaterThan(1);
@@ -67,7 +67,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Verben: Satzzeile baut sich auf, Rechtsklick nutzt das Standardverb', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
     const sentence = (): Promise<string> => page.evaluate(() => window.__hv.sentence());
 
     await moveGame(page, await hotspot(page, 'tuer'));
@@ -109,7 +109,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Inventar: Nehmen, Kombinieren in beiden Reihenfolgen, falsche Kombination, Blättern', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
 
     expect(await inventoryOf(page)).toEqual(['foto']);
     await act(page, 'schauan', 'schrank');
@@ -169,7 +169,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Ausgänge und Zeitebenen: Bedingung, Raumwechsel, Scrollen, andere Hotspots', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
 
     // Geschlossene Tür hält auf.
     await clickHotspot(page, 'tuer');
@@ -219,7 +219,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Dialog: Antworten wählen, Flags, Gegenstand, Figuren freischalten', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
     expect(await page.evaluate(() => window.__hv.portraits().length)).toBe(0);
 
     await clickVerb(page, 'redemit');
@@ -262,7 +262,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Figurenwechsel: Ort und Inventar bleiben je Figur erhalten', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
 
     await act(page, 'nimm', 'apfel');
     await clickGame(page, { x: 230, y: 125 });
@@ -305,7 +305,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Speichern und Laden: mehrere Plätze, Neuladen, veraltete Spielstände', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
 
     await act(page, 'nimm', 'apfel');
     await page.keyboard.press('F5');
@@ -353,7 +353,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
 
   test('Debug-Modus: Overlay, Raumsprung, Gegenstand geben, Flags', async ({ page }) => {
     const errors = watchErrors(page);
-    await openGame(page);
+    await openGame(page, 'engine');
     await expect(page.locator('#hv-debug')).toHaveCount(0);
 
     await page.keyboard.press('F9');
@@ -390,7 +390,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
     // Fehlende Animation: Ersatzregel greift, kein Absturz.
     await page.route('**/characters/marty/marty_pickup.png', (route) => route.fulfill({ status: 404 }));
 
-    await openGame(page);
+    await openGame(page, 'engine');
     expect(await page.evaluate(() => window.__hv.frames('marty', 'idle'))).toBe(3);
     expect(await page.evaluate(() => window.__hv.frames('marty', 'pickup'))).toBe(0);
 

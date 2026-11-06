@@ -25,7 +25,11 @@ export class BootScene extends Phaser.Scene {
   preload(): void {
     this.load.bitmapFont('hv', 'ui/font.png', 'ui/font.xml');
     for (const name of UI_IMAGES) this.load.image(`ui/${name}`, `ui/${name}.png`);
-    for (const item of ITEMS) this.load.image(assetKey(item.icon), item.icon);
+    for (const item of ITEMS) {
+      for (const icon of new Set([item.icon, ...(item.iconVariants ?? [])])) {
+        this.load.image(assetKey(icon), icon);
+      }
+    }
     const seen = new Set<string>();
     for (const room of ROOMS) {
       for (const variants of Object.values(room.eras)) {

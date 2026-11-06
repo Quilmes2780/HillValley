@@ -183,6 +183,17 @@ ${xmlChars.join('\n')}
   writeFileSync(xmlPath, xml, 'utf8');
 }
 
+/** Schreibt einen Eigennamen direkt ins Bild, z. B. auf Schilder. */
+export function drawText(canvas: Canvas, text: string, x: number, y: number, color: number): void {
+  let cx = x;
+  for (const char of text) {
+    const glyph = G[char];
+    if (!glyph) continue;
+    drawGlyph(canvas, char, cx, y + glyph[0], color);
+    cx += Math.max(...rowsOf(glyph[1]).map((row) => row.length)) + 1;
+  }
+}
+
 /** Zeichnet Text direkt ins Bild (für Buchstaben auf Platzhaltern). */
 export function drawGlyph(canvas: Canvas, char: string, x: number, y: number, color: number): void {
   const glyph = G[char];

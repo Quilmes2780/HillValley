@@ -11,6 +11,7 @@ export class Actor {
   private path: Pt[] = [];
   private arrive: ((arrived: boolean) => void) | null = null;
   private talking = false;
+  private walkSpeed = 1;
   dir: Dir;
 
   constructor(
@@ -46,8 +47,9 @@ export class Actor {
   }
 
   /** Beginnt einen Weg. Das Versprechen liefert false, wenn er abgebrochen wurde. */
-  walk(points: Pt[]): Promise<boolean> {
+  walk(points: Pt[], speed = 1): Promise<boolean> {
     this.finish(false);
+    this.walkSpeed = speed;
     const wasWalking = this.isWalking;
     this.path = [...points];
     if (points.length === 0) {
@@ -69,7 +71,7 @@ export class Actor {
 
   update(deltaMs: number): void {
     if (this.path.length === 0) return;
-    let budget = (deltaMs / 1000) * this.speedFactor;
+    let budget = (deltaMs / 1000) * this.speedFactor * this.walkSpeed;
     while (budget > 0 && this.path.length > 0) {
       const [tx, ty] = this.path[0];
       const dx = tx - this.sprite.x;

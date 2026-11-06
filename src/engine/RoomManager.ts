@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { GameState } from '../game/state';
 import { Actor } from './Actor';
 import { Pathfinder } from './Pathfinder';
-import type { Era, Hotspot, Polygon, RoomDef, RoomVariant } from './types';
+import type { ActorPlacement, Era, Hotspot, Polygon, RoomDef, RoomVariant } from './types';
 
 export function pointInPolygon(x: number, y: number, poly: Polygon): boolean {
   let inside = false;
@@ -79,25 +79,37 @@ export class RoomManager {
     }
 
     const state = this.getState();
-    for (const [id, c] of Object.entries(state.characters)) {
-      if (c.room === roomId && c.era === era) this.addActor(id, c.x, c.y, c.face);
+    if (!this.variant.hidePlayer) {
+      for (const [id, c] of Object.entries(state.characters)) {
+        if (c.room === roomId && c.era === era) this.addActor(id, c.x, c.y, c.face);
+      }
     }
-    for (const p of this.variant.actors ?? []) {
-      if (!p.visible || p.visible(state)) this.addActor(p.id, p.x, p.y, p.face ?? 'vorne');
+    for (const p of this.wantedActors().values()) {
+      this.addActor(p.id, p.x, p.y, p.face ?? 'vorne');
     }
     this.refreshSprites();
+  }
+
+  /** Je Figur gilt der erste Eintrag, dessen Bedingung passt. So kann eine Figur je nach Spielstand woanders stehen. */
+  private wantedActors(): Map<string, ActorPlacement> {
+    const state = this.getState();
+    const wanted = new Map<string, ActorPlacement>();
+    for (const p of this.variant.actors ?? []) {
+      if (!wanted.has(p.id) && (!p.visible || p.visible(state))) wanted.set(p.id, p);
+    }
+    return wanted;
   }
 
   /** Nach Skripten: Sichtbarkeiten aktualisieren. Liefert true, wenn eine andere Variante gilt. */
   refresh(): boolean {
     if (this.pickVariant(this.roomId, this.era) !== this.variant) return true;
-    const state = this.getState();
+    const wanted = this.wantedActors();
     for (const p of this.variant.actors ?? []) {
-      const shouldShow = !p.visible || p.visible(state);
       const actor = this.actors.get(p.id);
-      if (shouldShow && !actor) {
-        this.addActor(p.id, p.x, p.y, p.face ?? 'vorne');
-      } else if (!shouldShow && actor) {
+      const placement = wanted.get(p.id);
+      if (placement && !actor) {
+        this.addActor(p.id, placement.x, placement.y, placement.face ?? 'vorne');
+      } else if (!placement && actor) {
         actor.destroy();
         this.actors.delete(p.id);
       }

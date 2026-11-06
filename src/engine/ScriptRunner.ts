@@ -16,8 +16,8 @@ export class ScriptRunner {
       },
       say: (key, params) => self.sayLine(self.state.activeCharacter, t(key, params)),
       sayAs: (actor, key, params) => self.sayLine(actor, t(key, params)),
-      walkTo: async (to, actor) => {
-        await self.walkActor(actor ?? self.state.activeCharacter, to);
+      walkTo: async (to, actor, speed) => {
+        await self.walkActor(actor ?? self.state.activeCharacter, to, speed);
       },
       face: (dir, actor) => self.actorOf(actor ?? self.state.activeCharacter)?.face(dir),
       playAnim: async (anim, actor) => {
@@ -46,7 +46,12 @@ export class ScriptRunner {
       switchCharacter: async (id) => self.switchCharacter(id),
       setPhotoStage: (stage) => {
         self.state.photoStage = stage;
+        self.refreshInventory();
       },
+      showCard: (titleKey, subtitleKey) => self.showCard(t(titleKey), subtitleKey && t(subtitleKey)),
+      timeWave: () => self.playTimeWave(),
+      shake: (ms = 400) => void self.cameras.main.shake(ms, 0.01),
+      flash: (ms = 250) => void self.cameras.main.flash(ms),
     };
   }
 

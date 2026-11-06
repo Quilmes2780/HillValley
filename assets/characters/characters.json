@@ -22,6 +22,21 @@
       "folder": "test_npc",
       "textColor": "orange3",
       "portrait": "test_npc_portrait.png"
+    },
+    "lorraine": {
+      "folder": "lorraine",
+      "textColor": "pink4",
+      "portrait": "lorraine_portrait.png"
+    },
+    "biff": {
+      "folder": "biff",
+      "textColor": "gruen6",
+      "portrait": "biff_portrait.png"
+    },
+    "einstein": {
+      "folder": "einstein",
+      "textColor": "sand2",
+      "portrait": "einstein_portrait.png"
     }
   }
 }

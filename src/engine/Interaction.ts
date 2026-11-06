@@ -124,6 +124,10 @@ export class Interaction {
       }
       return commentScript(verb, item.comments);
     }
+    if (a.kind === 'hotspot' && b.kind === 'hotspot') {
+      const script = a.hotspot.useWith?.[b.hotspot.id] ?? b.hotspot.useWith?.[a.hotspot.id];
+      return script ?? commentScript(verb, b.hotspot.comments);
+    }
     const hotspot = a.kind === 'hotspot' ? a.hotspot : b.kind === 'hotspot' ? b.hotspot : null;
     const itemTarget = a.kind === 'item' ? a : b.kind === 'item' ? b : null;
     if (hotspot) {

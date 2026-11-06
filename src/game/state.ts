@@ -31,8 +31,25 @@ export interface GameState {
   characters: Record<CharacterId, CharacterState>;
 }
 
-/** Startzustand. In Meilenstein 1 steht das Spiel im Testraum. */
-export function createInitialState(): GameState {
+/** `spiel` ist das echte Spiel. `engine` startet in den Testräumen und dient den Engine-Tests. */
+export type Scenario = 'spiel' | 'engine';
+
+export function createInitialState(scenario: Scenario = 'spiel'): GameState {
+  const state = createEngineState();
+  if (scenario === 'spiel') {
+    state.characters.marty = {
+      room: 'martys_zimmer',
+      era: 1986,
+      x: 200,
+      y: 116,
+      face: 'vorne',
+      inventory: ['foto'],
+    };
+  }
+  return state;
+}
+
+function createEngineState(): GameState {
   return {
     version: SAVE_VERSION,
     flags: {},

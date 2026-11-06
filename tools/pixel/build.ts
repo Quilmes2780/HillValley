@@ -5,6 +5,7 @@ import { buildUi } from './ui.ts';
 import { buildItems } from './items.ts';
 import { buildBackgrounds } from './backgrounds.ts';
 import { buildCharacters } from './characters.ts';
+import { buildPrologBackgrounds } from './prolog.ts';
 
 const DIR = 'assets';
 mkdirSync(DIR, { recursive: true });
@@ -13,5 +14,6 @@ buildFont(`${DIR}/ui/font.png`, `${DIR}/ui/font.xml`);
 buildUi(DIR);
 buildItems(DIR);
 buildBackgrounds(DIR);
+buildPrologBackgrounds(DIR);
 buildCharacters(DIR);
 console.log('Grafiken erzeugt.');

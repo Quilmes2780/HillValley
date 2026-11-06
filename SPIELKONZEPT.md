@@ -205,6 +205,11 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Hommagen | DeLorean, Uhr, Misthaufen, Jahrmarkt, Diner, Schule |
 | Grafik | Platzhalter-Figuren, später eigene Sprites per Piskel |
 | Sprache | Nur Deutsch |
+| Dialogtexte | Direkt in den `.ink`-Dateien, alle übrigen Texte in `src/i18n/de.json` |
+| Palette | 64 Farben (`assets/palette.gpl`) |
+| Porträts | Spalte rechts neben dem Inventar |
+| Wege in der Stadt | Stadtplan, je Zeitebene ein eigener |
+| Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |
 
 ---
 

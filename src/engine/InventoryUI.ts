@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import type { GameState } from '../game/state';
 import { assetKey } from './RoomManager';
 import type { ItemDef, ItemId } from './types';
 import { UI_DEPTH } from './VerbUI';
@@ -25,6 +26,7 @@ export class InventoryUI {
   constructor(
     private readonly scene: Phaser.Scene,
     private readonly items: readonly ItemDef[],
+    private readonly getState: () => GameState,
   ) {
     this.up = scene.add
       .image(ARROW_X, TOP, 'ui/arrow_up_off')
@@ -44,6 +46,7 @@ export class InventoryUI {
   }
 
   refresh(ids: readonly ItemId[]): void {
+    const state = this.getState();
     this.ids = [...ids];
     this.offset = Math.min(this.offset, this.maxOffset);
     for (const icon of this.icons) icon.destroy();
@@ -54,7 +57,7 @@ export class InventoryUI {
       const { x, y } = this.cellPosition(i);
       this.icons.push(
         this.scene.add
-          .image(x + 2, y, assetKey(item.icon))
+          .image(x + 2, y, assetKey(item.iconFor ? item.iconFor(state) : item.icon))
           .setOrigin(0, 0)
           .setScrollFactor(0)
           .setDepth(UI_DEPTH + 1)

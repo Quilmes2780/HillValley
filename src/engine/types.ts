@@ -44,8 +44,8 @@ export interface ScriptApi {
   say(key: string, params?: TextParams): Promise<void>;
   /** Eine bestimmte Figur sagt einen Text aus de.json. */
   sayAs(actor: string, key: string, params?: TextParams): Promise<void>;
-  /** Läuft zu einem Punkt; ohne `actor` die aktive Figur. */
-  walkTo(to: Pt, actor?: string): Promise<void>;
+  /** Läuft zu einem Punkt; ohne `actor` die aktive Figur. `speed` multipliziert das Tempo. */
+  walkTo(to: Pt, actor?: string, speed?: number): Promise<void>;
   face(dir: Dir, actor?: string): void;
   /** Spielt eine Animation einmal ab, z. B. `pickup`. */
   playAnim(anim: string, actor?: string): Promise<void>;
@@ -62,6 +62,12 @@ export interface ScriptApi {
   unlockCharacter(id: CharacterId): void;
   switchCharacter(id: CharacterId): Promise<void>;
   setPhotoStage(stage: GameState['photoStage']): void;
+  /** Schwarze Titelkarte; ein Klick oder einige Sekunden beenden sie. */
+  showCard(titleKey: string, subtitleKey?: string): Promise<void>;
+  /** Die Zeitwelle: Das Bild blitzt, bebt und kippt. */
+  timeWave(): Promise<void>;
+  shake(ms?: number): void;
+  flash(ms?: number): void;
 }
 
 /** Objektspezifische Kommentare: i18n-Schlüssel je Verb, `default` für alle übrigen. */
@@ -98,7 +104,7 @@ export interface Hotspot {
   visible?: Condition;
   sprite?: HotspotSprite;
   verbs?: Partial<Record<Verb, Script>>;
-  /** Benutze/Gib Gegenstand mit/an diesem Hotspot. */
+  /** Benutze/Gib Gegenstand mit/an diesem Hotspot; als Schlüssel geht auch die ID eines anderen Hotspots. */
   useWith?: Record<ItemId, Script>;
   comments?: Comments;
   exit?: Exit;
@@ -127,6 +133,8 @@ export interface RoomVariant {
   /** Konvexe, zusammenhängende Teilflächen. Leer = hier läuft niemand. */
   walkable: readonly Polygon[];
   scale?: DepthScale;
+  /** Die aktive Figur ist hier nicht zu sehen, z. B. auf dem Stadtplan. */
+  hidePlayer?: boolean;
   hotspots: readonly Hotspot[];
   actors?: readonly ActorPlacement[];
   onEnter?: Script;
@@ -144,6 +152,9 @@ export interface ItemDef {
   name: string;
   /** Pfad unter assets/, 32×20 */
   icon: string;
+  /** Bild abhängig vom Spielstand, z. B. das Foto je Stufe. Alle Bilder in `iconVariants` eintragen. */
+  iconFor?: (s: GameState) => string;
+  iconVariants?: readonly string[];
   /** i18n-Schlüssel für Schau an; bei Funktionen abhängig vom Spielstand. */
   description: string | ((s: GameState) => string);
   /** Direkt ausführbare Verben, z. B. Benutze Banane. */

@@ -3,6 +3,8 @@
 > Komplettlösung und zugleich **verbindliche Rätselspezifikation für Claude Code**.
 > Jeder Schritt entspricht einer Aktion mit der 9-Verben-Leiste. Wo die Reihenfolge innerhalb eines Abschnitts frei ist, steht das dabei.
 > Der automatische Playwright-Durchlauf spielt genau diese Schritte nach.
+>
+> **Wege:** Innerhalb eines Gebäudes führen Türen von Raum zu Raum. Zwischen den Orten der Stadt (Martys Haus, Docs Labor, später Rathausplatz, Schule usw.) geht es über den **Stadtplan**: *Gehe zu* Straße im Vorgarten bzw. Tür des Labors, dann das Ziel auf dem Plan anklicken. Jedes Kapitel beginnt mit einer Titelkarte.
 
 ---
 
@@ -32,9 +34,9 @@
 
 ## Prolog – Ein ganz normaler Morgen (1986, Marty)
 
-**Räume:** Martys Zimmer · Küche · Georges Arbeitszimmer · Vorgarten · Docs Labor
+**Räume:** Martys Zimmer · Küche · Georges Arbeitszimmer · Vorgarten · Docs Labor · Stadtplan
 
-**Startinventar:** Familienfoto
+**Startinventar:** Familienfoto (Start in Martys Zimmer)
 
 1. **Martys Zimmer:** *Nimm* Kugelschreiber (Schreibtisch).
 2. **Küche:** *Nimm* Banane (Obstschale). *Rede mit* Lorraine (optional: Hinweis, dass Doc „irgendwas von einer Reise“ erzählt hat).
@@ -45,11 +47,13 @@
 7. *Nimm* Docs Brief (Werkbank) → Zwischensequenz: Doc erklärt die Chronopost und den Notbetrieb.
 8. *Nimm* Notizbuch (Werkbank) – enthält die Anleitung und die Skizze eines Verstärkers.
 9. *Nimm* Mr. Fusion (Regal) – „Leer. Typisch Doc.“
-10. Labor verlassen → **Zwischensequenz „Zeitwelle“**: Die Welt kippt. Foto → Stufe 1. **Kapitel 1 beginnt.**
+10. Labor verlassen → **Zwischensequenz „Zeitwelle“**: Die Welt kippt. Foto → Stufe 1. **Kapitel 1 beginnt** (Titelkarte, danach Stadtplan von Tannenburg).
 
-> Schritte 1–9 in beliebiger Reihenfolge. Das Labor lässt sich erst verlassen, wenn Brief, Notizbuch und Mr. Fusion im Inventar sind.
+> Schritte 1–9 in beliebiger Reihenfolge. Das Labor lässt sich erst verlassen, wenn Brief, Notizbuch und Mr. Fusion im Inventar sind. Kugelschreiber, Banane, Einstein und Wachstuch bleiben auch danach erreichbar: keine Sackgasse. *Benutze* Hundefutter geht auch direkt *an* Einstein.
 
-*Optionaler Gag:* *Benutze* Gitarre *mit* Riesenverstärker → Marty fliegt gegen das Regal (Hommage, keine Folgen).
+*Optionaler Gag (Docs Labor, beides Hotspots):* *Benutze* Gitarre *mit* Riesenverstärker → Marty fliegt gegen das Regal (Hommage, keine Folgen).
+
+*Vorab möglich:* *Benutze* Banane → Marty isst sie und behält die Bananenschale (gebraucht in Kapitel 1, Schritt 16–17).
 
 ---
 

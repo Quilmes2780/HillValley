@@ -65,6 +65,38 @@ function drawFigure(c: Canvas, ox: number, pose: Pose, body: number, shade: numb
   }
 }
 
+/** Neutrale Hunde-Silhouette: ein flacher Körper mit Buchstabe, keine erkennbare Figur. */
+function drawDog(c: Canvas, ox: number, pose: Pose, body: number, shade: number, letter: string): void {
+  const foot = 53;
+  const y = 34 + pose.bob;
+  const legs = (x: number, shift: number): void => c.rect(ox + x + shift, y + 12, 3, foot - y - 11, shade);
+  if (pose.view === 'side') {
+    c.rect(ox + 5, y + 3, 20, 10, body);
+    c.frame(ox + 5, y + 3, 20, 10, shade);
+    c.rect(ox + 22, y - 4, 9, 9, C.grau5);
+    c.frame(ox + 22, y - 4, 9, 9, C.grau3);
+    c.rect(ox + 27, y - 2, 2, 2, C.schwarz);
+    if (pose.mouth) c.rect(ox + 27, y + 2, 3, 2, C.schwarz);
+    c.rect(ox + 2, y + 1, 3, 2, shade); // Schwanz
+    drawGlyph(c, letter, ox + 12, y + 3, C.weiss);
+    legs(7, pose.legA > 0 ? 1 : -1);
+    legs(20, pose.legB > 0 ? 1 : -1);
+  } else {
+    c.rect(ox + 9, y + 3, 14, 10, body);
+    c.frame(ox + 9, y + 3, 14, 10, shade);
+    if (pose.view === 'front') {
+      c.rect(ox + 11, y - 5, 10, 9, C.grau5);
+      c.frame(ox + 11, y - 5, 10, 9, C.grau3);
+      c.rect(ox + 13, y - 3, 2, 2, C.schwarz);
+      c.rect(ox + 17, y - 3, 2, 2, C.schwarz);
+      if (pose.mouth) c.rect(ox + 14, y + 1, 4, 2, C.schwarz);
+      drawGlyph(c, letter, ox + 14, y + 4, C.weiss);
+    }
+    legs(10, 0);
+    legs(19, 0);
+  }
+}
+
 const ANIMATIONS: Record<string, Pose[]> = {
   idle: [
     { view: 'front', legA: 0, legB: 0, bob: 0 },
@@ -109,6 +141,9 @@ const FIGURES = [
   { id: 'doc_jung', letter: 'J', body: C.gruen4, shade: C.gruen2, textColor: 'gruen7' },
   { id: 'doc', letter: 'D', body: C.violett4, shade: C.violett2, textColor: 'violett5' },
   { id: 'test_npc', letter: 'T', body: C.orange1, shade: C.holz3, textColor: 'orange3' },
+  { id: 'lorraine', letter: 'L', body: C.pink1, shade: C.rot1, textColor: 'pink4' },
+  { id: 'biff', letter: 'B', body: C.gruen3, shade: C.gruen1, textColor: 'gruen6' },
+  { id: 'einstein', letter: 'E', body: C.holz4, shade: C.holz2, textColor: 'sand2', dog: true },
 ] as const;
 
 export function buildCharacters(dir: string): void {
@@ -119,7 +154,8 @@ export function buildCharacters(dir: string): void {
     for (const [anim, poses] of Object.entries(ANIMATIONS)) {
       const sheet = new Canvas(FW * poses.length, FH);
       poses.forEach((pose, i) => {
-        drawFigure(sheet, i * FW, pose, figure.body, figure.shade, figure.letter);
+        const draw = 'dog' in figure ? drawDog : drawFigure;
+        draw(sheet, i * FW, pose, figure.body, figure.shade, figure.letter);
       });
       sheet.save(`${folder}/${figure.id}_${anim}.png`);
     }

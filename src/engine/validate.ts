@@ -68,7 +68,10 @@ export function validateContent(
           needText(hs.name, label);
           for (const key of Object.values(hs.comments ?? {})) needText(key, label);
           for (const id of Object.keys(hs.useWith ?? {})) {
-            if (!itemIds.has(id)) errors.push(`${label}: Gegenstand ${id} unbekannt`);
+            const isHotspot = variant.hotspots.some((other) => other.id === id);
+            if (!itemIds.has(id) && !isHotspot) {
+              errors.push(`${label}: Gegenstand oder Hotspot ${id} unbekannt`);
+            }
           }
           if (mesh && !mesh.isPointInMesh({ x: hs.walkTo[0], y: hs.walkTo[1] })) {
             errors.push(`${label}: Standpunkt liegt außerhalb der Walkbox`);

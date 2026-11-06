@@ -5,6 +5,9 @@ type GamePoint = { x: number; y: number };
 export interface HvApi {
   validationErrors: string[];
   state(): {
+    chapter: number;
+    photoStage: number;
+    timeline: { tannenburg: boolean };
     flags: Record<string, boolean | number>;
     activeCharacter: string;
     unlockedCharacters: string[];
@@ -37,10 +40,11 @@ declare global {
 }
 
 /** Öffnet das Spiel im Testmodus und wartet, bis es bereit ist. */
-export async function openGame(page: Page): Promise<void> {
-  await page.goto('/?test=1');
+export async function openGame(page: Page, scenario: 'spiel' | 'engine' = 'spiel'): Promise<void> {
+  await page.goto(scenario === 'engine' ? '/?test=1&szenario=engine' : '/?test=1');
   await page.waitForFunction(() => window.__hv !== undefined);
   expect(await page.evaluate(() => window.__hv.validationErrors)).toEqual([]);
+  await waitIdle(page);
 }
 
 /** Wandelt Spielpixel in Bildschirmkoordinaten um. */

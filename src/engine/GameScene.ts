@@ -1,8 +1,16 @@
 import Phaser from 'phaser';
+import { colorValue } from '../../tools/pixel/palette';
 import { COMBOS } from '../game/items/combos';
 import { ITEMS } from '../game/items/items';
 import { ROOMS } from '../game/rooms';
-import { createInitialState, type CharacterId, type CharacterState, type GameState } from '../game/state';
+import { START_SCRIPT } from '../game/start';
+import {
+  createInitialState,
+  type CharacterId,
+  type CharacterState,
+  type GameState,
+  type Scenario,
+} from '../game/state';
 import type { Actor } from './Actor';
 import { textColorOf } from './CharacterLoader';
 import { Debug, installTestApi } from './Debug';
@@ -23,6 +31,7 @@ const SCENE_HEIGHT = 144;
 const SPEECH_MAX_WIDTH = 220;
 const MS_PER_CHAR = 55;
 const MIN_SPEECH_MS = 1400;
+const CARD_MS = 3500;
 
 /** Hauptszene: verbindet Raum, Figuren, Bedienung und Skripte. */
 export class GameScene extends Phaser.Scene {
@@ -55,8 +64,10 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.testMode = new URLSearchParams(location.search).has('test');
-    this.state = createInitialState();
+    const params = new URLSearchParams(location.search);
+    this.testMode = params.has('test');
+    const scenario: Scenario = params.get('szenario') === 'engine' ? 'engine' : 'spiel';
+    this.state = createInitialState(scenario);
     this.input.mouse?.disableContextMenu();
     this.input.setDefaultCursor('none');
 
@@ -70,7 +81,7 @@ export class GameScene extends Phaser.Scene {
       .setScrollFactor(0)
       .setDepth(UI_DEPTH);
     this.verbUi = new VerbUI(this);
-    this.inventoryUi = new InventoryUI(this, ITEMS);
+    this.inventoryUi = new InventoryUI(this, ITEMS, () => this.state);
     this.portraitUi = new PortraitUI(this);
     this.saveMenu = new SaveMenu(this);
     this.debug = new Debug(this);
@@ -89,6 +100,7 @@ export class GameScene extends Phaser.Scene {
 
     this.showCurrentRoom();
     this.refreshUi();
+    if (scenario === 'spiel') void this.runner.run(START_SCRIPT);
   }
 
   update(_time: number, delta: number): void {
@@ -152,8 +164,12 @@ export class GameScene extends Phaser.Scene {
     this.debug.refresh();
   }
 
-  private refreshUi(): void {
+  refreshInventory(): void {
     this.inventoryUi.refresh(this.activeState().inventory);
+  }
+
+  private refreshUi(): void {
+    this.refreshInventory();
     this.portraitUi.refresh(this.state.unlockedCharacters, this.state.activeCharacter);
   }
 
@@ -223,10 +239,61 @@ export class GameScene extends Phaser.Scene {
     return new Promise((resolve) => this.time.delayedCall(scaled, () => resolve()));
   }
 
-  async walkActor(id: string, to: Pt): Promise<boolean> {
+  /** Ohne sichtbare Figur (z. B. auf dem Stadtplan) gilt das Ziel sofort als erreicht. */
+  async walkActor(id: string, to: Pt, speed?: number): Promise<boolean> {
     const actor = this.actorOf(id);
-    if (!actor) return false;
-    return actor.walk(this.rooms.pathfinder.path([actor.x, actor.y], to));
+    if (!actor) return true;
+    return actor.walk(this.rooms.pathfinder.path([actor.x, actor.y], to), speed);
+  }
+
+  /** Schwarze Titelkarte. Ein Klick beendet sie vorzeitig. */
+  showCard(title: string, subtitle?: string): Promise<void> {
+    this.speechLog.push({ actor: 'karte', text: subtitle ? `${title} – ${subtitle}` : title });
+    const depth = UI_DEPTH + 300;
+    const objects: Phaser.GameObjects.GameObject[] = [
+      this.add.rectangle(0, 0, 320, 200, 0x000000).setOrigin(0, 0).setScrollFactor(0).setDepth(depth),
+      this.add
+        .bitmapText(160, subtitle ? 88 : 100, 'hv', title, 10)
+        .setOrigin(0.5, 0.5)
+        .setTint(colorValue('gelb2'))
+        .setScrollFactor(0)
+        .setDepth(depth + 1),
+    ];
+    if (subtitle) {
+      objects.push(
+        this.add
+          .bitmapText(160, 104, 'hv', subtitle, 10)
+          .setOrigin(0.5, 0.5)
+          .setTint(colorValue('tuerkis6'))
+          .setScrollFactor(0)
+          .setDepth(depth + 1),
+      );
+    }
+    return new Promise((resolve) => {
+      const timer = this.time.delayedCall(this.testMode ? 40 : CARD_MS, () => this.finishSpeech?.());
+      this.finishSpeech = () => {
+        this.finishSpeech = null;
+        timer.remove();
+        for (const object of objects) object.destroy();
+        resolve();
+      };
+    });
+  }
+
+  /** Die Zeitwelle: Das Bild blitzt, bebt und kippt hin und her. */
+  async playTimeWave(): Promise<void> {
+    const camera = this.cameras.main;
+    const scale = this.testMode ? 0.125 : 1;
+    camera.flash(500 * scale, 255, 255, 255);
+    camera.shake(1800 * scale, 0.012);
+    camera.rotateTo(0.16, false, 600 * scale, 'Sine.easeInOut');
+    await this.wait(600);
+    camera.rotateTo(-0.12, false, 600 * scale, 'Sine.easeInOut');
+    await this.wait(600);
+    camera.rotateTo(0, false, 600 * scale, 'Sine.easeInOut');
+    await this.wait(600);
+    camera.setRotation(0);
+    camera.flash(300 * scale, 255, 255, 255);
   }
 
   async goToRoom(room: string, era?: Era, at?: Pt, face?: Dir): Promise<void> {
@@ -403,8 +470,9 @@ export class GameScene extends Phaser.Scene {
     const token = this.pendingToken;
     this.interaction.reset();
 
+    // Bei zwei Hotspots läuft die Figur zum zweiten, dem eigentlichen Ziel.
     const hotspot =
-      action.a.kind === 'hotspot' ? action.a.hotspot : action.b?.kind === 'hotspot' ? action.b.hotspot : null;
+      action.b?.kind === 'hotspot' ? action.b.hotspot : action.a.kind === 'hotspot' ? action.a.hotspot : null;
 
     if (hotspot) {
       this.pendingWalk = true;

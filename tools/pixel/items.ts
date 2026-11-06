@@ -12,15 +12,85 @@ function icon(dir: string, name: string, paint: (c: Canvas) => void): void {
 }
 
 export function buildItems(dir: string): void {
-  // Das Familienfoto gehört zur Story und wird später je Stufe verändert.
-  icon(dir, 'foto', (c) => {
-    c.rect(8, 2, 16, 16, C.sand2);
-    c.frame(8, 2, 16, 16, C.holz4);
-    c.rect(10, 4, 12, 7, C.blau6);
-    c.rect(10, 11, 12, 3, C.gruen5);
-    c.rect(12, 8, 2, 5, C.rot4);
-    c.rect(16, 8, 2, 5, C.blau3);
-    c.rect(19, 9, 2, 4, C.violett4);
+  // Das Familienfoto: fünf Stufen laut LOESUNGSBUCH.md
+  for (let stage = 0; stage <= 4; stage++) {
+    icon(dir, `foto_stufe${stage}`, (c) => {
+      c.rect(6, 1, 20, 18, C.sand2);
+      c.frame(6, 1, 20, 18, C.holz4);
+      c.rect(8, 3, 16, 9, C.blau6);
+      c.rect(8, 12, 16, 5, C.gruen5);
+      c.rect(9, 7, 7, 5, C.weiss); // Haus
+      c.rect(9, 6, 7, 1, C.rot3);
+      if (stage === 1) {
+        // Tannen-Werbung im Hintergrund
+        c.rect(17, 3, 7, 4, C.rot3);
+        c.rect(19, 4, 3, 1, C.gelb2);
+      }
+      // Familie vorn
+      c.rect(9, 11, 2, 5, C.rot4);
+      c.rect(12, 11, 2, 5, C.blau3);
+      c.rect(15, 12, 2, 4, C.orange2);
+      // Doc im Hintergrund: blass, wenn die Zeitlinie nicht stimmt
+      const faded = stage === 1 || stage === 2;
+      if (faded) {
+        c.set(20, 9, C.grau6);
+        c.set(21, 11, C.grau6);
+        c.set(20, 13, C.grau6);
+      } else {
+        c.rect(20, 9, 2, 6, C.violett4);
+        c.set(22, stage === 4 ? 9 : 8, C.violett4);
+        if (stage === 4) c.set(20, 8, C.gelb2);
+      }
+    });
+  }
+
+  // Prolog
+  icon(dir, 'kugelschreiber', (c) => {
+    c.line(8, 15, 23, 4, C.blau5);
+    c.line(9, 16, 24, 5, C.blau3);
+    c.set(7, 16, C.schwarz);
+    c.rect(22, 3, 3, 2, C.grau6);
+  });
+  icon(dir, 'banane', (c) => {
+    c.poly([[7, 4], [11, 10], [19, 12], [26, 9], [27, 11], [20, 16], [11, 15], [6, 8]], C.gelb2);
+    c.line(11, 14, 20, 15, C.gelb1);
+    c.rect(6, 3, 2, 2, C.holz3);
+  });
+  icon(dir, 'bananenschale', (c) => {
+    c.poly([[14, 7], [18, 7], [18, 11], [14, 11]], C.gelb2);
+    c.poly([[14, 10], [8, 16], [11, 16], [15, 12]], C.gelb1);
+    c.poly([[18, 10], [24, 16], [21, 16], [17, 12]], C.gelb1);
+    c.poly([[15, 11], [15, 17], [17, 17], [17, 11]], C.gelb2);
+    c.rect(15, 5, 2, 2, C.holz3);
+  });
+  icon(dir, 'hundefutter', (c) => {
+    c.rect(10, 3, 12, 15, C.orange2);
+    c.frame(10, 3, 12, 15, C.orange1);
+    c.rect(12, 7, 8, 6, C.sand2);
+    c.rect(14, 9, 4, 2, C.holz3);
+  });
+  icon(dir, 'wachstuch', (c) => {
+    c.poly([[8, 6], [24, 4], [26, 14], [14, 17], [6, 14]], C.sand1);
+    c.line(9, 9, 23, 7, C.holz6);
+    c.line(9, 12, 22, 11, C.holz6);
+  });
+  icon(dir, 'docs_brief', (c) => {
+    c.rect(7, 4, 18, 12, C.weiss);
+    c.frame(7, 4, 18, 12, C.grau4);
+    c.line(8, 5, 16, 11, C.grau4);
+    c.line(24, 5, 16, 11, C.grau4);
+  });
+  icon(dir, 'notizbuch', (c) => {
+    c.rect(9, 3, 15, 15, C.rot3);
+    c.frame(9, 3, 15, 15, C.rot1);
+    c.rect(10, 3, 2, 15, C.grau6);
+    c.rect(14, 7, 8, 2, C.sand2);
+  });
+  icon(dir, 'mr_fusion', (c) => {
+    c.rect(11, 5, 10, 14, C.grau5);
+    c.frame(11, 5, 10, 14, C.grau3);
+    c.rect(10, 2, 12, 3, C.grau6);
+    c.rect(14, 9, 4, 5, C.gelb2);
   });
 
   icon(dir, 'apfel', (c) => {
