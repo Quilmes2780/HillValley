@@ -1,0 +1,129 @@
+{
+  "verb": {
+    "gib": "Gib",
+    "oeffne": "Öffne",
+    "schliesse": "Schließe",
+    "nimm": "Nimm",
+    "schauan": "Schau an",
+    "redemit": "Rede mit",
+    "benutze": "Benutze",
+    "druecke": "Drücke",
+    "ziehe": "Ziehe"
+  },
+  "sentence": {
+    "gehe": "Gehe zu",
+    "mit": "mit",
+    "an": "an"
+  },
+  "room": {
+    "testraum": "Testraum",
+    "testflur": "Testflur"
+  },
+  "hotspot": {
+    "tisch": "Tisch",
+    "tuer": "Tür",
+    "schalter": "Schalter",
+    "schalter_messing": "Messingschalter",
+    "schrank": "Schrank",
+    "testfigur": "Testfigur",
+    "mauer": "Zugemauerte Tür",
+    "laterne": "Laterne",
+    "spinde": "Spinde",
+    "fenster": "Fenster"
+  },
+  "item": {
+    "foto": {
+      "name": "Familienfoto",
+      "stufe0": "Ein ganz normaler Herbsttag.",
+      "stufe1": "Irgendwas stimmt hier nicht. Ich muss zum Rathausturm.",
+      "stufe2": "Besser. Aber wo ist Doc?",
+      "stufe3": "Doc kommt zurück! Und wer ist dieser Brix?",
+      "stufe4": "Zurück in der Gegenwart. Endlich."
+    },
+    "apfel": { "name": "Apfel", "desc": "Ein Apfel. Für einen Test erstaunlich appetitlich." },
+    "schachtel": { "name": "Schachtel", "desc": "Eine Schachtel. Darin ist Platz für genau einen Apfel." },
+    "apfelschachtel": { "name": "Apfelschachtel", "desc": "Ein Apfel in einer Schachtel. Die Kombination funktioniert also." },
+    "muenze": { "name": "Münze", "desc": "Eine Testmünze. Kaufkraft: keine." },
+    "keks": { "name": "Keks", "desc": "Ein Keks. Benutzen heißt in diesem Fall essen." },
+    "ding1": { "name": "Ding 1", "desc": "Ein Ding, um das Blättern im Inventar zu prüfen." },
+    "ding2": { "name": "Ding 2", "desc": "Noch ein Ding." },
+    "ding3": { "name": "Ding 3", "desc": "Noch ein Ding." },
+    "ding4": { "name": "Ding 4", "desc": "Das letzte Ding. Versprochen." }
+  },
+  "say": {
+    "test": {
+      "tisch": "Ein Tisch. Man kann um ihn herumlaufen.",
+      "tisch_nimm": "Der passt nicht in meine Tasche.",
+      "apfel": "Ein Apfel auf einem Tisch. Spannender wird es heute nicht.",
+      "tuer": "Eine Tür zum Flur.",
+      "tuer_zu": "Die Tür ist zu.",
+      "tuer_flur": "Diese Tür führt zurück in den Testraum.",
+      "schon_offen": "Das ist schon offen.",
+      "schon_zu": "Das ist schon zu.",
+      "schalter": "Auf dem Schalter steht: Zeitebene wechseln.",
+      "schalter_druecke": "Mal sehen, was passiert.",
+      "schrank": "Ein Schrank. Könnte etwas enthalten.",
+      "testfigur": "Sie sieht aus, als warte sie auf einen Test.",
+      "mauer": "An dieser Stelle ist 1885 noch keine Tür.",
+      "schalter_messing": "Derselbe Schalter, nur aus Messing.",
+      "laterne": "Eine Laterne. Das ist also die Zeitebene 1885.",
+      "laterne_nimm": "Die ist heiß. Lieber nicht.",
+      "spinde": "Eine lange Reihe Spinde. Der Flur ist breiter als der Bildschirm.",
+      "spinde_oeffne": "Alle abgeschlossen.",
+      "fenster": "Draußen ist es hell. Bis hierher scrollt der Raum.",
+      "keks_gegessen": "Mampf. Der Keks ist weg.",
+      "apfel_verpackt": "Der Apfel passt genau hinein.",
+      "muenze_danke": "Danke. Die brauche ich für den nächsten Test."
+    }
+  },
+  "comments": {
+    "marty": {
+      "default": ["Das bringt so nichts.", "Nein, das funktioniert nicht.", "Keine gute Idee."],
+      "schauan": ["Sieht ganz gewöhnlich aus.", "Nichts Besonderes."],
+      "nimm": ["Das lasse ich lieber hier.", "Das brauche ich nicht."],
+      "oeffne": ["Das lässt sich nicht öffnen."],
+      "schliesse": ["Das lässt sich nicht schließen."],
+      "redemit": ["Das antwortet bestimmt nicht."],
+      "benutze": ["Damit weiß ich nichts anzufangen."],
+      "gib": ["Das will ich nicht hergeben."],
+      "druecke": ["Da tut sich nichts."],
+      "ziehe": ["Das bewegt sich nicht."]
+    },
+    "doc_jung": {
+      "default": ["Das widerspricht jeder Logik.", "Wissenschaftlich betrachtet: nein."],
+      "schauan": ["Faszinierend. Aber nicht hilfreich."]
+    },
+    "doc": {
+      "default": ["Großartig! Nur leider völlig nutzlos.", "Das führt zu nichts."],
+      "schauan": ["Bemerkenswert unauffällig."]
+    },
+    "default": {
+      "default": ["Das geht nicht."]
+    }
+  },
+  "save": {
+    "title_save": "Spiel speichern",
+    "title_load": "Spiel laden",
+    "tab_save": "Speichern",
+    "tab_load": "Laden",
+    "close": "Zurück zum Spiel",
+    "empty": "– leer –",
+    "slot": "{n}: {room} ({era}), {date}",
+    "saved": "Gespeichert.",
+    "loaded": "Geladen.",
+    "busy": "Jetzt kann nicht gespeichert werden.",
+    "too_old": "Dieser Spielstand stammt aus einer älteren Version.",
+    "failed": "Der Speicher ist nicht verfügbar.",
+    "nothing": "In diesem Platz liegt nichts."
+  },
+  "debug": {
+    "title": "Debug (F9)",
+    "room": "Raumsprung",
+    "go": "Los",
+    "item": "Gegenstand geben",
+    "give": "Geben",
+    "character": "Figur",
+    "flags": "Flags",
+    "info": "Figur {who} · {room} · {era} · x {x} y {y}"
+  }
+}

@@ -1,0 +1,68 @@
+GIMP Palette
+Name: Hill Valley Paradox
+Columns: 8
+#
+ 11  11  18	schwarz
+ 35  36  46	grau1
+ 59  61  74	grau2
+ 87  90 104	grau3
+122 125 139	grau4
+162 165 176	grau5
+205 208 214	grau6
+246 246 238	weiss
+ 42  26  20	holz1
+ 69  42  28	holz2
+ 99  61  37	holz3
+133  85  47	holz4
+168 116  62	holz5
+199 154  91	holz6
+220 189 132	sand1
+239 220 174	sand2
+138  90  68	haut1
+182 127  94	haut2
+219 169 135	haut3
+241 205 176	haut4
+ 63  15  24	rot1
+107  24  36	rot2
+152  37  48	rot3
+198  58  57	rot4
+228  98  77	rot5
+244 149 122	rot6
+162  80  28	orange1
+217 122  38	orange2
+242 163  60	orange3
+196 160  44	gelb1
+236 209  79	gelb2
+248 238 150	gelb3
+ 18  38  28	gruen1
+ 28  64  41	gruen2
+ 44  95  53	gruen3
+ 70 128  63	gruen4
+110 163  74	gruen5
+154 197  92	gruen6
+197 224 126	gruen7
+159 227 180	mint
+ 15  51  57	tuerkis1
+ 23  85  90	tuerkis2
+ 35 128 126	tuerkis3
+ 62 174 163	tuerkis4
+116 211 193	tuerkis5
+182 234 220	tuerkis6
+ 13  21  51	blau1
+ 22  36  90	blau2
+ 34  57 138	blau3
+ 48  86 184	blau4
+ 79 130 216	blau5
+125 174 234	blau6
+174 211 244	blau7
+220 236 250	blau8
+ 34  21  64	violett1
+ 58  34 105	violett2
+ 88  52 147	violett3
+127  82 189	violett4
+171 133 221	violett5
+124  28 106	pink1
+184  42 140	pink2
+233  79 176	pink3
+245 140 203	pink4
+ 51 240 224	neon

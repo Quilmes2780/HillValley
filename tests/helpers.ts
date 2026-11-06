@@ -1,0 +1,140 @@
+import { expect, type Page } from '@playwright/test';
+
+type GamePoint = { x: number; y: number };
+
+export interface HvApi {
+  validationErrors: string[];
+  state(): {
+    flags: Record<string, boolean | number>;
+    activeCharacter: string;
+    unlockedCharacters: string[];
+    characters: Record<string, { room: string; era: number; x: number; y: number; inventory: string[] }>;
+  };
+  isIdle(): boolean;
+  isChoosing(): boolean;
+  speech(): { actor: string; text: string }[];
+  sentence(): string;
+  room(): { id: string; era: number; background: string; width: number; scrollX: number };
+  hotspots(): ({ id: string } & GamePoint)[];
+  actor(id?: string): ({ depth: number } & GamePoint) | null;
+  actorsInRoom(): string[];
+  walkPathLength(x: number, y: number): [number, number][];
+  verb(verb: string): GamePoint;
+  inventory(): ({ id: string } & GamePoint)[];
+  arrow(direction: 'up' | 'down'): GamePoint;
+  portraits(): ({ id: string } & GamePoint)[];
+  choices(): ({ text: string } & GamePoint)[];
+  menu(): ({ text: string } & GamePoint)[] | null;
+  debugOpen(): boolean;
+  frames(id: string, anim: string): number;
+  zoom(): number;
+}
+
+declare global {
+  interface Window {
+    __hv: HvApi;
+  }
+}
+
+/** Öffnet das Spiel im Testmodus und wartet, bis es bereit ist. */
+export async function openGame(page: Page): Promise<void> {
+  await page.goto('/?test=1');
+  await page.waitForFunction(() => window.__hv !== undefined);
+  expect(await page.evaluate(() => window.__hv.validationErrors)).toEqual([]);
+}
+
+/** Wandelt Spielpixel in Bildschirmkoordinaten um. */
+async function toClient(page: Page, p: GamePoint): Promise<GamePoint> {
+  const box = await page.locator('canvas').boundingBox();
+  if (!box) throw new Error('Kein Canvas gefunden');
+  const factor = box.width / 320;
+  return { x: box.x + (p.x + 0.5) * factor, y: box.y + (p.y + 0.5) * factor };
+}
+
+export async function clickGame(page: Page, p: GamePoint, button: 'left' | 'right' = 'left'): Promise<void> {
+  const c = await toClient(page, p);
+  await page.mouse.move(c.x, c.y);
+  await page.mouse.down({ button });
+  await page.mouse.up({ button });
+}
+
+export async function moveGame(page: Page, p: GamePoint): Promise<void> {
+  const c = await toClient(page, p);
+  await page.mouse.move(c.x, c.y);
+}
+
+export async function waitIdle(page: Page): Promise<void> {
+  await page.waitForFunction(() => window.__hv.isIdle(), undefined, { timeout: 15_000 });
+}
+
+export async function hotspot(page: Page, id: string): Promise<GamePoint> {
+  const found = await page.evaluate(
+    (wanted) => window.__hv.hotspots().find((h) => h.id === wanted),
+    id,
+  );
+  if (!found) throw new Error(`Hotspot ${id} ist nicht sichtbar`);
+  return found;
+}
+
+export async function clickVerb(page: Page, verb: string): Promise<void> {
+  await clickGame(page, await page.evaluate((v) => window.__hv.verb(v), verb));
+}
+
+export async function clickHotspot(page: Page, id: string, button: 'left' | 'right' = 'left'): Promise<void> {
+  await clickGame(page, await hotspot(page, id), button);
+}
+
+export async function clickItem(page: Page, id: string): Promise<void> {
+  const item = await page.evaluate((wanted) => window.__hv.inventory().find((i) => i.id === wanted), id);
+  if (!item) throw new Error(`Gegenstand ${id} ist nicht sichtbar`);
+  await clickGame(page, item);
+}
+
+/** Verb + Hotspot, danach warten, bis alles fertig ist. */
+export async function act(page: Page, verb: string, id: string): Promise<void> {
+  await clickVerb(page, verb);
+  await clickHotspot(page, id);
+  await waitIdle(page);
+}
+
+export async function lastSpeech(page: Page): Promise<string> {
+  return page.evaluate(() => window.__hv.speech().at(-1)?.text ?? '');
+}
+
+export async function inventoryOf(page: Page, who?: string): Promise<string[]> {
+  return page.evaluate((id) => {
+    const s = window.__hv.state();
+    return s.characters[id ?? s.activeCharacter].inventory;
+  }, who);
+}
+
+export async function chooseAnswer(page: Page, startsWith: string): Promise<void> {
+  await page.waitForFunction(() => window.__hv.isChoosing());
+  const choice = await page.evaluate(
+    (text) => window.__hv.choices().find((c) => c.text.startsWith(text)),
+    startsWith,
+  );
+  if (!choice) throw new Error(`Antwort „${startsWith}“ wird nicht angeboten`);
+  await clickGame(page, choice);
+  // Die Antwortzeilen verschwinden sofort; danach läuft der Dialog weiter.
+  await page.waitForFunction(() => !window.__hv.isChoosing());
+}
+
+export async function menuRow(page: Page, startsWith: string): Promise<GamePoint> {
+  const row = await page.evaluate(
+    (text) => window.__hv.menu()?.find((r) => r.text.startsWith(text)),
+    startsWith,
+  );
+  if (!row) throw new Error(`Menüzeile „${startsWith}“ fehlt`);
+  return row;
+}
+
+/** Sammelt unerwartete Fehler; am Testende muss die Liste leer sein. */
+export function watchErrors(page: Page): string[] {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(`console: ${message.text()}`);
+  });
+  return errors;
+}

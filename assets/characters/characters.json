@@ -1,0 +1,27 @@
+{
+  "frameWidth": 32,
+  "frameHeight": 56,
+  "fps": 8,
+  "characters": {
+    "marty": {
+      "folder": "marty",
+      "textColor": "blau7",
+      "portrait": "marty_portrait.png"
+    },
+    "doc_jung": {
+      "folder": "doc_jung",
+      "textColor": "gruen7",
+      "portrait": "doc_jung_portrait.png"
+    },
+    "doc": {
+      "folder": "doc",
+      "textColor": "violett5",
+      "portrait": "doc_portrait.png"
+    },
+    "test_npc": {
+      "folder": "test_npc",
+      "textColor": "orange3",
+      "portrait": "test_npc_portrait.png"
+    }
+  }
+}
