@@ -10,6 +10,7 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 - `npm run pixel` – Grafiken in `assets/` neu erzeugen; Figuren, Zeitzug und DeLorean nur, wenn sie fehlen (`npm run pixel -- --force` überschreibt auch sie)
 - `npm run audio` – Musik und Effekte in `assets/audio/` erzeugen, sofern sie fehlen (`-- --force` wie oben)
 - `npm run typecheck` / `npm run build`
+- Veröffentlichung: Jeder Push nach `main` baut das Spiel und stellt es auf GitHub Pages (`.github/workflows/pages.yml`): https://quilmes2780.github.io/HillValley/
 - `npm test` – Playwright-Durchläufe (`tests/`); nach jedem Meilenstein muss alles grün sein
 
 ## Regeln

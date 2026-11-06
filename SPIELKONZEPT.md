@@ -213,6 +213,7 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Rathausplatz 1955 | Lous Café und Radioladen mit Türen direkt am Platz |
 | Verstärker (K2) | Einbau erst nach der verbrannten Erfindungsmappe |
 | Musik und Effekte | Eigene Chiptune-Stücke per Skript (`npm run audio`). Je Zeitebene ein Stück, dazu Titel und Tannenburg. Exporte aus BeepBox oder jsfxr ersetzen einfach die gleichnamige Datei in `assets/audio/` |
+| Hosting | GitHub Pages über GitHub Actions, https://quilmes2780.github.io/HillValley/ |
 | Tasten | F5 Speichern/Laden, M Ton, F9 Debug; ein Klick überspringt Text und Karten |
 | Hill Valley 2015 | Café 80er, Museum, Lobby und Gasse mit Türen am Platz, kein eigener Stadtplan |
 | DeLorean | Neutraler Platzhalter unter `assets/characters/delorean/delorean.png` (130×44), austauschbar ohne Codeänderung |
