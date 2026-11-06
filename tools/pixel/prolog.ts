@@ -205,9 +205,15 @@ function vorgarten(dir: string, tannenburg: boolean): void {
   c.gradient(65, 39, 28, 24, [C.blau3, C.blau5]);
   c.rect(78, 39, 2, 24, C.weiss);
   door(c, 110, 46, 30, 46, C.rot3, C.rot2, C.weiss);
+  // Veranda an der Hausecke
+  c.rect(0, 60, 34, 32, C.holz6);
+  c.rect(0, 58, 36, 3, C.grau6);
+  c.rect(32, 60, 2, 32, C.weiss);
+  for (let x = 2; x < 32; x += 5) c.rect(x, 72, 1, 20, C.weiss);
+  c.rect(0, 72, 34, 1, C.weiss);
   // Hecke
-  c.rect(0, 80, 104, 12, C.gruen3);
-  c.rect(0, 80, 104, 2, C.gruen4);
+  c.rect(34, 80, 70, 12, C.gruen3);
+  c.rect(34, 80, 70, 2, C.gruen4);
   // Briefkasten
   c.rect(150, 80, 2, 12, C.grau2);
   c.rect(146, 74, 10, 7, C.blau4);

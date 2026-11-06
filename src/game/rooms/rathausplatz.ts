@@ -63,9 +63,115 @@ const geraetAnschliessen: Script = async (g) => {
   await g.say('say.k1.geraet_dran');
 };
 
+/** Der Grundstein 1986: massiv, bis Doc 1885 etwas darin eingemauert hat (Kapitel 3). */
+const GRUNDSTEIN_1986: Hotspot = {
+  ...GRUNDSTEIN,
+  comments: { nimm: 'say.k3.grundstein_nimm' },
+  sprite: {
+    key: 'backgrounds/sprites/grundstein_auf.png',
+    x: 104,
+    y: 80,
+    when: (s) => !!s.flags.grundstein_aufgebrochen,
+  },
+  verbs: {
+    schauan: async (g) => {
+      if (g.getFlag('grundstein_aufgebrochen')) await g.say('say.k3.platz_grundstein_auf');
+      else if (g.getFlag('grundstein_zu')) await g.say('say.k3.platz_grundstein_inschrift');
+      else await g.say('say.k1.grundstein');
+    },
+  },
+  useWith: {
+    brecheisen: async (g) => {
+      if (!g.getFlag('grundstein_zu')) {
+        await g.say('say.k3.platz_grundstein_massiv');
+        return;
+      }
+      if (g.getFlag('grundstein_aufgebrochen')) {
+        await g.say('say.k3.platz_grundstein_schon');
+        return;
+      }
+      g.shake(300);
+      g.setFlag('grundstein_aufgebrochen');
+      await g.say('say.k3.platz_grundstein_bricht');
+    },
+  },
+};
+
 const hotspots1986: readonly Hotspot[] = [
   STRASSE,
-  GRUNDSTEIN,
+  GRUNDSTEIN_1986,
+  {
+    id: 'gelber_brief',
+    name: 'item.vergilbter_brief.name',
+    area: rect(106, 82, 14, 8),
+    walkTo: [113, 96],
+    face: 'hinten',
+    visible: (s) => !!s.flags.grundstein_aufgebrochen && !s.flags.gelber_brief_genommen,
+    sprite: { key: 'backgrounds/sprites/gelber_brief.png', x: 108, y: 83 },
+    comments: { schauan: 'say.k3.platz_brief_schau' },
+    verbs: {
+      nimm: async (g) => {
+        await g.playAnim('pickup');
+        g.setFlag('gelber_brief_genommen');
+        g.addItem('vergilbter_brief');
+      },
+    },
+  },
+  {
+    id: 'zeitzug',
+    name: 'hotspot.zeitzug',
+    area: rect(120, 96, 160, 44),
+    walkTo: [296, 122],
+    face: 'links',
+    visible: (s) => !!s.flags.zug_da,
+    sprite: { key: 'characters/zeitzug/zeitzug.png', x: 120, y: 92, depthY: 139 },
+    comments: { schauan: 'say.k4.zug_schau', benutze: 'say.k4.zug_benutze', oeffne: 'say.k4.zug_benutze' },
+  },
+  {
+    id: 'doc',
+    name: 'hotspot.doc',
+    area: rect(86, 72, 28, 50),
+    walkTo: [132, 124],
+    face: 'links',
+    defaultVerb: 'redemit',
+    visible: (s) => !!s.flags.zug_da,
+    comments: { schauan: 'say.k4.doc_schau' },
+    verbs: {
+      redemit: async (g) => {
+        if (g.getFlag('fusion_an_doc')) await g.sayAs('doc', 'say.k4.doc_ziel');
+        else await g.sayAs('doc', 'say.k4.doc_energie');
+      },
+    },
+    useWith: {
+      mr_fusion: async (g) => {
+        if (!g.getFlag('fusion_gefuettert')) {
+          await g.sayAs('doc', 'say.k4.doc_fusion_leer');
+          return;
+        }
+        g.removeItem('mr_fusion');
+        g.setFlag('fusion_an_doc');
+        await g.sayAs('doc', 'say.k4.doc_fusion_voll');
+      },
+      brief_2015: async (g) => {
+        if (!g.getFlag('fusion_an_doc')) {
+          await g.sayAs('doc', 'say.k4.doc_erst_energie');
+          return;
+        }
+        g.removeItem('brief_2015');
+        await g.sayAs('doc', 'say.k4.doc_ziel_gesetzt');
+        await g.cutscene(async () => {
+          await g.say('say.k4.abreise_1');
+          await g.sayAs('jennifer', 'say.k4.abreise_2');
+          g.flash(700);
+          g.shake(700);
+          await g.wait(800);
+          await g.showCard('chapter.k5.title', 'chapter.k5.subtitle');
+          g.state.chapter = 5;
+          await g.say('say.k4.k5_noch_nicht');
+        });
+      },
+    },
+  },
   {
     id: 'bank',
     name: 'hotspot.bank',

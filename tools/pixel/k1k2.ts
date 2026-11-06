@@ -87,6 +87,12 @@ function rathausplatz(dir: string, kind: 'tannen' | 'rathaus' | '1955'): void {
       c.rect(86, 56, 3, 36, C.grau1);
     }
   }
+  if (kind === 'rathaus') {
+    // Gleise für die Rückkehr des Zuges (Kapitel 4)
+    c.rect(0, 132, 320, 2, C.grau1);
+    c.rect(0, 138, 320, 2, C.grau1);
+    for (let x = 4; x < 320; x += 10) c.rect(x, 130, 3, 12, C.holz2);
+  }
   const suffix = old ? '1955' : kind === 'tannen' ? '1986_tannenburg' : '1986';
   c.save(`${dir}/backgrounds/rathausplatz_${suffix}.png`);
 }

@@ -29,6 +29,7 @@ export class RoomManager {
 
   private background: Phaser.GameObjects.Image | null = null;
   private readonly spriteOf = new Map<Hotspot, Phaser.GameObjects.Image>();
+  private readonly placementOf = new Map<string, ActorPlacement>();
 
   constructor(
     private readonly scene: Phaser.Scene,
@@ -86,6 +87,7 @@ export class RoomManager {
     }
     for (const p of this.wantedActors().values()) {
       this.addActor(p.id, p.x, p.y, p.face ?? 'vorne');
+      this.placementOf.set(p.id, p);
     }
     this.refreshSprites();
   }
@@ -109,6 +111,11 @@ export class RoomManager {
       const placement = wanted.get(p.id);
       if (placement && !actor) {
         this.addActor(p.id, placement.x, placement.y, placement.face ?? 'vorne');
+        this.placementOf.set(p.id, placement);
+      } else if (placement && actor && this.placementOf.get(p.id) !== placement) {
+        // Der Spielstand hat der Figur einen anderen Platz zugewiesen.
+        actor.place(placement.x, placement.y, placement.face ?? 'vorne');
+        this.placementOf.set(p.id, placement);
       } else if (!placement && actor) {
         actor.destroy();
         this.actors.delete(p.id);
@@ -154,5 +161,6 @@ export class RoomManager {
     this.spriteOf.clear();
     for (const actor of this.actors.values()) actor.destroy();
     this.actors.clear();
+    this.placementOf.clear();
   }
 }

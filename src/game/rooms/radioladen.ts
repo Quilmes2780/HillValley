@@ -49,8 +49,8 @@ export const radioladen: RoomDef = {
             id: 'haendler',
             name: 'hotspot.haendler',
             area: rect(96, 40, 28, 28),
-            walkTo: [110, 106],
-            face: 'hinten',
+            walkTo: [138, 106],
+            face: 'links',
             defaultVerb: 'redemit',
             comments: { schauan: 'say.k2.haendler_schau' },
             verbs: {

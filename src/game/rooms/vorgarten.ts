@@ -95,7 +95,13 @@ const normal: RoomVariant = {
   background: 'backgrounds/vorgarten_1986.png',
   walkable: WALKABLE,
   scale: SCALE,
-  actors: [{ id: 'biff', x: 172, y: 112, face: 'rechts' }],
+  actors: [
+    // Abgelenkt dreht Biff dem Auto den Rücken zu.
+    { id: 'biff', x: 172, y: 112, face: 'links', visible: (s) => !!s.flags.jennifer_lenkt_ab },
+    { id: 'biff', x: 172, y: 112, face: 'rechts' },
+    { id: 'jennifer', x: 142, y: 116, face: 'rechts', visible: (s) => !!s.flags.jennifer_lenkt_ab },
+    { id: 'einstein', x: 60, y: 126, face: 'rechts', visible: (s) => !!s.flags.einstein_folgt },
+  ],
   hotspots: [
     ...COMMON,
     {
@@ -105,12 +111,100 @@ const normal: RoomVariant = {
       walkTo: [146, 114],
       face: 'rechts',
       defaultVerb: 'redemit',
-      comments: { schauan: 'say.prolog.vorgarten_biff' },
       verbs: {
+        schauan: async (g) => {
+          await g.say(g.state.chapter >= 4 ? 'say.k4.biff_schau' : 'say.prolog.vorgarten_biff');
+        },
         redemit: async (g) => {
           await g.dialog('biff');
         },
       },
+    },
+    {
+      id: 'wachsdose',
+      name: 'item.wachsdose.name',
+      area: rect(289, 100, 12, 10),
+      walkTo: [292, 112],
+      face: 'hinten',
+      visible: (s) => s.chapter >= 4 && !s.flags.wachsdose_genommen,
+      sprite: { key: 'backgrounds/sprites/wachsdose.png', x: 290, y: 101, depthY: 110 },
+      comments: { schauan: 'say.k4.dose_schau' },
+      verbs: {
+        nimm: pickup((g) => {
+          g.setFlag('wachsdose_genommen');
+          g.addItem('wachsdose');
+        }),
+      },
+    },
+    {
+      id: 'schluesselbund',
+      name: 'hotspot.schluesselbund',
+      area: rect(240, 64, 12, 14),
+      walkTo: [246, 110],
+      face: 'hinten',
+      visible: (s) => s.chapter >= 4 && !s.flags.einstein_apportiert,
+      sprite: { key: 'backgrounds/sprites/schluesselbund.png', x: 242, y: 66, depthY: 105 },
+      comments: { schauan: 'say.k4.bund_schau' },
+      verbs: {
+        nimm: async (g) => {
+          await g.say(g.getFlag('jennifer_lenkt_ab') ? 'say.k4.bund_zu_nah' : 'say.k4.bund_biff_schaut');
+        },
+      },
+    },
+    {
+      id: 'einstein',
+      name: 'hotspot.einstein',
+      area: rect(46, 102, 28, 25),
+      walkTo: [90, 128],
+      face: 'links',
+      defaultVerb: 'redemit',
+      visible: (s) => !!s.flags.einstein_folgt && !s.flags.einstein_apportiert,
+      comments: { schauan: 'say.k4.einstein_schau' },
+      verbs: {
+        redemit: async (g) => {
+          if (!g.getFlag('jennifer_lenkt_ab')) {
+            await g.say('say.k4.einstein_noch_nicht');
+            return;
+          }
+          await g.cutscene(async () => {
+            await g.say('say.k4.einstein_hol');
+            await g.walkTo([246, 108], 'einstein', 3);
+            await g.sayAs('biff', 'say.k4.biff_prahlt');
+            await g.walkTo([60, 126], 'einstein', 3);
+            g.setFlag('einstein_apportiert');
+            await g.sayAs('einstein', 'say.prolog.einstein_bellt');
+          });
+        },
+      },
+    },
+    {
+      id: 'sendeschluessel',
+      name: 'item.sendeschluessel.name',
+      area: rect(46, 102, 28, 25),
+      walkTo: [90, 128],
+      face: 'links',
+      visible: (s) => !!s.flags.einstein_apportiert && !s.flags.schluessel_genommen,
+      comments: { schauan: 'say.k4.schluessel_schau' },
+      verbs: {
+        nimm: async (g) => {
+          await g.playAnim('pickup');
+          g.setFlag('schluessel_genommen');
+          g.addItem('sendeschluessel');
+          // Einstein bleibt in 1986: Er geht zurück ins Labor.
+          g.setFlag('einstein_folgt', false);
+          await g.say('say.k4.schluessel_genommen');
+        },
+      },
+    },
+    {
+      id: 'veranda',
+      name: 'hotspot.veranda',
+      area: rect(0, 60, 34, 32),
+      walkTo: [18, 96],
+      face: 'links',
+      visible: (s) => s.chapter >= 4,
+      comments: { schauan: 'say.k4.veranda_schau' },
+      exit: { room: 'veranda', at: [304, 112], face: 'links' },
     },
   ],
 };

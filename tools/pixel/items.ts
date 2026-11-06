@@ -231,6 +231,112 @@ export function buildItems(dir: string): void {
     c.rect(18, 7, 4, 2, C.grau3);
   });
 
+  // Kapitel 3
+  icon(dir, 'streichhoelzer', (c) => {
+    c.rect(8, 7, 16, 9, C.sand2);
+    c.frame(8, 7, 16, 9, C.holz3);
+    for (const x of [11, 15, 19]) {
+      c.rect(x, 3, 1, 5, C.holz6);
+      c.set(x, 2, C.rot4);
+      c.set(x, 3, C.rot4);
+    }
+  });
+  icon(dir, 'bleistift', (c) => {
+    c.line(7, 15, 23, 5, C.gelb1);
+    c.line(8, 16, 24, 6, C.gelb2);
+    c.rect(6, 15, 2, 2, C.rot3);
+    c.rect(24, 4, 2, 2, C.schwarz);
+  });
+  icon(dir, 'festprogramm', (c) => {
+    c.rect(9, 1, 15, 18, C.sand2);
+    c.frame(9, 1, 15, 18, C.holz4);
+    c.rect(11, 4, 11, 2, C.rot3);
+    for (let y = 8; y < 17; y += 2) c.rect(11, y, 10, 1, C.grau3);
+  });
+  icon(dir, 'kuchen', (c) => {
+    c.poly([[7, 9], [25, 9], [25, 16], [7, 16]], C.holz6);
+    c.rect(7, 7, 18, 3, C.pink4);
+    c.rect(7, 15, 18, 2, C.holz4);
+    c.rect(15, 4, 2, 3, C.rot4);
+  });
+  icon(dir, 'herausforderung', (c) => {
+    c.rect(9, 1, 15, 18, C.sand2);
+    c.frame(9, 1, 15, 18, C.holz4);
+    for (let y = 4; y < 14; y += 3) c.line(11, y + 1, 22, y, C.blau3);
+    c.line(14, 16, 21, 15, C.blau2);
+  });
+  icon(dir, 'knallfrosch', (c) => {
+    c.rect(9, 7, 14, 8, C.rot4);
+    c.frame(9, 7, 14, 8, C.rot2);
+    c.rect(12, 9, 3, 3, C.gelb2);
+    c.line(23, 8, 27, 4, C.grau2);
+  });
+  icon(dir, 'knallfrosch_brennend', (c) => {
+    c.rect(9, 7, 14, 8, C.rot4);
+    c.frame(9, 7, 14, 8, C.rot2);
+    c.rect(12, 9, 3, 3, C.gelb2);
+    c.line(23, 8, 26, 5, C.grau2);
+    c.rect(26, 2, 3, 3, C.orange3);
+    c.set(27, 1, C.gelb3);
+  });
+  icon(dir, 'fluxkompensator', (c) => {
+    c.rect(7, 3, 18, 15, C.grau3);
+    c.frame(7, 3, 18, 15, C.grau1);
+    c.line(10, 15, 15, 7, C.neon);
+    c.line(22, 15, 17, 7, C.neon);
+    c.line(16, 7, 16, 14, C.neon);
+  });
+  icon(dir, 'biffs_brief', (c) => {
+    c.poly([[7, 5], [25, 3], [26, 15], [8, 17]], C.sand1);
+    c.line(10, 7, 22, 6, C.grau3);
+    c.line(10, 10, 21, 9, C.grau3);
+    c.line(11, 13, 18, 12, C.grau3);
+  });
+  icon(dir, 'nachricht', (c) => {
+    c.poly([[7, 5], [25, 3], [26, 15], [8, 17]], C.sand2);
+    c.line(10, 7, 22, 6, C.schwarz);
+    c.line(10, 10, 21, 9, C.schwarz);
+    c.line(11, 13, 20, 12, C.schwarz);
+  });
+  icon(dir, 'brecheisen', (c) => {
+    c.line(8, 17, 22, 3, C.grau3);
+    c.line(9, 17, 23, 3, C.grau4);
+    c.rect(22, 2, 5, 2, C.grau3);
+    c.rect(6, 16, 3, 3, C.grau3);
+  });
+  icon(dir, 'vergilbter_brief', (c) => {
+    c.poly([[7, 5], [25, 3], [26, 15], [8, 17]], C.gelb3);
+    c.line(10, 7, 22, 6, C.holz3);
+    c.line(10, 10, 21, 9, C.holz3);
+    c.line(11, 13, 18, 12, C.holz3);
+  });
+  icon(dir, 'sicherung', (c) => {
+    c.rect(6, 7, 20, 6, C.grau6);
+    c.rect(10, 4, 12, 12, C.blau8);
+    c.frame(10, 4, 12, 12, C.grau3);
+    c.rect(14, 8, 4, 4, C.gelb2);
+  });
+
+  // Kapitel 4
+  icon(dir, 'wachsdose', (c) => {
+    c.rect(9, 5, 14, 12, C.gelb1);
+    c.rect(9, 3, 14, 3, C.grau5);
+    c.rect(12, 8, 8, 5, C.rot3);
+  });
+  icon(dir, 'sendeschluessel', (c) => {
+    c.rect(8, 7, 7, 7, C.gelb2);
+    c.rect(10, 9, 3, 3, C.blau2);
+    c.rect(15, 9, 11, 3, C.gelb2);
+    c.rect(22, 12, 2, 3, C.gelb2);
+    c.rect(25, 12, 2, 2, C.gelb2);
+  });
+  icon(dir, 'brief_2015', (c) => {
+    c.rect(7, 4, 18, 12, C.weiss);
+    c.frame(7, 4, 18, 12, C.neon);
+    c.line(10, 8, 22, 8, C.grau3);
+    c.line(10, 11, 19, 11, C.grau3);
+  });
+
   // Vier schlichte Zusatzdinge, um das Blättern im Inventar zu prüfen.
   ['1', '2', '3', '4'].forEach((digit, i) => {
     icon(dir, `ding${digit}`, (c) => {

@@ -3,7 +3,6 @@ import {
   act,
   allSpeech,
   chooseAnswer,
-  clickGame,
   clickHotspot,
   clickVerb,
   flag,
@@ -17,25 +16,141 @@ import {
   waitIdle,
   watchErrors,
 } from './helpers';
-import { playKapitel1, playKapitel2, playProlog } from './walkthrough';
+import { playKapitel1, playKapitel2, playKapitel3, playKapitel4, playProlog, switchTo } from './walkthrough';
 
-test('Komplett-Durchlauf nach LOESUNGSBUCH.md: Prolog bis Beginn Kapitel 3', async ({ page }) => {
+test('Komplett-Durchlauf nach LOESUNGSBUCH.md: Prolog bis Beginn Kapitel 5', async ({ page }) => {
+  const errors = watchErrors(page);
+  await openGame(page);
+  await playProlog(page);
+  await playKapitel1(page);
+  await playKapitel2(page);
+  await playKapitel3(page);
+  await playKapitel4(page);
+  expect(errors).toEqual([]);
+});
+
+test('Kapitel 3: Sperren halten, Gags haben keine Folgen, nichts geht verloren', async ({ page }) => {
   const errors = watchErrors(page);
   await openGame(page);
   await playProlog(page);
   await playKapitel1(page);
   await playKapitel2(page);
 
-  // Figurenwechsel: Marty wartet in seinem Uhrwerk, die Stadt ist wieder Hill Valley.
-  const marty = await page.evaluate(() => window.__hv.portraits().find((p) => p.id === 'marty')!);
-  await clickGame(page, marty);
-  await waitIdle(page);
-  const room = await page.evaluate(() => window.__hv.room());
-  expect(room.id).toBe('uhrwerk');
-  expect(room.era).toBe(1986);
+  // Whisky: Doc wacht in der Schmiede auf, ohne Folgen.
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_saloon', 'saloon');
+  await talk(page, 'buford', ['Einen Whisky']);
+  expect(await page.evaluate(() => window.__hv.room().id)).toBe('schmiede');
+  expect(await flag(page, 'doc_trinkt')).toBeFalsy();
+
+  // Handschrift: Doc kann es nicht selbst schreiben.
+  await act(page, 'nimm', 'bleistift');
+  await act(page, 'nimm', 'streichhoelzer');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_festplatz', 'festplatz');
+  await act(page, 'nimm', 'festprogramm');
+  await useItem(page, 'bleistift', 'festprogramm', 'item');
+  expect(await lastSpeech(page)).toContain('Handschrift');
+  expect(await inventoryOf(page)).toContain('festprogramm');
+
+  // Knallfrosch zünden geht nur im Mietstall bei Buford.
+  await talk(page, 'clara', ['Riecht', 'Ich muss']);
+  await giveItem(page, 'kuchen', 'feuerwerker');
+  await useItem(page, 'streichhoelzer', 'knallfrosch', 'item');
+  expect(await inventoryOf(page)).toContain('knallfrosch');
+  expect(await lastSpeech(page)).toContain('Nicht hier');
+
+  // Marty: Grundstein massiv, solange Doc 1885 nichts eingemauert hat.
+  await switchTo(page, 'marty');
   await go(page, 'treppe', 'turmeingang');
   await go(page, 'tuer', 'rathausplatz');
-  expect((await page.evaluate(() => window.__hv.room())).background).toBe('backgrounds/rathausplatz_1986.png');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  await act(page, 'nimm', 'brecheisen');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_turm', 'rathausplatz');
+  await useItem(page, 'brecheisen', 'grundstein');
+  expect(await lastSpeech(page)).toContain('massiver Stein');
+  expect(await flag(page, 'grundstein_aufgebrochen')).toBeFalsy();
+  await act(page, 'schauan', 'grundstein');
+  expect(await lastSpeech(page)).toBe('Massiver Stein von 1885. Was sollte da drin sein?');
+
+  // Ohne den gelesenen Brief hat Marty keinen Grund für die Sicherung.
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  await act(page, 'oeffne', 'sicherungskasten');
+  await act(page, 'nimm', 'sicherung');
+  expect(await inventoryOf(page)).not.toContain('sicherung');
+
+  // Sendung ins falsche Jahr: Das Wählrad steht noch auf 1955, die Sicherung bleibt bei Marty.
+  await page.keyboard.press('F9');
+  await page.selectOption('#hv-debug-item', 'sicherung');
+  await page.click('#hv-debug-give');
+  await page.keyboard.press('F9');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_turm', 'rathausplatz');
+  await go(page, 'turmtuer', 'turmeingang');
+  await go(page, 'treppe', 'uhrwerk');
+  await useItem(page, 'sicherung', 'chronopost');
+  expect(await lastSpeech(page)).toContain('das Wählrad steht aber anders');
+  expect(await inventoryOf(page)).toContain('sicherung');
+  expect(errors).toEqual([]);
+});
+
+test('Kapitel 4: Einstein und Doc in falscher Reihenfolge', async ({ page }) => {
+  const errors = watchErrors(page);
+  await openGame(page);
+  await playProlog(page);
+  await playKapitel1(page);
+  await playKapitel2(page);
+  await playKapitel3(page);
+
+  // Kapitel 4: Einstein holt den Schlüssel erst, wenn Biff abgelenkt ist.
+  await go(page, 'treppe', 'turmeingang');
+  await go(page, 'tuer', 'rathausplatz');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  await giveItem(page, 'wachstuch', 'einstein');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_haus', 'vorgarten');
+  await act(page, 'nimm', 'schluesselbund');
+  expect(await lastSpeech(page)).toContain('Allein komme ich da nicht heran');
+  await act(page, 'redemit', 'einstein');
+  expect(await flag(page, 'einstein_apportiert')).toBeFalsy();
+  await act(page, 'nimm', 'wachsdose');
+  await go(page, 'veranda', 'veranda');
+  await talk(page, 'jennifer', ['Kannst du']);
+  await go(page, 'treppe', 'vorgarten');
+  await act(page, 'redemit', 'einstein');
+  await act(page, 'nimm', 'sendeschluessel');
+  // Einstein bleibt in 1986: Er ist wieder im Labor.
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).toContain('einstein');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_turm', 'rathausplatz');
+  await go(page, 'turmtuer', 'turmeingang');
+  await go(page, 'treppe', 'uhrwerk');
+
+  // Mr. Fusion bleibt, solange der Schlüssel nicht steckt.
+  await act(page, 'ziehe', 'fusion_im_kasten');
+  expect(await inventoryOf(page)).not.toContain('mr_fusion');
+  await useItem(page, 'sendeschluessel', 'chronopost');
+  // Schritt 8 und 9 in umgekehrter Reihenfolge.
+  await act(page, 'ziehe', 'fusion_im_kasten');
+  expect(await flag(page, 'zug_da')).toBeFalsy();
+  await act(page, 'nimm', 'brief_2015');
+  expect(await flag(page, 'zug_da')).toBe(true);
+
+  // Doc: Ohne Energie kein Start, leerer Mr. Fusion reicht nicht.
+  await giveItem(page, 'brief_2015', 'doc');
+  expect(await inventoryOf(page)).toContain('brief_2015');
+  await giveItem(page, 'mr_fusion', 'doc');
+  expect(await inventoryOf(page)).toContain('mr_fusion');
+  await useItem(page, 'wachsdose', 'mr_fusion', 'item');
+  await giveItem(page, 'mr_fusion', 'doc');
+  await giveItem(page, 'brief_2015', 'doc');
+  expect(await page.evaluate(() => window.__hv.state().chapter)).toBe(5);
   expect(errors).toEqual([]);
 });
 

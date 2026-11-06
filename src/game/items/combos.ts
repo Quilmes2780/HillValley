@@ -63,6 +63,54 @@ export const COMBOS: readonly Combo[] = [
   { a: 'kupferspule', b: 'zigarrenkiste', run: einbauen('kupferspule', 'kiste_hat_spule') },
   { a: 'roehre', b: 'zigarrenkiste', run: einbauen('roehre', 'kiste_hat_roehre') },
 
+  // Kapitel 3
+  {
+    a: 'bleistift',
+    b: 'festprogramm',
+    run: async (g) => {
+      await g.say('say.k3.handschrift');
+    },
+  },
+  {
+    a: 'bleistift',
+    b: 'biffs_brief',
+    run: async (g) => {
+      if (!g.getFlag('flux_eingebaut')) {
+        await g.say('say.k3.nachricht_noch_nicht');
+        return;
+      }
+      g.removeItem('biffs_brief');
+      g.addItem('nachricht');
+      g.setFlag('nachricht_geschrieben');
+      await g.say('say.k3.nachricht_geschrieben');
+    },
+  },
+  {
+    a: 'streichhoelzer',
+    b: 'knallfrosch',
+    run: async (g) => {
+      const here = g.state.characters[g.state.activeCharacter].room;
+      if (here !== 'mietstall' || !g.getFlag('buford_im_stall')) {
+        await g.say('say.k3.frosch_nicht_hier');
+        return;
+      }
+      g.removeItem('knallfrosch');
+      g.addItem('knallfrosch_brennend');
+      await g.say('say.k3.frosch_brennt');
+    },
+  },
+
+  // Kapitel 4
+  {
+    a: 'wachsdose',
+    b: 'mr_fusion',
+    run: async (g) => {
+      g.removeItem('wachsdose');
+      g.setFlag('fusion_gefuettert');
+      await g.say('say.k4.fusion_gefuettert');
+    },
+  },
+
   // Testräume
   {
     a: 'apfel',

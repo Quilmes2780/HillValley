@@ -73,8 +73,8 @@ export const cafe: RoomDef = {
             id: 'lou',
             name: 'hotspot.lou',
             area: rect(136, 40, 28, 28),
-            walkTo: [150, 106],
-            face: 'hinten',
+            walkTo: [178, 106],
+            face: 'links',
             defaultVerb: 'redemit',
             comments: { schauan: 'say.k2.lou_schau' },
             verbs: {

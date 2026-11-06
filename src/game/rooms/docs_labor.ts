@@ -12,6 +12,18 @@ const fuettern: Script = async (g) => {
   g.setFlag('einstein_satt');
 };
 
+/** Kapitel 4: Einstein nimmt Biffs Fährte auf und folgt Marty. */
+const faehrte: Script = async (g) => {
+  if (g.state.chapter < 4) {
+    await g.say('say.k4.faehrte_noch_nicht');
+    return;
+  }
+  g.removeItem('wachstuch');
+  await g.sayAs('einstein', 'say.prolog.einstein_bellt');
+  g.setFlag('einstein_folgt');
+  await g.say('say.k4.faehrte');
+};
+
 const gitarrenGag: Script = async (g) => {
   await g.cutscene(async () => {
     await g.say('say.prolog.labor_gag_1');
@@ -56,7 +68,7 @@ function einsteinHotspot(area: Polygon, walkTo: readonly [number, number], satt:
     walkTo,
     face: 'links',
     defaultVerb: 'redemit',
-    visible: (s) => Boolean(s.flags.einstein_satt) === satt,
+    visible: (s) => Boolean(s.flags.einstein_satt) === satt && !s.flags.einstein_folgt,
     verbs: {
       schauan: async (g) => {
         if (satt) {
@@ -72,7 +84,7 @@ function einsteinHotspot(area: Polygon, walkTo: readonly [number, number], satt:
         await g.sayAs('einstein', 'say.prolog.einstein_bellt');
       },
     },
-    useWith: satt ? undefined : { hundefutter: fuettern },
+    useWith: satt ? { wachstuch: faehrte } : { hundefutter: fuettern },
     comments: { nimm: 'say.prolog.einstein_nimm' },
   };
 }
@@ -89,7 +101,7 @@ export const docsLabor: RoomDef = {
         scale: { yFar: 92, sFar: 0.88, yNear: 140, sNear: 1 },
         actors: [
           { id: 'einstein', x: 52, y: 128, face: 'rechts', visible: (s) => !s.flags.einstein_satt },
-          { id: 'einstein', x: NAPF[0], y: NAPF[1], face: 'links' },
+          { id: 'einstein', x: NAPF[0], y: NAPF[1], face: 'links', visible: (s) => !s.flags.einstein_folgt },
         ],
         hotspots: [
           {
@@ -103,7 +115,8 @@ export const docsLabor: RoomDef = {
               room: 'stadtplan',
               at: [24, 100],
               guard: async (g) => {
-                if (g.state.timeline.tannenburg) return true;
+                // Die Sperre und die Zeitwelle gehören nur zum Prolog.
+                if (g.state.chapter >= 1) return true;
                 if (!g.hasItem('docs_brief') || !g.hasItem('notizbuch') || !g.hasItem('mr_fusion')) {
                   await g.say('say.prolog.labor_noch_nicht');
                   return false;
@@ -288,6 +301,84 @@ export const docsLabor: RoomDef = {
               },
             },
             useWith: { hundefutter: fuettern },
+          },
+          {
+            id: 'brecheisen',
+            name: 'item.brecheisen.name',
+            area: rect(42, 58, 8, 30),
+            walkTo: [46, 96],
+            face: 'hinten',
+            visible: (s) => s.chapter >= 3 && !s.flags.brecheisen_genommen,
+            sprite: { key: 'backgrounds/sprites/brecheisen.png', x: 43, y: 59 },
+            comments: { schauan: 'say.k3.labor_brecheisen' },
+            verbs: {
+              nimm: pickup((g) => {
+                g.setFlag('brecheisen_genommen');
+                g.addItem('brecheisen');
+              }),
+            },
+          },
+          {
+            id: 'sicherungskasten',
+            name: 'hotspot.sicherungskasten',
+            area: rect(236, 12, 22, 30),
+            walkTo: [248, 96],
+            face: 'hinten',
+            defaultVerb: 'oeffne',
+            sprite: {
+              key: 'backgrounds/sprites/sicherungskasten.png',
+              x: 236,
+              y: 12,
+              when: (s) => !s.flags.sicherungskasten_offen,
+            },
+            comments: { schauan: 'say.k3.labor_kasten' },
+            verbs: {
+              oeffne: async (g) => {
+                if (g.state.chapter < 3) await g.say('say.k3.labor_kasten_noch_nicht');
+                else if (g.getFlag('sicherungskasten_offen')) await g.say('say.prolog.schon_offen');
+                else g.setFlag('sicherungskasten_offen');
+              },
+              schliesse: async (g) => {
+                if (g.getFlag('sicherungskasten_offen')) g.setFlag('sicherungskasten_offen', false);
+                else await g.say('say.prolog.schon_zu');
+              },
+            },
+          },
+          {
+            id: 'kasten_innen',
+            name: 'hotspot.sicherungskasten',
+            area: rect(236, 12, 22, 30),
+            walkTo: [248, 96],
+            face: 'hinten',
+            visible: (s) => !!s.flags.sicherungskasten_offen,
+            sprite: { key: 'backgrounds/sprites/sicherungskasten_offen.png', x: 236, y: 12 },
+            comments: { schauan: 'say.k3.labor_kasten_innen' },
+            verbs: {
+              schliesse: async (g) => {
+                g.setFlag('sicherungskasten_offen', false);
+              },
+            },
+          },
+          {
+            id: 'sicherung',
+            name: 'item.sicherung.name',
+            area: rect(238, 14, 14, 8),
+            walkTo: [248, 96],
+            face: 'hinten',
+            visible: (s) => !!s.flags.sicherungskasten_offen && !s.flags.sicherung_genommen,
+            sprite: { key: 'backgrounds/sprites/sicherung.png', x: 240, y: 15 },
+            comments: { schauan: 'say.k3.labor_sicherung_schau' },
+            verbs: {
+              nimm: async (g) => {
+                if (!g.getFlag('gelber_brief_gelesen')) {
+                  await g.say('say.k3.labor_sicherung_wozu');
+                  return;
+                }
+                await g.playAnim('pickup');
+                g.setFlag('sicherung_genommen');
+                g.addItem('sicherung');
+              },
+            },
           },
           einsteinHotspot(rect(38, 104, 28, 25), [76, 130], false),
           einsteinHotspot(rect(82, 104, 28, 25), [120, 130], true),

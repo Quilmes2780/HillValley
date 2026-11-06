@@ -6,6 +6,7 @@ import { buildItems } from './items.ts';
 import { buildBackgrounds } from './backgrounds.ts';
 import { buildCharacters } from './characters.ts';
 import { buildK1K2Backgrounds } from './k1k2.ts';
+import { buildK3K4Backgrounds } from './k3k4.ts';
 import { buildPrologBackgrounds } from './prolog.ts';
 
 const DIR = 'assets';
@@ -17,5 +18,6 @@ buildItems(DIR);
 buildBackgrounds(DIR);
 buildPrologBackgrounds(DIR);
 buildK1K2Backgrounds(DIR);
+buildK3K4Backgrounds(DIR);
 buildCharacters(DIR);
 console.log('Grafiken erzeugt.');

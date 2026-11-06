@@ -96,6 +96,15 @@ export class Actor {
     }
   }
 
+  /** Stellt die Figur sofort woanders hin, z. B. wenn der Spielstand ihren Platz ändert. */
+  place(x: number, y: number, dir: Dir): void {
+    this.stop();
+    this.sprite.setPosition(x, y);
+    this.dir = dir;
+    this.applyDepth();
+    this.showIdle();
+  }
+
   face(dir: Dir): void {
     this.dir = dir;
     if (this.talking) this.startTalking();

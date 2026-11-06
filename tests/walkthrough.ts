@@ -2,6 +2,7 @@ import { expect, type Page } from '@playwright/test';
 import {
   act,
   allSpeech,
+  clickGame,
   clickHotspot,
   clickItem,
   clickVerb,
@@ -187,4 +188,174 @@ export async function playKapitel2(page: Page): Promise<void> {
   expect(end.chronopost.mode).toBe('verstaerkt');
   expect(end.unlockedCharacters).toEqual(expect.arrayContaining(['marty', 'doc_jung']));
   expect(await allSpeech(page)).toContain('Sitze 1885 fest');
+  expect(end.activeCharacter).toBe('doc');
+  expect(await page.evaluate(() => window.__hv.room().id)).toBe('abstellgleis');
+}
+
+/** Wechselt per Porträt-Button die Figur. */
+export async function switchTo(page: Page, id: string): Promise<void> {
+  const portrait = await page.evaluate((who) => window.__hv.portraits().find((p) => p.id === who), id);
+  if (!portrait) throw new Error(`Kein Porträt für ${id}`);
+  await clickGame(page, portrait);
+  await waitIdle(page);
+  expect(await page.evaluate(() => window.__hv.state().activeCharacter)).toBe(id);
+}
+
+export async function playKapitel3(page: Page): Promise<void> {
+  // A – Lage klären (Doc)
+  await act(page, 'schauan', 'zeitzug'); // 1
+  expect(await lastSpeech(page)).toContain('Der Fluxkompensator fehlt');
+  await talk(page, 'verne', ['Was ist in der', 'Passt gut']); // 2
+  expect(await allSpeech(page)).toContain('blinkende Kiste');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_saloon', 'saloon');
+  await talk(page, 'barkeeper', ['Hat Buford', 'Wie kommt', 'Danke']); // 3
+  expect(await allSpeech(page)).toContain('Gürtel');
+  await talk(page, 'buford', ['Ich trinke']); // 4
+
+  // B – Die Herausforderung (Doc)
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_schmiede', 'schmiede');
+  await act(page, 'nimm', 'streichhoelzer'); // 5
+  await act(page, 'nimm', 'bleistift');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_festplatz', 'festplatz');
+  await act(page, 'nimm', 'festprogramm'); // 6
+  await talk(page, 'clara', ['Riecht', 'Ich muss']); // 7
+  expect(await inventoryOf(page)).toContain('kuchen');
+  await giveItem(page, 'festprogramm', 'clara'); // 8
+  expect(await inventoryOf(page)).toContain('herausforderung');
+  await giveItem(page, 'kuchen', 'feuerwerker'); // 9
+  expect(await inventoryOf(page)).toContain('knallfrosch');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_saloon', 'saloon');
+  await giveItem(page, 'herausforderung', 'buford'); // 10
+  expect(await flag(page, 'buford_im_stall')).toBe(true);
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).not.toContain('buford');
+
+  // C – Der Misthaufen (Doc)
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_stall', 'mietstall');
+  await useItem(page, 'streichhoelzer', 'knallfrosch', 'item'); // 11
+  expect(await inventoryOf(page)).toContain('knallfrosch_brennend');
+  await useItem(page, 'knallfrosch_brennend', 'pferd'); // 12
+  expect(await flag(page, 'buford_im_mist')).toBe(true);
+  // Buford steht nach dem Sturz neben dem Haufen, nicht mehr in Reithöhe.
+  expect((await page.evaluate(() => window.__hv.actor('buford')!)).y).toBe(112);
+  await act(page, 'nimm', 'fluxkompensator'); // 13
+  await act(page, 'nimm', 'knitterbrief');
+  expect(await inventoryOf(page)).toEqual(expect.arrayContaining(['fluxkompensator', 'biffs_brief']));
+
+  // D – Nachricht an die Zukunft (Doc)
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_gleis', 'abstellgleis');
+  await useItem(page, 'fluxkompensator', 'zeitzug'); // 14
+  expect(await lastSpeech(page)).toContain('30-Ampere-Sicherung');
+  await useItem(page, 'bleistift', 'biffs_brief', 'item'); // 15
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_festplatz', 'festplatz');
+  await act(page, 'schauan', 'grundstein'); // 16
+  expect(await lastSpeech(page)).toContain('noch offen');
+  await useItem(page, 'nachricht', 'grundstein');
+  expect(await flag(page, 'grundstein_zu')).toBe(true);
+
+  // E – Die Sicherung (Marty, Figurenwechsel)
+  await switchTo(page, 'marty');
+  expect(await page.evaluate(() => window.__hv.room().id)).toBe('uhrwerk');
+  await go(page, 'treppe', 'turmeingang');
+  await go(page, 'tuer', 'rathausplatz');
+  expect((await page.evaluate(() => window.__hv.room())).background).toBe('backgrounds/rathausplatz_1986.png');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  await act(page, 'nimm', 'brecheisen'); // 17
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_turm', 'rathausplatz');
+  await useItem(page, 'brecheisen', 'grundstein'); // 18
+  await act(page, 'nimm', 'gelber_brief');
+  await clickVerb(page, 'schauan');
+  await clickItem(page, 'vergilbter_brief');
+  await waitIdle(page);
+  expect(await allSpeech(page)).toContain('30-Ampere-Sicherung');
+  expect(await lastSpeech(page)).toContain('Enkels Brix aus dem Jahr 2015');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  await act(page, 'oeffne', 'sicherungskasten'); // 19
+  await act(page, 'nimm', 'sicherung');
+  expect(await inventoryOf(page)).toContain('sicherung');
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_turm', 'rathausplatz');
+  await go(page, 'turmtuer', 'turmeingang');
+  await go(page, 'treppe', 'uhrwerk');
+  await act(page, 'druecke', 'waehlrad'); // 20
+  expect((await page.evaluate(() => window.__hv.state().chronopost)).year).toBe(1885);
+  await useItem(page, 'sicherung', 'chronopost');
+  await act(page, 'ziehe', 'sendehebel');
+  expect(await flag(page, 'sicherung_gesendet')).toBe(true);
+
+  // F – Abfahrt (Doc)
+  await switchTo(page, 'doc');
+  await go(page, 'geruest', 'uhrwerk');
+  expect((await page.evaluate(() => window.__hv.room())).era).toBe(1885);
+  await act(page, 'nimm', 'sicherung_fach'); // 21
+  await go(page, 'leiter', 'festplatz');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_gleis', 'abstellgleis');
+  await useItem(page, 'sicherung', 'zeitzug'); // 22
+  expect(await page.evaluate(() => window.__hv.state().photoStage)).toBe(3);
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_festplatz', 'festplatz');
+  await act(page, 'redemit', 'clara'); // 23
+  const s = await page.evaluate(() => window.__hv.state());
+  expect(s.chapter).toBe(4);
+  expect(s.activeCharacter).toBe('marty');
+  expect(s.unlockedCharacters).toEqual(['marty']);
+  expect(await allSpeech(page)).toContain('Das zahl ich dir heim');
+}
+
+export async function playKapitel4(page: Page): Promise<void> {
+  expect(await page.evaluate(() => window.__hv.room().id)).toBe('uhrwerk');
+  await go(page, 'treppe', 'turmeingang');
+  await go(page, 'tuer', 'rathausplatz');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_haus', 'vorgarten');
+  await act(page, 'schauan', 'biff'); // 1
+  expect(await lastSpeech(page)).toContain('Schlüsselbund');
+  await talk(page, 'biff', []);
+  expect(await allSpeech(page)).toContain('Komm und hol ihn dir');
+  await act(page, 'nimm', 'wachsdose'); // 2
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_labor', 'docs_labor');
+  await giveItem(page, 'wachstuch', 'einstein'); // 3
+  expect(await flag(page, 'einstein_folgt')).toBe(true);
+  await go(page, 'tuer', 'stadtplan');
+  await go(page, 'plan_haus', 'vorgarten');
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).toContain('einstein');
+  await go(page, 'veranda', 'veranda');
+  await talk(page, 'jennifer', ['Kannst du']); // 4
+  expect(await flag(page, 'jennifer_lenkt_ab')).toBe(true);
+  await go(page, 'treppe', 'vorgarten');
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).toContain('jennifer');
+  await act(page, 'redemit', 'einstein'); // 5
+  expect(await flag(page, 'einstein_apportiert')).toBe(true);
+  await act(page, 'nimm', 'sendeschluessel'); // 6
+  expect(await inventoryOf(page)).toContain('sendeschluessel');
+  await go(page, 'strasse', 'stadtplan');
+  await go(page, 'plan_turm', 'rathausplatz');
+  await go(page, 'turmtuer', 'turmeingang');
+  await go(page, 'treppe', 'uhrwerk');
+  await useItem(page, 'sendeschluessel', 'chronopost'); // 7
+  expect((await page.evaluate(() => window.__hv.state().chronopost)).mode).toBe('schluessel');
+  await act(page, 'nimm', 'brief_2015'); // 8
+  expect(await lastSpeech(page)).toContain('16:29');
+  await act(page, 'ziehe', 'fusion_im_kasten'); // 9 und 10: Doc kommt zurück
+  expect(await page.evaluate(() => window.__hv.room().id)).toBe('rathausplatz');
+  expect(await flag(page, 'zug_da')).toBe(true);
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).toContain('doc');
+  await act(page, 'redemit', 'doc'); // 11
+  expect(await lastSpeech(page)).toContain('Energie');
+  await useItem(page, 'wachsdose', 'mr_fusion', 'item'); // 12
+  await giveItem(page, 'mr_fusion', 'doc');
+  await giveItem(page, 'brief_2015', 'doc'); // 13
+  expect(await page.evaluate(() => window.__hv.state().chapter)).toBe(5);
+  expect(await allSpeech(page)).toContain('21. Oktober 2015');
 }

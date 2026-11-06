@@ -70,6 +70,35 @@ export const ITEMS: readonly ItemDef[] = [
   plain('mappe'),
   plain('verstaerker'),
 
+  // Kapitel 3
+  plain('streichhoelzer'),
+  plain('bleistift'),
+  plain('festprogramm'),
+  plain('kuchen'),
+  plain('herausforderung'),
+  plain('knallfrosch'),
+  plain('knallfrosch_brennend'),
+  plain('fluxkompensator'),
+  plain('biffs_brief'),
+  plain('nachricht'),
+  plain('brecheisen'),
+  {
+    ...plain('vergilbter_brief'),
+    verbs: {
+      schauan: async (g) => {
+        g.setFlag('gelber_brief_gelesen');
+        await g.say('item.vergilbter_brief.rueckseite');
+        await g.say('item.vergilbter_brief.vorderseite');
+      },
+    },
+  },
+  plain('sicherung'),
+
+  // Kapitel 4
+  plain('wachsdose'),
+  plain('sendeschluessel'),
+  plain('brief_2015'),
+
   // Gegenstände der Testräume (Engine-Szenario)
   plain('apfel'),
   plain('schachtel'),

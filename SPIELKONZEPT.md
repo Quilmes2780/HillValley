@@ -212,6 +212,7 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |
 | Rathausplatz 1955 | Lous Café und Radioladen mit Türen direkt am Platz |
 | Verstärker (K2) | Einbau erst nach der verbrannten Erfindungsmappe |
+| Zeitzug | Neutraler Platzhalter unter `assets/characters/zeitzug/zeitzug.png` (160×48), austauschbar ohne Codeänderung |
 
 ---
 

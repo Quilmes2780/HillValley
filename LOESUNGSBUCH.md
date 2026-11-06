@@ -146,6 +146,8 @@
 
 **Ziel:** Das gestohlene Bauteil von Buford zurückholen und den Zeitzug reparieren.
 
+*Wege:* Abstellgleis, Saloon, Schmiede, Festplatz und Mietstall über den Stadtplan von 1885. Das Gerüst geht vom Festplatz ab. Die Porträts rechts unten wechseln die Figur.
+
 ### A – Lage klären (Doc)
 1. **Abstellgleis:** *Schau an* Zeitzug → Der Fluxkompensator fehlt.
 2. *Rede mit* Verne → Bufords Leute haben „die blinkende Kiste“ mitgenommen.
@@ -184,6 +186,7 @@
 
 > Der Grundstein in 1986 ist bis Schritt 16 massiv („Massiver Stein von 1885. Was sollte da drin sein?“).
 > A, B und Schritt 17 in beliebiger Reihenfolge.
+> Weitere Sperren: Den Knallfrosch zündet Doc nur im Mietstall, wenn Buford dort sitzt (sonst Kommentar). Die Nachricht lässt sich erst schreiben, wenn Doc nach Schritt 14 weiß, was fehlt. Marty nimmt die Sicherung erst, nachdem er den vergilbten Brief gelesen hat (Schau an). Sie geht nur nach 1885, wenn das Wählrad dort steht (Schritt 20).
 
 ---
 
@@ -192,6 +195,8 @@
 **Räume:** Vorgarten · Martys Veranda · Docs Labor · Rathausplatz · Uhrwerk
 
 **Ziel:** Den Sendeschlüssel von Biff zurückholen, Brix' Plan aufdecken, nach 2015 aufbrechen.
+
+*Wege:* Die Veranda erreicht man ab Kapitel 4 vom Vorgarten aus.
 
 1. **Vorgarten:** *Schau an* Biff → Er wachst wieder Georges Auto. Sein Schlüsselbund mit dem Sendeschlüssel hängt am Rückspiegel. *Rede mit* Biff → Er lacht Marty aus.
 2. *Nimm* leere Wachsdose (neben dem Auto).
@@ -207,7 +212,7 @@
 12. *Benutze* Wachsdose *mit* Mr. Fusion → *Gib* Mr. Fusion *an* Doc.
 13. *Gib* Brief aus 2015 *an* Doc → Er stellt den Zug auf den 21.10.2015, eine Stunde vor dem Absenden. Jennifer kommt mit. **Kapitel 5 beginnt.**
 
-> Schritte 1–3 in beliebiger Reihenfolge. Einstein bleibt danach in 1986.
+> Schritte 1–3 in beliebiger Reihenfolge. Einstein bleibt danach in 1986. Schritte 8 und 9 sind frei in der Reihenfolge; Schritt 10 läuft, sobald beide erledigt sind. Mr. Fusion lässt sich erst ziehen, wenn der Schlüssel steckt. Doc nimmt den Brief erst, wenn der Zug mit gefüttertem Mr. Fusion Energie hat.
 
 ---
 

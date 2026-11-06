@@ -95,6 +95,40 @@ export const stadtplan: RoomDef = {
         ],
       },
     ],
+    1885: [
+      {
+        background: 'backgrounds/stadtplan_1885.png',
+        walkable: [],
+        hidePlayer: true,
+        hotspots: [
+          target('plan_gleis', rect(216, 94, 48, 22), 'say.k3.plan_gleis', {
+            room: 'abstellgleis',
+            at: [296, 124],
+            face: 'links',
+          }),
+          target('plan_saloon', rect(48, 30, 50, 32), 'say.k3.plan_saloon', {
+            room: 'saloon',
+            at: [287, 106],
+            face: 'links',
+          }),
+          target('plan_schmiede', rect(214, 30, 36, 36), 'say.k3.plan_schmiede', {
+            room: 'schmiede',
+            at: [287, 100],
+            face: 'links',
+          }),
+          target('plan_festplatz', rect(124, 12, 60, 44), 'say.k3.plan_festplatz', {
+            room: 'festplatz',
+            at: [296, 120],
+            face: 'links',
+          }),
+          target('plan_stall', rect(26, 74, 54, 34), 'say.k3.plan_stall', {
+            room: 'mietstall',
+            at: [296, 122],
+            face: 'links',
+          }),
+        ],
+      },
+    ],
     1955: [
       {
         background: 'backgrounds/stadtplan_1955.png',

@@ -77,6 +77,41 @@
       "folder": "biff_jung",
       "textColor": "gruen7",
       "portrait": "biff_jung_portrait.png"
+    },
+    "buford": {
+      "folder": "buford",
+      "textColor": "rot6",
+      "portrait": "buford_portrait.png"
+    },
+    "barkeeper": {
+      "folder": "barkeeper",
+      "textColor": "sand1",
+      "portrait": "barkeeper_portrait.png"
+    },
+    "verne": {
+      "folder": "verne",
+      "textColor": "tuerkis6",
+      "portrait": "verne_portrait.png"
+    },
+    "jules": {
+      "folder": "jules",
+      "textColor": "blau8",
+      "portrait": "jules_portrait.png"
+    },
+    "clara": {
+      "folder": "clara",
+      "textColor": "pink4",
+      "portrait": "clara_portrait.png"
+    },
+    "feuerwerker": {
+      "folder": "feuerwerker",
+      "textColor": "orange3",
+      "portrait": "feuerwerker_portrait.png"
+    },
+    "maurer": {
+      "folder": "maurer",
+      "textColor": "grau6",
+      "portrait": "maurer_portrait.png"
     }
   }
 }
