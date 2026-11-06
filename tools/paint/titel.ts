@@ -1,4 +1,4 @@
-import { drawText } from '../pixel/font.ts';
+import { drawText } from '../pixel/schild.ts';
 import { Canvas } from '../pixel/png.ts';
 import * as K from './kit.ts';
 import { clamp01, fbm, hex, mix, noise, type Picture, ramp, shade, smooth, type RGB } from './painter.ts';

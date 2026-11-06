@@ -1,5 +1,5 @@
 import { mkdirSync } from 'node:fs';
-import { drawText } from './font.ts';
+import { drawText } from './schild.ts';
 import { C } from './palette.ts';
 import { Canvas, saveReplaceable } from './png.ts';
 

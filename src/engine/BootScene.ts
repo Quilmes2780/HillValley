@@ -10,6 +10,9 @@ import { assetKey } from './RoomManager';
 const UI_IMAGES = [
   'panel',
   'panel_plain',
+  'key_hover',
+  'key_selected',
+  'slot_hover',
   'arrow_up',
   'arrow_down',
   'arrow_up_off',

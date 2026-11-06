@@ -1,9 +1,9 @@
 import { Story } from 'inkjs';
 import Phaser from 'phaser';
-import { colorValue } from '../../tools/pixel/palette';
 import type { FlagName } from '../game/flags';
 import type { CharacterId } from '../game/state';
 import type { GameScene } from './GameScene';
+import { UI_AMBER, UI_TEXT } from './theme';
 import type { ScriptApi } from './types';
 import { UI_DEPTH } from './VerbUI';
 
@@ -14,8 +14,8 @@ const MAX_WIDTH = 312;
 const LEFT = 4;
 const TOP = 155;
 const ROW_H = 11;
-const COLOR_NORMAL = colorValue('tuerkis5');
-const COLOR_HOVER = colorValue('gelb3');
+const COLOR_NORMAL = UI_TEXT;
+const COLOR_HOVER = UI_AMBER;
 
 /** Spielt .ink-Dialoge ab: Zeilen über den Köpfen, Antworten anstelle der Verbleiste. */
 export class Dialog {

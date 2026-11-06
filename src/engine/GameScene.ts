@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { colorValue } from '../../tools/pixel/palette';
+import { UI_AMBER, UI_TEXT } from './theme';
 import { musicFor, SPEECH_SFX } from '../game/audio';
 import { COMBOS } from '../game/items/combos';
 import { ITEMS } from '../game/items/items';
@@ -278,7 +278,7 @@ export class GameScene extends Phaser.Scene {
       .bitmapText(160, 200, 'hv', text, 10)
       .setCenterAlign()
       .setOrigin(0.5, 0)
-      .setTint(colorValue('tuerkis6'))
+      .setTint(UI_TEXT)
       .setScrollFactor(0)
       .setDepth(depth + 1);
     return new Promise((resolve) => {
@@ -308,7 +308,7 @@ export class GameScene extends Phaser.Scene {
       this.add
         .bitmapText(160, subtitle ? 88 : 100, 'hv', title, 10)
         .setOrigin(0.5, 0.5)
-        .setTint(colorValue('gelb2'))
+        .setTint(UI_AMBER)
         .setScrollFactor(0)
         .setDepth(depth + 1),
     ];
@@ -317,7 +317,7 @@ export class GameScene extends Phaser.Scene {
         this.add
           .bitmapText(160, 104, 'hv', subtitle, 10)
           .setOrigin(0.5, 0.5)
-          .setTint(colorValue('tuerkis6'))
+          .setTint(UI_TEXT)
           .setScrollFactor(0)
           .setDepth(depth + 1),
       );
@@ -452,12 +452,14 @@ export class GameScene extends Phaser.Scene {
     const blocked = this.runner.busy || this.dialog.choosing || this.saveMenu.open;
     this.cursor.setVisible(!this.runner.busy || this.dialog.choosing);
     if (blocked) {
+      this.inventoryUi.setHover(null);
       if (this.lockedSentence === null) this.verbUi.setSentence('');
       else this.verbUi.setSentence(this.lockedSentence);
       return;
     }
     const target = this.targetAt(this.pointerX, this.pointerY);
     this.interaction.hover = target;
+    this.inventoryUi.setHover(target?.kind === 'item' ? target.id : null);
     this.verbUi.setSentence(this.lockedSentence ?? this.interaction.sentence());
     const hoveredVerb: Verb | null = this.verbUi.hit(this.pointerX, this.pointerY);
     const fallback = target && !this.interaction.verb ? this.interaction.defaultVerbOf(target) : null;

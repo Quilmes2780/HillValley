@@ -1,14 +1,14 @@
 import Phaser from 'phaser';
-import { colorValue } from '../../tools/pixel/palette';
 import type { GameState } from '../game/state';
 import { ROOMS } from '../game/rooms';
 import { audio } from './Audio';
 import { t } from './i18n';
 import { SaveSystem, SLOT_COUNT } from './SaveSystem';
+import { UI_AMBER, UI_DIM, UI_TEXT } from './theme';
 
-const COLOR_NORMAL = colorValue('tuerkis5');
-const COLOR_HOVER = colorValue('gelb3');
-const COLOR_DIM = colorValue('grau5');
+const COLOR_NORMAL = UI_TEXT;
+const COLOR_HOVER = UI_AMBER;
+const COLOR_DIM = UI_DIM;
 const ROW_H = 10;
 
 interface Row {

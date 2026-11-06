@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import * as H from './haus.ts';
+import { ITEM_ICONS } from './items.ts';
 import { savePicture, type Picture } from './painter.ts';
 import { paintRathausplatz } from './rathausplatz.ts';
 import * as S from './schule.ts';
@@ -7,11 +8,12 @@ import * as Sp from './sprites.ts';
 import { paintStadtplan } from './stadtplan.ts';
 import { paintTitel } from './titel.ts';
 import * as T from './turm.ts';
+import * as U from './ui.ts';
 import * as We from './westen.ts';
 import * as Z from './zukunft.ts';
 
 /**
- * Malt alle Hintergründe und großen Sprites. Eigene Bilder haben Vorrang: Eine Datei, die schon
+ * Malt alle Hintergründe, großen Sprites, die Oberfläche und die Gegenstände. Eigene Bilder haben Vorrang: Eine Datei, die schon
  * da ist, bleibt liegen, solange nicht `-- --force` übergeben wird.
  *
  * `npm run paint -- raumname` malt nur Bilder, deren Name den Text enthält (und überschreibt sie).
@@ -84,6 +86,21 @@ const SPRITES: Record<string, () => Picture> = {
   kofferraum_offen: Sp.kofferraumOffen,
 };
 
+const UI: Record<string, () => Picture> = {
+  panel: U.panel,
+  panel_plain: U.panelPlain,
+  key_hover: U.keyHover,
+  key_selected: U.keySelected,
+  slot_hover: U.slotHover,
+  arrow_up: U.arrowUp,
+  arrow_down: U.arrowDown,
+  arrow_up_off: U.arrowUpOff,
+  arrow_down_off: U.arrowDownOff,
+  cursor: U.cursor,
+  portrait_active: U.portraitActive,
+  menu: U.menu,
+};
+
 const args = process.argv.slice(2);
 const force = args.includes('--force');
 const filter = args.find((a) => !a.startsWith('--'));
@@ -102,5 +119,7 @@ const run = (name: string, path: string, paint: () => Picture, transparent: bool
 
 for (const [name, paint] of Object.entries(BACKGROUNDS)) run(name, `assets/backgrounds/${name}.png`, paint, false);
 for (const [name, paint] of Object.entries(SPRITES)) run(name, `assets/backgrounds/sprites/${name}.png`, paint, true);
+for (const [name, paint] of Object.entries(UI)) run(name, `assets/ui/${name}.png`, paint, name === 'cursor' || name === 'portrait_active');
+for (const [name, paint] of Object.entries(ITEM_ICONS)) run(name, `assets/items/${name}.png`, paint, true);
 run('titel', 'assets/ui/title.png', paintTitel, false);
 console.log(`Gemalt: ${painted}, unverändert: ${kept}.`);

@@ -19,6 +19,7 @@ export class InventoryUI {
   private readonly icons: Phaser.GameObjects.Image[] = [];
   private readonly up: Phaser.GameObjects.Image;
   private readonly down: Phaser.GameObjects.Image;
+  private readonly hoverSlot: Phaser.GameObjects.Image;
   private ids: ItemId[] = [];
   private offset = 0;
   private visible = true;
@@ -28,6 +29,13 @@ export class InventoryUI {
     private readonly items: readonly ItemDef[],
     private readonly getState: () => GameState,
   ) {
+    // Vor den Icons angelegt, liegt also bei gleicher Tiefe unter ihnen.
+    this.hoverSlot = scene.add
+      .image(LEFT, TOP, 'ui/slot_hover')
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setDepth(UI_DEPTH + 1)
+      .setVisible(false);
     this.up = scene.add
       .image(ARROW_X, TOP, 'ui/arrow_up_off')
       .setOrigin(0, 0)
@@ -86,6 +94,17 @@ export class InventoryUI {
     return id ? { kind: 'item', id } : null;
   }
 
+  /** Hebt das Feld unter der Maus hervor. */
+  setHover(id: ItemId | null): void {
+    const index = id ? this.visibleIds().indexOf(id) : -1;
+    if (index < 0 || !this.visible) {
+      this.hoverSlot.setVisible(false);
+      return;
+    }
+    const { x, y } = this.cellPosition(index);
+    this.hoverSlot.setPosition(x, y).setVisible(true);
+  }
+
   scroll(direction: 'up' | 'down'): void {
     const delta = direction === 'up' ? -COLS : COLS;
     this.offset = Phaser.Math.Clamp(this.offset + delta, 0, this.maxOffset);
@@ -94,6 +113,7 @@ export class InventoryUI {
 
   setVisible(visible: boolean): void {
     this.visible = visible;
+    if (!visible) this.hoverSlot.setVisible(false);
     for (const icon of this.icons) icon.setVisible(visible);
     this.up.setVisible(visible);
     this.down.setVisible(visible);

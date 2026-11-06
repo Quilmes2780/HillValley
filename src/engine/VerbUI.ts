@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { colorValue } from '../../tools/pixel/palette';
 import { t } from './i18n';
+import { UI_AMBER, UI_BRIGHT, UI_TEXT } from './theme';
 import { VERBS, type Verb } from './types';
 
 export const UI_DEPTH = 2000;
@@ -8,33 +8,42 @@ const CELL_W = 43;
 const CELL_H = 15;
 const TOP = 155;
 
-const COLOR_NORMAL = colorValue('tuerkis4');
-const COLOR_HOVER = colorValue('tuerkis6');
-const COLOR_DEFAULT = colorValue('weiss');
-const COLOR_SELECTED = colorValue('gelb2');
-const COLOR_SENTENCE = colorValue('tuerkis6');
+/** Die Taste liegt im Feld, 1 Pixel Abstand links. Maße wie in tools/paint/ui.ts. */
+const KEY_LEFT = 1;
+const LABEL_Y = 3;
 
 /** Satzzeile und 3×3-Verbleiste. */
 export class VerbUI {
   private readonly labels: Phaser.GameObjects.BitmapText[] = [];
+  private readonly keys: Phaser.GameObjects.Image[] = [];
   private readonly sentenceText: Phaser.GameObjects.BitmapText;
   private currentSentence = '';
+  private verbsVisible = true;
 
   constructor(scene: Phaser.Scene) {
     this.sentenceText = scene.add
       .bitmapText(4, 145, 'hv', '', 10)
-      .setTint(COLOR_SENTENCE)
+      .setTint(UI_AMBER)
       .setScrollFactor(0)
       .setDepth(UI_DEPTH + 1);
     VERBS.forEach((verb, i) => {
       const { x, y } = this.positionOf(i);
-      this.labels.push(
+      // Die erleuchtete Taste liegt über dem Bild der Leiste und ist nur bei Bedarf zu sehen.
+      this.keys.push(
         scene.add
-          .bitmapText(x + 3, y + 3, 'hv', t(`verb.${verb}`), 10)
-          .setTint(COLOR_NORMAL)
+          .image(x + KEY_LEFT, y, 'ui/key_hover')
+          .setOrigin(0, 0)
           .setScrollFactor(0)
-          .setDepth(UI_DEPTH + 1),
+          .setDepth(UI_DEPTH + 1)
+          .setVisible(false),
       );
+      const label = scene.add
+        .bitmapText(x, y + LABEL_Y, 'hv', t(`verb.${verb}`), 10)
+        .setTint(UI_TEXT)
+        .setScrollFactor(0)
+        .setDepth(UI_DEPTH + 2);
+      label.setX(x + Math.round((CELL_W - label.width) / 2));
+      this.labels.push(label);
     });
   }
 
@@ -58,11 +67,14 @@ export class VerbUI {
   /** Färbt die Verben: gewählt, unter der Maus, Standardverb des Objekts unter der Maus. */
   highlight(selected: Verb | null, hovered: Verb | null, fallback: Verb | null): void {
     VERBS.forEach((verb, i) => {
-      let color = COLOR_NORMAL;
-      if (verb === fallback) color = COLOR_DEFAULT;
-      if (verb === hovered) color = COLOR_HOVER;
-      if (verb === selected) color = COLOR_SELECTED;
-      this.labels[i].setTint(color);
+      const { y } = this.positionOf(i);
+      const isSelected = verb === selected;
+      const lit = isSelected || verb === hovered;
+      let color = UI_TEXT;
+      if (verb === fallback) color = UI_AMBER;
+      if (lit) color = UI_BRIGHT;
+      this.labels[i].setTint(color).setY(y + LABEL_Y + (isSelected ? 1 : 0)); // Gewählt: Taste ist gedrückt
+      this.keys[i].setTexture(isSelected ? 'ui/key_selected' : 'ui/key_hover').setVisible(lit && this.verbsVisible);
     });
   }
 
@@ -77,7 +89,9 @@ export class VerbUI {
   }
 
   setVerbsVisible(visible: boolean): void {
+    this.verbsVisible = visible;
     for (const label of this.labels) label.setVisible(visible);
+    if (!visible) for (const key of this.keys) key.setVisible(false);
   }
 
   setSentenceVisible(visible: boolean): void {

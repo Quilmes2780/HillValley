@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { C } from './palette.ts';
 import { Canvas, FORCE, saveReplaceable } from './png.ts';
-import { drawGlyph } from './font.ts';
+import { drawGlyph } from './schild.ts';
 
 const FW = 32;
 const FH = 56;
