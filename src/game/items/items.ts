@@ -99,6 +99,14 @@ export const ITEMS: readonly ItemDef[] = [
   plain('sendeschluessel'),
   plain('brief_2015'),
 
+  // Kapitel 5
+  plain('muenze_2015'),
+  plain('glas'),
+  plain('freikarte'),
+  plain('klebeband'),
+  plain('folie'),
+  plain('brief_brix'),
+
   // Gegenstände der Testräume (Engine-Szenario)
   plain('apfel'),
   plain('schachtel'),

@@ -359,3 +359,85 @@ export async function playKapitel4(page: Page): Promise<void> {
   expect(await page.evaluate(() => window.__hv.state().chapter)).toBe(5);
   expect(await allSpeech(page)).toContain('21. Oktober 2015');
 }
+
+export async function playKapitel5(page: Page): Promise<void> {
+  const room = (): Promise<{ id: string; era: number; background: string }> =>
+    page.evaluate(() => window.__hv.room());
+  expect((await room()).id).toBe('turmplatz');
+  expect((await room()).era).toBe(2015);
+  // Doc steht dort, wo seine Klickfläche ist, nicht auf seinem Platz von 1986.
+  expect((await page.evaluate(() => window.__hv.actor('doc')!)).x).toBe(200);
+
+  // A – Vorbereitung
+  await act(page, 'redemit', 'doc'); // 1
+  expect(await inventoryOf(page)).toContain('muenze_2015');
+  await go(page, 'turmtuer', 'lobby');
+  await act(page, 'schauan', 'aufzug'); // 2
+  expect(await lastSpeech(page)).toContain('Daumenabdruck');
+  await go(page, 'tuer', 'turmplatz');
+
+  // B – Das Café
+  await go(page, 'cafe', 'cafe80er');
+  await talk(page, 'brix', []); // 3
+  expect(await allSpeech(page)).toContain('Pressetermin');
+  expect(await flag(page, 'brix_im_museum')).toBe(true);
+  await act(page, 'nimm', 'glas'); // 4
+  expect(await lastSpeech(page)).toContain('Mitnahme von Gläsern');
+  expect(await inventoryOf(page)).not.toContain('glas');
+  await talk(page, 'jennifer', ['Kannst du']); // 5
+  await act(page, 'nimm', 'glas'); // 6
+  expect(await inventoryOf(page)).toContain('glas');
+  await useItem(page, 'muenze_2015', 'automat'); // 7
+  expect(await inventoryOf(page)).toContain('freikarte');
+  await go(page, 'tuer', 'turmplatz');
+
+  // C – Das Museum
+  await go(page, 'museum', 'museum');
+  await giveItem(page, 'freikarte', 'museumsroboter'); // 8
+  await act(page, 'schauan', 'delorean'); // 9
+  expect(await lastSpeech(page)).toContain('erfunden von Biff Tannen');
+  await act(page, 'oeffne', 'kofferraum'); // 10
+  expect(await lastSpeech(page)).toContain('Alarm');
+  await talk(page, 'jennifer', ['Kannst du']); // 11
+  await act(page, 'oeffne', 'kofferraum'); // 12
+  await act(page, 'nimm', 'klebeband');
+  await useItem(page, 'klebeband', 'glas', 'item'); // 13
+  expect(await inventoryOf(page)).toContain('folie');
+  await go(page, 'tuer', 'turmplatz');
+
+  // D – Showdown
+  await go(page, 'turmtuer', 'lobby');
+  await useItem(page, 'folie', 'scanner'); // 14
+  await act(page, 'druecke', 'knopf_88'); // 15
+  expect((await room()).id).toBe('buero');
+  await talk(page, 'brix', [
+    'Nenn mich, wie du willst. Ich hab Zeit.',
+    'Dein Opa hat das auch immer versucht. Hat nie geklappt.',
+    'Ich geh jetzt. Und den Brief nehm ich mit.',
+  ]); // 16 und 17
+  expect(await flag(page, 'brix_gestuerzt')).toBe(true);
+  expect((await room()).id).toBe('buero');
+  await act(page, 'nimm', 'brief'); // 18
+  await useItem(page, 'brief_brix', 'aktenvernichter'); // 19
+
+  // Epilog
+  const s = await page.evaluate(() => window.__hv.state());
+  expect(s.photoStage).toBe(4);
+  expect(s.chapter).toBe(6);
+  const speech = await allSpeech(page);
+  expect(speech).toContain('Restauriert dank einer Spende von Dr. E. L. Brown');
+  expect(speech).toContain('wir sind die Narbe');
+  expect(speech).toContain('Hill Valley Paradox');
+  // Danach steht Marty wieder im Labor von 1986, und die Bedienung funktioniert.
+  const end = await room();
+  expect(end.id).toBe('docs_labor');
+  expect(end.era).toBe(1986);
+  await clickVerb(page, 'schauan');
+  await clickItem(page, 'foto');
+  await waitIdle(page);
+  expect(await lastSpeech(page)).toBe('Zurück in der Gegenwart. Endlich.');
+  await go(page, 'tuer', 'stadtplan');
+  expect((await room()).background).toBe('backgrounds/stadtplan_1986.png');
+  await go(page, 'plan_turm', 'rathausplatz');
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).not.toContain('doc');
+}

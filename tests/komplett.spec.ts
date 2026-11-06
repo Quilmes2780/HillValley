@@ -16,9 +16,9 @@ import {
   waitIdle,
   watchErrors,
 } from './helpers';
-import { playKapitel1, playKapitel2, playKapitel3, playKapitel4, playProlog, switchTo } from './walkthrough';
+import { playKapitel1, playKapitel2, playKapitel3, playKapitel4, playKapitel5, playProlog, switchTo } from './walkthrough';
 
-test('Komplett-Durchlauf nach LOESUNGSBUCH.md: Prolog bis Beginn Kapitel 5', async ({ page }) => {
+test('Komplett-Durchlauf nach LOESUNGSBUCH.md: vom Prolog bis zum Abspann', async ({ page }) => {
   const errors = watchErrors(page);
   await openGame(page);
   await playProlog(page);
@@ -26,6 +26,88 @@ test('Komplett-Durchlauf nach LOESUNGSBUCH.md: Prolog bis Beginn Kapitel 5', asy
   await playKapitel2(page);
   await playKapitel3(page);
   await playKapitel4(page);
+  await playKapitel5(page);
+  expect(errors).toEqual([]);
+});
+
+test('Kapitel 5: Sperren halten, falsche Antworten führen zurück in die Lobby', async ({ page }) => {
+  const errors = watchErrors(page);
+  await openGame(page);
+  await playProlog(page);
+  await playKapitel1(page);
+  await playKapitel2(page);
+  await playKapitel3(page);
+  await playKapitel4(page);
+
+  // Lobby: Der Aufzug öffnet nur mit dem Daumen von Brix.
+  await go(page, 'turmtuer', 'lobby');
+  await act(page, 'oeffne', 'aufzug');
+  await act(page, 'benutze', 'scanner');
+  expect(await lastSpeech(page)).toContain('Meinen Daumen mag er nicht');
+  expect((await page.evaluate(() => window.__hv.hotspots())).some((h) => h.id === 'knopf_88')).toBe(false);
+  await go(page, 'tuer', 'turmplatz');
+
+  // Museum: Ohne Karte kommt man nicht an den Wagen.
+  await go(page, 'museum', 'museum');
+  await act(page, 'oeffne', 'kofferraum');
+  expect(await lastSpeech(page)).toContain('Eintritt nur mit Karte');
+  await act(page, 'schauan', 'delorean');
+  expect(await lastSpeech(page)).toContain('Eintritt nur mit Karte');
+  await go(page, 'tuer', 'turmplatz');
+
+  // Café: Das Glas ist erst frei, wenn Brix weg und der Kellner verwirrt ist.
+  await act(page, 'redemit', 'doc');
+  await go(page, 'cafe', 'cafe80er');
+  await act(page, 'nimm', 'glas');
+  expect(await lastSpeech(page)).toContain('Brix gerade in der Hand');
+  await talk(page, 'jennifer', ['Kannst du']); // Reihenfolge frei: erst Jennifer, dann Brix
+  await talk(page, 'brix', []);
+  await act(page, 'nimm', 'glas');
+  expect(await inventoryOf(page)).toContain('glas');
+  await useItem(page, 'muenze_2015', 'automat');
+  await go(page, 'tuer', 'turmplatz');
+
+  // Mit dem Glas allein geht der Scanner nicht.
+  await go(page, 'turmtuer', 'lobby');
+  await useItem(page, 'glas', 'scanner');
+  expect(await lastSpeech(page)).toContain('Ich muss ihn irgendwie davon abnehmen');
+  await go(page, 'tuer', 'turmplatz');
+
+  // Museum, diesmal zuerst Jennifer, dann der Kofferraum.
+  await go(page, 'museum', 'museum');
+  await giveItem(page, 'freikarte', 'museumsroboter');
+  await act(page, 'oeffne', 'kofferraum');
+  expect(await lastSpeech(page)).toContain('Alarm');
+  await talk(page, 'jennifer', ['Kannst du']);
+  await act(page, 'oeffne', 'kofferraum');
+  await act(page, 'nimm', 'klebeband');
+  await useItem(page, 'glas', 'klebeband', 'item');
+  await go(page, 'tuer', 'turmplatz');
+  await go(page, 'turmtuer', 'lobby');
+  await useItem(page, 'folie', 'scanner');
+  await act(page, 'druecke', 'knopf_88');
+
+  // Showdown: Jede falsche Antwort endet in der Lobby, Runde 1 beginnt neu.
+  const wrong = async (answers: string[]): Promise<void> => {
+    await talk(page, 'brix', answers);
+    expect(await page.evaluate(() => window.__hv.room().id)).toBe('lobby');
+    expect(await flag(page, 'brix_gestuerzt')).toBeFalsy();
+    await act(page, 'druecke', 'knopf_88');
+    expect(await page.evaluate(() => window.__hv.room().id)).toBe('buero');
+  };
+  await wrong(['Niemand nennt']);
+  await wrong(['Nenn mich', 'Das nimmst']);
+  await wrong(['Nenn mich', 'Dein Opa', 'Mach doch']);
+  await talk(page, 'brix', ['Nenn mich', 'Dein Opa', 'Ich geh']);
+  expect(await flag(page, 'brix_gestuerzt')).toBe(true);
+  expect(await page.evaluate(() => window.__hv.actorsInRoom())).not.toContain('brix');
+
+  // Der Aktenvernichter tut nichts ohne den Brief.
+  await act(page, 'benutze', 'aktenvernichter');
+  expect(await page.evaluate(() => window.__hv.state().chapter)).toBe(5);
+  await act(page, 'nimm', 'brief');
+  await useItem(page, 'brief_brix', 'aktenvernichter');
+  expect(await page.evaluate(() => window.__hv.state().chapter)).toBe(6);
   expect(errors).toEqual([]);
 });
 

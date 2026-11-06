@@ -337,6 +337,42 @@ export function buildItems(dir: string): void {
     c.line(10, 11, 19, 11, C.grau3);
   });
 
+  // Kapitel 5
+  icon(dir, 'muenze_2015', (c) => {
+    c.poly([[13, 4], [19, 4], [23, 8], [23, 12], [19, 16], [13, 16], [9, 12], [9, 8]], C.neon);
+    c.poly([[14, 6], [18, 6], [21, 9], [21, 11], [18, 14], [14, 14], [11, 11], [11, 9]], C.tuerkis3);
+    c.rect(15, 8, 2, 4, C.weiss);
+  });
+  icon(dir, 'glas', (c) => {
+    c.rect(12, 3, 9, 15, C.blau8);
+    c.frame(12, 3, 9, 15, C.grau5);
+    c.rect(13, 8, 7, 9, C.gelb3);
+    c.rect(14, 5, 2, 2, C.weiss);
+  });
+  icon(dir, 'freikarte', (c) => {
+    c.rect(6, 5, 21, 11, C.gelb2);
+    c.frame(6, 5, 21, 11, C.orange1);
+    c.rect(10, 8, 9, 2, C.rot3);
+    c.rect(10, 12, 12, 1, C.holz3);
+    c.rect(22, 5, 1, 11, C.orange1);
+  });
+  icon(dir, 'klebeband', (c) => {
+    c.poly([[11, 3], [21, 3], [26, 10], [21, 17], [11, 17], [6, 10]], C.grau6);
+    c.poly([[13, 7], [19, 7], [21, 10], [19, 13], [13, 13], [11, 10]], C.grau1);
+  });
+  icon(dir, 'folie', (c) => {
+    c.rect(8, 4, 16, 13, C.blau8);
+    c.frame(8, 4, 16, 13, C.grau5);
+    c.poly([[13, 7], [18, 7], [20, 11], [17, 15], [14, 15], [12, 11]], C.grau4);
+    c.poly([[14, 9], [17, 9], [18, 11], [16, 13], [15, 13], [13, 11]], C.blau8);
+  });
+  icon(dir, 'brief_brix', (c) => {
+    c.rect(7, 4, 18, 12, C.weiss);
+    c.frame(7, 4, 18, 12, C.rot4);
+    c.line(8, 5, 16, 11, C.grau4);
+    c.line(24, 5, 16, 11, C.grau4);
+  });
+
   // Vier schlichte Zusatzdinge, um das Blättern im Inventar zu prüfen.
   ['1', '2', '3', '4'].forEach((digit, i) => {
     icon(dir, `ding${digit}`, (c) => {

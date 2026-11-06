@@ -222,6 +222,8 @@
 
 **Ziel:** Brix daran hindern, um 16:29 Uhr seinen ersten Brief abzuschicken. (Keine echte Zeitbegrenzung – die Uhrzeit ist nur erzählerisch.)
 
+*Wege:* Café 80er, Museum, Turm-Lobby und Gasse liegen alle am Platz vor dem Turm (Türen, kein Stadtplan). Brix' Büro erreicht man über den Aufzug. Jennifer ist überall dabei und lenkt auf Zuruf ab.
+
 ### A – Vorbereitung
 1. **Platz:** *Rede mit* Doc → Er gibt Marty eine 2015-Münze von seinem früheren Besuch.
 2. **Turm-Lobby:** *Schau an* Aufzug → Fahrt nach oben nur mit Brix' Daumenabdruck.
@@ -241,7 +243,7 @@
 12. *Öffne* Kofferraum → Docs alte Werkzeugkiste liegt noch darin. *Nimm* Klebeband.
 13. *Benutze* Klebeband *mit* Glas → Daumenabdruck-Folie.
 
-> B und C in beliebiger Reihenfolge, außer dass Schritt 13 Glas und Klebeband braucht.
+> B und C in beliebiger Reihenfolge, außer dass Schritt 13 Glas und Klebeband braucht. Ohne Karte verweigert der Museumsroboter jeden Blick auf den Wagen. Der Kellnerroboter (Schritt 5) kann auch vor dem Gespräch mit Brix verwirrt werden. Solange Brix im Café sitzt, ist das Glas noch nicht frei.
 
 ### D – Showdown
 14. **Turm-Lobby:** *Benutze* Daumenabdruck-Folie *mit* Scanner → Aufzug öffnet.
@@ -250,7 +252,7 @@
     - Runde 1: **„Nenn mich, wie du willst. Ich hab Zeit.“**
     - Runde 2: **„Dein Opa hat das auch immer versucht. Hat nie geklappt.“**
     - Runde 3: **„Ich geh jetzt. Und den Brief nehm ich mit.“**
-    *Falsche Antwort* (Marty beißt an): Marty stürzt sich auf Brix, rutscht auf dem polierten Boden aus und landet im Aufzug, der ihn ins Erdgeschoss bringt. Zurück mit Schritt 15.
+    *Falsche Antwort* (Marty beißt an): Marty stürzt sich auf Brix, rutscht auf dem polierten Boden aus und landet im Aufzug, der ihn ins Erdgeschoss bringt. Zurück mit Schritt 15; das Gespräch beginnt wieder bei Runde 1.
 17. Nach Runde 3 verliert Brix die Beherrschung und stürmt auf Marty los. **Zwischensequenz:** Marty weicht aus, Brix stolpert durch die Feuertür, rutscht das Geländer der Außentreppe hinab und landet im Hover-Mistlaster in der Gasse (Hommage). Der Brief flattert zu Boden.
 18. *Nimm* Brief.
 19. *Benutze* Brief *mit* Aktenvernichter → Zeitwelle. Foto → Stufe 4.
@@ -263,7 +265,7 @@
 - Doc kommentiert das Paradox: Die Zeitlinie heilt sich selbst – und sie beide seien die Narbe.
 - Rückkehr nach 1986: Biff wachst brav Georges Auto, der Turm heißt wieder Rathaus, Einstein wartet im Labor.
 - Das Familienfoto ist vollständig.
-- Abspann.
+- Abspann. Danach steht Marty wieder in Docs Labor von 1986 und kann sich frei bewegen.
 
 ---
 

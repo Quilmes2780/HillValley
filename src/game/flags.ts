@@ -92,6 +92,21 @@ export const FLAGS = [
   'zug_da',
   'fusion_gefuettert',
   'fusion_an_doc',
+  // Kapitel 5
+  'muenze_erhalten',
+  'brix_im_museum',
+  'roboter_verwirrt',
+  'glas_genommen',
+  'museum_eintritt',
+  'roboter_fuehrt',
+  'kofferraum_offen',
+  'klebeband_genommen',
+  'aufzug_offen',
+  'marty_beisst_an',
+  'brix_verliert',
+  'brix_gestuerzt',
+  'brief_genommen_brix',
+  'zeitlinie_geheilt',
 ] as const;
 
 export type FlagName = (typeof FLAGS)[number];

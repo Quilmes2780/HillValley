@@ -133,7 +133,8 @@ export class GameScene extends Phaser.Scene {
   private syncCharacters(): void {
     for (const [id, actor] of this.rooms.actors) {
       const c = this.state.characters[id as CharacterId];
-      if (!c) continue;
+      // Ein Skript kann die Figur gerade woandershin versetzt haben: Das bleibt dann so.
+      if (!c || c.room !== this.rooms.roomId || c.era !== this.rooms.era) continue;
       c.x = actor.x;
       c.y = actor.y;
       c.face = actor.dir;

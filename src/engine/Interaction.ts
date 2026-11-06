@@ -80,7 +80,8 @@ export class Interaction {
     if (verb !== 'benutze') return false;
     if (target.kind === 'item') return !this.item(target.id).verbs?.benutze;
     const hs = target.hotspot;
-    return !hs.verbs?.benutze && Object.keys(hs.useWith ?? {}).length > 0;
+    // Ein eigener Benutze-Kommentar antwortet sofort; „Benutze Gegenstand mit Hotspot“ geht weiterhin.
+    return !hs.verbs?.benutze && !hs.comments?.benutze && Object.keys(hs.useWith ?? {}).length > 0;
   }
 
   /** Text der Satzzeile, z. B. „Benutze Banane mit Mr. Fusion“. */

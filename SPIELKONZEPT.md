@@ -212,6 +212,8 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |
 | Rathausplatz 1955 | Lous Café und Radioladen mit Türen direkt am Platz |
 | Verstärker (K2) | Einbau erst nach der verbrannten Erfindungsmappe |
+| Hill Valley 2015 | Café 80er, Museum, Lobby und Gasse mit Türen am Platz, kein eigener Stadtplan |
+| DeLorean | Neutraler Platzhalter unter `assets/characters/delorean/delorean.png` (130×44), austauschbar ohne Codeänderung |
 | Zeitzug | Neutraler Platzhalter unter `assets/characters/zeitzug/zeitzug.png` (160×48), austauschbar ohne Codeänderung |
 
 ---

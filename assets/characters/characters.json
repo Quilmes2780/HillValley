@@ -112,6 +112,21 @@
       "folder": "maurer",
       "textColor": "grau6",
       "portrait": "maurer_portrait.png"
+    },
+    "brix": {
+      "folder": "brix",
+      "textColor": "neon",
+      "portrait": "brix_portrait.png"
+    },
+    "kellnerroboter": {
+      "folder": "kellnerroboter",
+      "textColor": "tuerkis5",
+      "portrait": "kellnerroboter_portrait.png"
+    },
+    "museumsroboter": {
+      "folder": "museumsroboter",
+      "textColor": "gelb3",
+      "portrait": "museumsroboter_portrait.png"
     }
   }
 }

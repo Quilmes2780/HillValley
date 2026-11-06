@@ -159,6 +159,9 @@ const FIGURES = [
   { id: 'clara', letter: 'C', body: C.violett3, shade: C.violett1, textColor: 'pink4' },
   { id: 'feuerwerker', letter: 'F', body: C.rot3, shade: C.rot1, textColor: 'orange3' },
   { id: 'maurer', letter: 'R', body: C.grau4, shade: C.grau2, textColor: 'grau6' },
+  { id: 'brix', letter: 'X', body: C.grau1, shade: C.schwarz, textColor: 'neon' },
+  { id: 'kellnerroboter', letter: 'W', body: C.tuerkis3, shade: C.tuerkis1, textColor: 'tuerkis5' },
+  { id: 'museumsroboter', letter: 'Q', body: C.gelb1, shade: C.orange1, textColor: 'gelb3' },
 ] as const;
 
 export function buildCharacters(dir: string): void {

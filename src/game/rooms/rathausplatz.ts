@@ -167,7 +167,10 @@ const hotspots1986: readonly Hotspot[] = [
           await g.wait(800);
           await g.showCard('chapter.k5.title', 'chapter.k5.subtitle');
           g.state.chapter = 5;
-          await g.say('say.k4.k5_noch_nicht');
+          g.state.characters.doc = { room: 'turmplatz', era: 2015, x: 200, y: 118, face: 'links', inventory: [] };
+          await g.goToRoom('turmplatz', 2015, [60, 120], 'rechts');
+          await g.say('say.k5.ankunft');
+          await g.say('say.k5.ziel');
         });
       },
     },

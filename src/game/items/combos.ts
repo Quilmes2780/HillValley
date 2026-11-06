@@ -111,6 +111,18 @@ export const COMBOS: readonly Combo[] = [
     },
   },
 
+  // Kapitel 5
+  {
+    a: 'klebeband',
+    b: 'glas',
+    run: async (g) => {
+      g.removeItem('klebeband');
+      g.removeItem('glas');
+      g.addItem('folie');
+      await g.say('say.k5.folie');
+    },
+  },
+
   // Testräume
   {
     a: 'apfel',
