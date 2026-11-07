@@ -378,36 +378,6 @@ const SPRITES: Record<string, { w: number; h: number; draw: Draw }> = {
       i.rect(3, 2, 10, 2.2, hex('#d84a3c'));
     },
   },
-  denkmal: {
-    w: 32,
-    h: 80,
-    draw: (i) => {
-      const hell = '#8a9c80';
-      const dunkel = '#46583f';
-      // Sockel
-      i.rect(1, 74, 30, 5, vgrad('#b0a898', '#6a6458', 74, 79));
-      i.rect(5, 54, 22, 21, vgrad('#c4bcac', '#7e786a', 54, 75));
-      i.rect(3, 50, 26, 5, vgrad('#d4ccbc', '#8e8878', 50, 55));
-      i.rect(10, 59, 12, 9, vgrad('#a88a4a', '#6a5426', 59, 68), 0.8);
-      for (let y = 61; y < 67; y += 2) i.rod(12, y, 20, y, 0.35, '#3e2e12');
-      // Beine und Mantel
-      i.rect(11, 38, 4.4, 13, vgrad(hell, dunkel, 38, 51), 1);
-      i.rect(17, 38, 4.4, 13, vgrad('#6a7c60', dunkel, 38, 51), 1);
-      i.rect(8.6, 49.4, 7, 2.4, vgrad(hell, dunkel, 49, 52), 1);
-      i.rect(16.4, 49.4, 7, 2.4, vgrad(hell, dunkel, 49, 52), 1);
-      i.poly([[10, 21], [22, 21], [24, 42], [8, 42]], vgrad(hell, dunkel, 21, 42));
-      i.rod(16, 21, 16, 41, 0.35, '#34442e');
-      // Arme: einer zeigt in die Zukunft, einer hält die Rolle
-      i.rod(21.5, 23, 29, 11, 2, hell);
-      i.ball(29.4, 10, 1.6, 1.6, hell);
-      i.rod(10.5, 23, 7, 33, 2, dunkel);
-      i.rect(4, 32, 7, 2.6, vgrad('#b8c8ac', '#5e7056', 32, 35), 1);
-      // Kopf
-      i.ball(16, 14.6, 4.2, 5, hell);
-      i.rect(13.6, 18, 4.8, 3.6, vgrad(hell, dunkel, 18, 22));
-      i.rod(12.4, 10.6, 19.8, 10.6, 0.8, '#b8c8ac');
-    },
-  },
 };
 
 export const EXTRA_SPRITES: Record<string, () => Picture> = Object.fromEntries(

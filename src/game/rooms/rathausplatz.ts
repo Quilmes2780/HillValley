@@ -98,6 +98,39 @@ const GRUNDSTEIN_1986: Hotspot = {
   },
 };
 
+/** Kulisse ohne Rätsel, liegt unter allen anderen Flächen. */
+const kulisse = (id: string, name: string, area: Hotspot['area'], walkTo: readonly [number, number], schau: string): Hotspot => ({
+  id,
+  name: `hotspot.${name}`,
+  area,
+  walkTo,
+  face: 'hinten',
+  comments: { schauan: schau },
+});
+
+const KULISSE_1986: readonly Hotspot[] = [
+  kulisse('turmuhr', 'turmuhr', rect(150, 8, 24, 24), [160, 96], 'say.k1.platz_turmuhr'),
+  kulisse('laterne_links', 'laterne', rect(8, 18, 18, 92), [22, 112], 'say.k1.platz_laterne'),
+  kulisse('laterne_rechts', 'laterne', rect(298, 22, 16, 70), [296, 100], 'say.k1.platz_laterne'),
+  kulisse('blumen_links', 'blumenkuebel', rect(125, 77, 15, 18), [132, 98], 'say.k1.platz_blumen'),
+  kulisse('blumen_rechts', 'blumenkuebel', rect(184, 77, 15, 18), [191, 98], 'say.k1.platz_blumen'),
+];
+
+const PLATZ_HV: readonly Hotspot[] = [
+  kulisse('rathaus', 'rathaus', rect(97, 0, 128, 92), [160, 96], 'say.k1.platz_rathaus_hv'),
+  ...KULISSE_1986,
+  kulisse('plakat', 'plakat', rect(58, 40, 39, 29), [78, 98], 'say.k1.platz_plakat_hv'),
+];
+
+const PLATZ_TB: readonly Hotspot[] = [
+  kulisse('platz_fabriken', 'plan_fabriken', rect(255, 5, 45, 23), [270, 96], 'say.k1.plan_fabriken'),
+  kulisse('rathaus', 'tannen_turm', rect(97, 0, 128, 92), [160, 96], 'say.k1.platz_rathaus_tb'),
+  ...KULISSE_1986,
+  kulisse('plakat', 'plakat', rect(60, 32, 34, 35), [78, 98], 'say.k1.platz_plakat_tb'),
+  kulisse('platz_banner', 'plan_banner', rect(114, 44, 14, 30), [121, 96], 'say.k1.plan_banner'),
+  kulisse('platz_banner2', 'plan_banner', rect(200, 44, 14, 30), [207, 96], 'say.k1.plan_banner'),
+];
+
 const hotspots1986: readonly Hotspot[] = [
   STRASSE,
   GRUNDSTEIN_1986,
@@ -180,7 +213,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'bank',
     name: 'hotspot.bank',
-    area: rect(232, 44, 66, 48),
+    area: rect(225, 28, 73, 64),
     walkTo: [265, 96],
     face: 'hinten',
     comments: { schauan: 'say.k1.platz_bank', oeffne: 'say.k1.platz_bank_oeffne' },
@@ -188,7 +221,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'saeule',
     name: 'hotspot.saeule',
-    area: rect(34, 18, 22, 74),
+    area: rect(30, 12, 28, 80),
     walkTo: [45, 96],
     face: 'hinten',
     verbs: {
@@ -205,7 +238,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'anschlusskasten',
     name: 'hotspot.anschlusskasten',
-    area: rect(39, 64, 12, 13),
+    area: rect(40, 65, 13, 13),
     walkTo: [45, 96],
     face: 'hinten',
     defaultVerb: 'oeffne',
@@ -263,7 +296,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'turmtuer',
     name: 'hotspot.turmtuer',
-    area: rect(144, 58, 30, 34),
+    area: rect(146, 57, 29, 35),
     walkTo: [160, 96],
     face: 'hinten',
     comments: { schauan: 'say.k1.platz_tuer' },
@@ -355,14 +388,14 @@ export const rathausplatz: RoomDef = {
         walkable: WALKABLE,
         scale: SCALE,
         actors: ACTORS,
-        hotspots: hotspots1986,
+        hotspots: [...PLATZ_TB, ...hotspots1986],
       },
       {
         background: 'backgrounds/rathausplatz_1986.png',
         walkable: WALKABLE,
         scale: SCALE,
         actors: ACTORS,
-        hotspots: hotspots1986,
+        hotspots: [...PLATZ_HV, ...hotspots1986],
       },
     ],
     1955: [platz1955],

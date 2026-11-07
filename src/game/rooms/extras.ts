@@ -88,8 +88,6 @@ const motorrad = spot('motorrad', [226, 88, 72, 40], [262, 132], {
   comments: { benutze: 'motorrad_benutze', nimm: 'motorrad_benutze' },
 });
 
-const denkmal = spot('denkmal', [66, 13, 32, 80], [82, 98], { sprite: { name: 'denkmal', depthY: 93 } });
-
 const EXTRAS: readonly Extra[] = [
   // --- Prolog-Orte -----------------------------------------------------------------------------
   {
@@ -187,8 +185,6 @@ const EXTRAS: readonly Extra[] = [
     ],
   },
   { room: 'rathausplatz', era: 1986, add: [motorrad] },
-  // Goldie Wilson gibt es erst wieder, wenn die Stadt nicht Mr. Tannen gehört.
-  { room: 'rathausplatz', era: 1986, variants: [1], add: [denkmal] },
   {
     room: 'uhrwerk',
     era: 1986,
