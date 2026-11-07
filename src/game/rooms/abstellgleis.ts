@@ -82,7 +82,7 @@ export const abstellgleis: RoomDef = {
           {
             id: 'jules',
             name: 'hotspot.jules',
-            area: rect(26, 68, 28, 50),
+            area: rect(24, 66, 32, 52),
             walkTo: [60, 116],
             face: 'links',
             defaultVerb: 'redemit',

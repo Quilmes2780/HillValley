@@ -90,7 +90,7 @@ export const kueche: RoomDef = {
           {
             id: 'lorraine',
             name: 'hotspot.lorraine',
-            area: rect(94, 58, 28, 50),
+            area: rect(92, 44, 32, 64),
             walkTo: [134, 110],
             face: 'links',
             defaultVerb: 'redemit',

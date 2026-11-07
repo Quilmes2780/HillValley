@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { resolveAnim, type AnimName } from './CharacterLoader';
+import { heightOf, resolveAnim, type AnimName } from './CharacterLoader';
 import type { DepthScale, Dir, Pt } from './types';
 
 const SPEED_X = 56;
@@ -47,7 +47,7 @@ export class Actor {
 
   /** Kopfhöhe für Sprechtexte. */
   get headY(): number {
-    return this.sprite.y - this.sprite.displayHeight;
+    return this.sprite.y - heightOf(this.id) * this.sprite.scaleY;
   }
 
   /** Beginnt einen Weg. Das Versprechen liefert false, wenn er abgebrochen wurde. */
@@ -175,7 +175,8 @@ export class Actor {
   }
 
   private showIdle(): void {
-    this.play('idle');
+    const side = this.dir === 'links' || this.dir === 'rechts';
+    this.play(side ? 'idle_side' : this.dir === 'hinten' ? 'idle_back' : 'idle');
     this.sprite.setFlipX(this.dir === 'links');
   }
 

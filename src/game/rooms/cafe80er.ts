@@ -89,7 +89,7 @@ export const cafe80er: RoomDef = {
           {
             id: 'kellnerroboter',
             name: 'hotspot.kellnerroboter',
-            area: rect(96, 60, 28, 50),
+            area: rect(94, 46, 32, 64),
             walkTo: [134, 112],
             face: 'links',
             defaultVerb: 'redemit',
@@ -106,7 +106,7 @@ export const cafe80er: RoomDef = {
           {
             id: 'jennifer',
             name: 'hotspot.jennifer',
-            area: rect(156, 72, 28, 50),
+            area: rect(154, 58, 32, 64),
             walkTo: [196, 124],
             face: 'links',
             defaultVerb: 'redemit',
@@ -127,7 +127,7 @@ export const cafe80er: RoomDef = {
           {
             id: 'brix',
             name: 'hotspot.brix',
-            area: rect(224, 62, 28, 50),
+            area: rect(222, 48, 32, 64),
             walkTo: [204, 114],
             face: 'rechts',
             defaultVerb: 'redemit',

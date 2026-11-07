@@ -31,7 +31,7 @@ export const veranda: RoomDef = {
           {
             id: 'jennifer',
             name: 'hotspot.jennifer',
-            area: rect(210, 54, 28, 50),
+            area: rect(208, 48, 32, 56),
             walkTo: [190, 106],
             face: 'rechts',
             defaultVerb: 'redemit',

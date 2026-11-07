@@ -384,7 +384,7 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
     // Eigenes Spritesheet mit 3 statt 2 Frames.
-    const sheet = new PNG({ width: 32 * 3, height: 56 });
+    const sheet = new PNG({ width: 40 * 3, height: 72 });
     sheet.data.fill(255);
     await page.route('**/characters/marty/marty_idle.png', (route) =>
       route.fulfill({ status: 200, contentType: 'image/png', body: PNG.sync.write(sheet) }),

@@ -130,7 +130,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'doc',
     name: 'hotspot.doc',
-    area: rect(86, 72, 28, 50),
+    area: rect(84, 58, 32, 64),
     walkTo: [132, 124],
     face: 'links',
     defaultVerb: 'redemit',
@@ -279,7 +279,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'kowalski',
     name: 'hotspot.kowalski',
-    area: rect(172, 56, 28, 50),
+    area: rect(170, 42, 32, 64),
     walkTo: [204, 108],
     face: 'links',
     defaultVerb: 'redemit',

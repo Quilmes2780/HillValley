@@ -43,7 +43,7 @@ export const saloon: RoomDef = {
           {
             id: 'barkeeper',
             name: 'hotspot.barkeeper',
-            area: rect(106, 40, 28, 28),
+            area: rect(104, 40, 32, 28),
             walkTo: [148, 106],
             face: 'links',
             defaultVerb: 'redemit',
@@ -57,7 +57,7 @@ export const saloon: RoomDef = {
           {
             id: 'buford',
             name: 'hotspot.buford',
-            area: rect(236, 68, 28, 50),
+            area: rect(234, 54, 32, 64),
             walkTo: [218, 120],
             face: 'rechts',
             defaultVerb: 'redemit',
@@ -93,6 +93,8 @@ export const saloon: RoomDef = {
             area: rect(249, 81, 14, 8),
             walkTo: [256, 104],
             face: 'hinten',
+            // Buford steht davor, erst nach seinem Abgang kommt man heran.
+            visible: (s) => !!s.flags.buford_im_stall,
             comments: { schauan: 'say.k3.saloon_napf', benutze: 'say.k3.saloon_napf_benutze' },
           },
           {

@@ -107,7 +107,7 @@ const normal: RoomVariant = {
     {
       id: 'biff',
       name: 'hotspot.biff',
-      area: rect(158, 62, 27, 51),
+      area: rect(156, 48, 31, 65),
       walkTo: [146, 114],
       face: 'rechts',
       defaultVerb: 'redemit',

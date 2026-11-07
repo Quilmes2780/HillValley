@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { EXTRA_SPRITES, skateboardIcon, skateboardWand } from './extras.ts';
+import { ANIMS, FIGURE_IDS, figurePortrait, figureSheet } from './figuren.ts';
 import * as H from './haus.ts';
 import { ITEM_ICONS } from './items.ts';
 import { savePicture, type Picture } from './painter.ts';
@@ -14,7 +15,7 @@ import * as We from './westen.ts';
 import * as Z from './zukunft.ts';
 
 /**
- * Malt alle Hintergründe, großen Sprites, die Oberfläche und die Gegenstände. Eigene Bilder haben Vorrang: Eine Datei, die schon
+ * Malt alle Hintergründe, großen Sprites, die Oberfläche, die Gegenstände und die Figuren. Eigene Bilder haben Vorrang: Eine Datei, die schon
  * da ist, bleibt liegen, solange nicht `-- --force` übergeben wird.
  *
  * `npm run paint -- raumname` malt nur Bilder, deren Name den Text enthält (und überschreibt sie).
@@ -126,4 +127,8 @@ for (const [name, paint] of Object.entries(UI)) run(name, `assets/ui/${name}.png
 for (const [name, paint] of Object.entries(ITEM_ICONS)) run(name, `assets/items/${name}.png`, paint, true);
 run('skateboard', 'assets/items/skateboard.png', skateboardIcon, true);
 run('titel', 'assets/ui/title.png', paintTitel, false);
+for (const id of FIGURE_IDS) {
+  for (const anim of Object.keys(ANIMS)) run(`figur_${id}_${anim}`, `assets/characters/${id}/${id}_${anim}.png`, () => figureSheet(id, anim), true);
+  run(`figur_${id}_portrait`, `assets/characters/${id}/${id}_portrait.png`, () => figurePortrait(id), false);
+}
 console.log(`Gemalt: ${painted}, unverändert: ${kept}.`);

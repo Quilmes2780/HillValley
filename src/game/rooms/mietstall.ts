@@ -66,7 +66,7 @@ export const mietstall: RoomDef = {
           {
             id: 'buford',
             name: 'hotspot.buford',
-            area: rect(180, 28, 28, 28),
+            area: rect(178, 22, 32, 34),
             walkTo: [160, 106],
             face: 'rechts',
             defaultVerb: 'redemit',
@@ -81,7 +81,7 @@ export const mietstall: RoomDef = {
           {
             id: 'buford',
             name: 'hotspot.buford',
-            area: rect(208, 62, 28, 50),
+            area: rect(206, 48, 32, 64),
             walkTo: [190, 114],
             face: 'rechts',
             defaultVerb: 'redemit',

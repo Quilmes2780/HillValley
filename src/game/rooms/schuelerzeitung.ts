@@ -39,7 +39,7 @@ export const schuelerzeitung: RoomDef = {
           {
             id: 'jennifer',
             name: 'hotspot.jennifer',
-            area: rect(214, 58, 28, 50),
+            area: rect(212, 52, 32, 56),
             walkTo: [196, 110],
             face: 'rechts',
             defaultVerb: 'redemit',

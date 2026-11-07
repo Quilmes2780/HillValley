@@ -41,7 +41,7 @@ Danach Claude Code neu starten und mit `/mcp` prüfen, ob „playwright“ verbu
 ### Grafik & Sound
 
 - Claude Code malt die Hintergründe per Skript im Stil von The Dig und Full Throttle (Echtfarbe, je Bild eine eigene 256-Farben-Palette). Oberfläche und Inventar-Icons malt das Skript ebenso. Die Schrift und kleine Sprites entstehen als Pixelgrafik per Skript.
-- **Figuren und die Zeitmaschine:** Claude Code zeichnet keine Filmfiguren und kein Film-Fahrzeug. Es verwendet neutrale Platzhalter. Alle Figuren-Sprites liegen als austauschbare PNGs in `assets/characters/<figur>/` und werden über eine Konfigurationsdatei eingebunden – eigene Sprites ersetzen die Platzhalter ohne Codeänderung.
+- **Figuren und die Zeitmaschine:** Claude Code zeichnet keine Filmgesichter, keine Filmkostüme und kein Film-Fahrzeug. Die Figuren sind erfunden und im Malstil gezeichnet (`tools/paint/figuren.ts`). Alle Figuren-Sprites liegen als austauschbare PNGs in `assets/characters/<figur>/` und werden über eine Konfigurationsdatei eingebunden – eigene Sprites ersetzen sie ohne Codeänderung.
 - **Musik:** BeepBox (Browser, kostenlos), eigenes Thema – nicht die Filmmusik.
 - **Soundeffekte:** jsfxr (Browser, kostenlos).
 
@@ -49,13 +49,13 @@ Danach Claude Code neu starten und mit `/mcp` prüfen, ob „playwright“ verbu
 
 Piskel läuft kostenlos im Browser auf piskelapp.com (es gibt auch eine Desktop-Version).
 
-1. **Neues Sprite anlegen:** „Create Sprite“. Rechts unter *Resize* die Größe einstellen: **32 × 56 Pixel** pro Bild (passt zur Spielauflösung 320 × 200; die Figur selbst ca. 48–52 px hoch, oben und unten etwas Luft).
+1. **Neues Sprite anlegen:** „Create Sprite“. Rechts unter *Resize* die Größe einstellen: **40 × 72 Pixel** pro Bild (passt zur Spielauflösung 320 × 200; die Figur selbst ca. 60–66 px hoch, die Füße 2 px über dem unteren Rand).
 2. **Werkzeuge (links):** Stift, Radierer, Fülleimer, Pipette, Linie, Rechteck, Auswahl. Pipette (Alt + Klick) holt eine Farbe aus dem Bild. Unbedingt „Pixel Perfect“-Stift nutzen, sonst entstehen Treppenkanten.
 3. **Palette:** Rechts unter *Palettes* eine Palette importieren (die Datei `assets/palette.gpl`, die Claude Code anlegt). So passen die Figuren farblich zu den Hintergründen.
 4. **Frames (links neben der Zeichenfläche):** Jeder Frame ist ein Animationsbild. „Add new frame“ legt ein leeres Bild an, „Duplicate“ kopiert das aktuelle – Animationen am besten durch Duplizieren und leichtes Verändern bauen.
 5. **Zwiebelschale (Onion Skin):** Oben rechts einschalten – zeigt das vorherige Bild durchscheinend, damit Bewegungen flüssig werden.
 6. **Vorschau:** Oben rechts läuft die Animation in Schleife; FPS-Regler auf ca. 8–10 stellen.
-7. **Benötigte Animationen pro Figur:** `idle` (1–2 Frames), `walk_side` (6 Frames, nach rechts laufend – links wird gespiegelt), `walk_front` (4), `walk_back` (4), `talk_side` (2–3, nur Mund), `talk_front` (2–3), `pickup` (2). Jede Animation als eigenes Piskel-Projekt anlegen.
+7. **Benötigte Animationen pro Figur:** `idle` (1–12 Frames, vier je Sekunde; wahlweise auch `idle_side` und `idle_back`), `walk_side` (6 Frames, nach rechts laufend – links wird gespiegelt), `walk_front` (4), `walk_back` (4), `talk_side` (2–3, nur Mund), `talk_front` (2–3), `pickup` (2). Jede Animation als eigenes Piskel-Projekt anlegen.
 8. **Export:** „Export“ → Reiter „PNG“ → *Spritesheet* mit allen Frames **in einer Zeile**. Datei benennen wie `marty_walk_side.png` und in `assets/characters/marty/` ablegen.
 9. **Sichern:** „Save“ → „Save offline as File“ (.piskel-Datei), damit du später weiterarbeiten kannst – der Browser-Speicher allein ist nicht verlässlich.
 
@@ -206,7 +206,7 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Gegenspieler | Je Zeitebene ein Tannen; 2015 neuer Nachfahre Brix Tannen |
 | Zeitebenen | 1885, 1955, 1986, 2015 |
 | Hommagen | DeLorean, Uhr, Misthaufen, Jahrmarkt, Diner, Schule |
-| Grafik | Platzhalter-Figuren, später eigene Sprites per Piskel |
+| Grafik | Gemalte Figuren aus `tools/paint/figuren.ts`, eigene Sprites per Piskel ersetzen sie |
 | Sprache | Nur Deutsch |
 | Dialogtexte | Direkt in den `.ink`-Dateien, alle übrigen Texte in `src/i18n/de.json` |
 | Palette | Figuren: 64 Farben (`assets/palette.gpl`); Hintergründe, Oberfläche, Icons: je Bild bis zu 256 Farben |

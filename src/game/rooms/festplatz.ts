@@ -112,7 +112,7 @@ export const festplatz: RoomDef = {
           {
             id: 'maurer',
             name: 'hotspot.maurer',
-            area: rect(196, 56, 28, 50),
+            area: rect(194, 42, 32, 64),
             walkTo: [188, 108],
             face: 'rechts',
             defaultVerb: 'redemit',
@@ -126,7 +126,7 @@ export const festplatz: RoomDef = {
           {
             id: 'feuerwerker',
             name: 'hotspot.feuerwerker',
-            area: rect(250, 56, 28, 50),
+            area: rect(248, 42, 32, 64),
             walkTo: [238, 108],
             face: 'rechts',
             defaultVerb: 'redemit',
@@ -151,7 +151,7 @@ export const festplatz: RoomDef = {
           {
             id: 'clara',
             name: 'hotspot.clara',
-            area: rect(36, 50, 28, 50),
+            area: rect(34, 36, 32, 64),
             walkTo: [80, 102],
             face: 'links',
             defaultVerb: 'redemit',

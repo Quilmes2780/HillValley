@@ -72,7 +72,7 @@ export const cafe: RoomDef = {
           {
             id: 'lou',
             name: 'hotspot.lou',
-            area: rect(136, 40, 28, 28),
+            area: rect(134, 40, 32, 28),
             walkTo: [178, 106],
             face: 'links',
             defaultVerb: 'redemit',
@@ -86,7 +86,7 @@ export const cafe: RoomDef = {
           {
             id: 'goldie',
             name: 'hotspot.goldie',
-            area: rect(42, 72, 28, 52),
+            area: rect(40, 58, 32, 66),
             walkTo: [82, 126],
             face: 'links',
             defaultVerb: 'redemit',

@@ -109,7 +109,7 @@ export const buero: RoomDef = {
           {
             id: 'brix',
             name: 'hotspot.brix',
-            area: rect(206, 62, 28, 50),
+            area: rect(204, 48, 32, 64),
             walkTo: [176, 114],
             face: 'rechts',
             defaultVerb: 'redemit',

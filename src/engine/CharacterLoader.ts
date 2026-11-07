@@ -3,6 +3,8 @@ import { colorValue } from '../../tools/pixel/palette';
 
 export const ANIMATIONS = [
   'idle',
+  'idle_side',
+  'idle_back',
   'walk_side',
   'walk_front',
   'walk_back',
@@ -17,6 +19,8 @@ interface CharacterEntry {
   /** Name einer Palettenfarbe */
   textColor: string;
   portrait: string;
+  /** Höhe der Figur im Frame in Pixeln; Sprechtexte stehen knapp darüber. */
+  height?: number;
   frameWidth?: number;
   frameHeight?: number;
 }
@@ -31,6 +35,8 @@ interface CharactersFile {
 /** Wenn eine Animation fehlt, spielt die erste vorhandene aus dieser Liste. */
 const FALLBACKS: Record<AnimName, AnimName[]> = {
   idle: ['talk_front', 'walk_front', 'walk_side'],
+  idle_side: ['idle'],
+  idle_back: ['idle'],
   walk_side: ['walk_front', 'idle'],
   walk_front: ['walk_side', 'idle'],
   walk_back: ['walk_front', 'walk_side', 'idle'],
@@ -90,7 +96,7 @@ export function buildCharacterAnimations(scene: Phaser.Scene): void {
       scene.anims.create({
         key: animKey(id, anim),
         frames,
-        frameRate: anim === 'idle' ? 2 : config.fps,
+        frameRate: anim.startsWith('idle') ? 4 : config.fps,
         repeat: anim === 'pickup' ? 0 : -1,
       });
     }
@@ -108,6 +114,11 @@ export function resolveAnim(scene: Phaser.Scene, id: string, anim: AnimName): st
 export function textColorOf(id: string): number {
   const entry = config.characters[id];
   return entry ? colorValue(entry.textColor) : 0xffffff;
+}
+
+export function heightOf(id: string): number {
+  const entry = config.characters[id];
+  return entry?.height ?? entry?.frameHeight ?? config.frameHeight;
 }
 
 export function characterIds(): string[] {

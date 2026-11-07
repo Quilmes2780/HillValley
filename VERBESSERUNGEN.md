@@ -11,6 +11,8 @@ Stand: 6. November 2026. Grundlage sind `SPIELKONZEPT.md`, `LOESUNGSBUCH.md`, Te
 
 **Erledigt (7. November 2026):** Story-Fehler zu 2015, zur Mappe und zu Biffs Gedächtnis, Tipps für alle Figuren (Taste H, Menü, Klick aufs eigene Porträt), Menü-Knopf, automatisches Speichern, Doppelklick auf Ausgänge, Figurenschatten, alle 32 Anspielungen in eigenen Worten und die meisten Gags.
 
+**Ebenfalls erledigt:** Echte Figuren im Malstil, 40×72 groß und erfunden, mit Stand in drei Richtungen, Blinzeln, Sprechgesten und Porträts (`tools/paint/figuren.ts`). Offen bleibt die Raumtönung der Figuren.
+
 **Abweichungen:** „Gitarre überall“ entfällt, weil Marty nie in 1955 oder 1885 ist. „Tannen-Werbung, die mitwächst“ und ein Laufwitz-Zähler sind offen. Der gespielte Kopierschutz sitzt am Wählrad statt auf dem Titelbild.
 
 **Deine Entscheidungen:** Brix schickt weiter Briefe. Figuren malt Claude neu, etwa 40×72. Neue Rätsel sind erlaubt. Anspielungen erst einmal alle, später ausdünnen.

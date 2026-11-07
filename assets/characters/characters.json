@@ -1,132 +1,157 @@
 {
-  "frameWidth": 32,
-  "frameHeight": 56,
+  "frameWidth": 40,
+  "frameHeight": 72,
   "fps": 8,
   "characters": {
     "marty": {
       "folder": "marty",
       "textColor": "blau7",
-      "portrait": "marty_portrait.png"
+      "portrait": "marty_portrait.png",
+      "height": 63
     },
     "doc_jung": {
       "folder": "doc_jung",
       "textColor": "gruen7",
-      "portrait": "doc_jung_portrait.png"
+      "portrait": "doc_jung_portrait.png",
+      "height": 65
     },
     "doc": {
       "folder": "doc",
       "textColor": "violett5",
-      "portrait": "doc_portrait.png"
+      "portrait": "doc_portrait.png",
+      "height": 66
     },
     "test_npc": {
       "folder": "test_npc",
       "textColor": "orange3",
-      "portrait": "test_npc_portrait.png"
+      "portrait": "test_npc_portrait.png",
+      "height": 61
     },
     "lorraine": {
       "folder": "lorraine",
       "textColor": "pink4",
-      "portrait": "lorraine_portrait.png"
+      "portrait": "lorraine_portrait.png",
+      "height": 60
     },
     "biff": {
       "folder": "biff",
       "textColor": "gruen6",
-      "portrait": "biff_portrait.png"
+      "portrait": "biff_portrait.png",
+      "height": 66
     },
     "einstein": {
       "folder": "einstein",
       "textColor": "sand2",
-      "portrait": "einstein_portrait.png"
+      "portrait": "einstein_portrait.png",
+      "height": 28
     },
     "kowalski": {
       "folder": "kowalski",
       "textColor": "blau6",
-      "portrait": "kowalski_portrait.png"
+      "portrait": "kowalski_portrait.png",
+      "height": 69
     },
     "strickland": {
       "folder": "strickland",
       "textColor": "grau6",
-      "portrait": "strickland_portrait.png"
+      "portrait": "strickland_portrait.png",
+      "height": 64
     },
     "jennifer": {
       "folder": "jennifer",
       "textColor": "pink3",
-      "portrait": "jennifer_portrait.png"
+      "portrait": "jennifer_portrait.png",
+      "height": 61
     },
     "lou": {
       "folder": "lou",
       "textColor": "tuerkis6",
-      "portrait": "lou_portrait.png"
+      "portrait": "lou_portrait.png",
+      "height": 65
     },
     "goldie": {
       "folder": "goldie",
       "textColor": "tuerkis5",
-      "portrait": "goldie_portrait.png"
+      "portrait": "goldie_portrait.png",
+      "height": 63
     },
     "haendler": {
       "folder": "haendler",
       "textColor": "orange3",
-      "portrait": "haendler_portrait.png"
+      "portrait": "haendler_portrait.png",
+      "height": 61
     },
     "george_jung": {
       "folder": "george_jung",
       "textColor": "gelb3",
-      "portrait": "george_jung_portrait.png"
+      "portrait": "george_jung_portrait.png",
+      "height": 64
     },
     "biff_jung": {
       "folder": "biff_jung",
       "textColor": "gruen7",
-      "portrait": "biff_jung_portrait.png"
+      "portrait": "biff_jung_portrait.png",
+      "height": 65
     },
     "buford": {
       "folder": "buford",
       "textColor": "rot6",
-      "portrait": "buford_portrait.png"
+      "portrait": "buford_portrait.png",
+      "height": 72
     },
     "barkeeper": {
       "folder": "barkeeper",
       "textColor": "sand1",
-      "portrait": "barkeeper_portrait.png"
+      "portrait": "barkeeper_portrait.png",
+      "height": 63
     },
     "verne": {
       "folder": "verne",
       "textColor": "tuerkis6",
-      "portrait": "verne_portrait.png"
+      "portrait": "verne_portrait.png",
+      "height": 49
     },
     "jules": {
       "folder": "jules",
       "textColor": "blau8",
-      "portrait": "jules_portrait.png"
+      "portrait": "jules_portrait.png",
+      "height": 54
     },
     "clara": {
       "folder": "clara",
       "textColor": "pink4",
-      "portrait": "clara_portrait.png"
+      "portrait": "clara_portrait.png",
+      "height": 61
     },
     "feuerwerker": {
       "folder": "feuerwerker",
       "textColor": "orange3",
-      "portrait": "feuerwerker_portrait.png"
+      "portrait": "feuerwerker_portrait.png",
+      "height": 63
     },
     "maurer": {
       "folder": "maurer",
       "textColor": "grau6",
-      "portrait": "maurer_portrait.png"
+      "portrait": "maurer_portrait.png",
+      "height": 65
     },
     "brix": {
       "folder": "brix",
       "textColor": "neon",
-      "portrait": "brix_portrait.png"
+      "portrait": "brix_portrait.png",
+      "height": 65
     },
     "kellnerroboter": {
       "folder": "kellnerroboter",
       "textColor": "tuerkis5",
-      "portrait": "kellnerroboter_portrait.png"
+      "portrait": "kellnerroboter_portrait.png",
+      "height": 57
     },
     "museumsroboter": {
       "folder": "museumsroboter",
       "textColor": "gelb3",
-      "portrait": "museumsroboter_portrait.png"
+      "portrait": "museumsroboter_portrait.png",
+      "height": 63
     }
   }
 }

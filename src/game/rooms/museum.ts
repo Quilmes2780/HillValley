@@ -144,12 +144,12 @@ const normal: RoomVariant = {
         },
       },
     },
-    roboter(rect(50, 62, 28, 50), [86, 114], false),
-    roboter(rect(262, 64, 28, 50), [230, 116], true),
+    roboter(rect(48, 50, 32, 62), [86, 114], false),
+    roboter(rect(260, 52, 32, 62), [230, 116], true),
     {
       id: 'jennifer',
       name: 'hotspot.jennifer',
-      area: rect(94, 74, 28, 50),
+      area: rect(92, 72, 32, 52),
       walkTo: [136, 126],
       face: 'links',
       defaultVerb: 'redemit',
@@ -164,7 +164,7 @@ const normal: RoomVariant = {
     {
       id: 'jennifer_fuehrung',
       name: 'hotspot.jennifer',
-      area: rect(236, 68, 26, 50),
+      area: rect(234, 54, 30, 64),
       walkTo: [214, 120],
       face: 'rechts',
       visible: (s) => !!s.flags.roboter_fuehrt,
@@ -173,7 +173,7 @@ const normal: RoomVariant = {
     {
       id: 'brix',
       name: 'hotspot.brix',
-      area: rect(192, 70, 28, 50),
+      area: rect(190, 56, 32, 64),
       walkTo: [178, 122],
       face: 'rechts',
       visible: (s) => !!s.flags.brix_im_museum && !s.flags.aufzug_offen,
