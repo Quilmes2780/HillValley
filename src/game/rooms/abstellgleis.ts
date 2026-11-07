@@ -34,10 +34,10 @@ export const abstellgleis: RoomDef = {
           {
             id: 'zeitzug',
             name: 'hotspot.zeitzug',
-            area: rect(100, 58, 160, 48),
+            area: rect(92, 34, 180, 72),
             walkTo: [180, 114],
             face: 'hinten',
-            sprite: { key: 'characters/zeitzug/zeitzug.png', x: 100, y: 58, depthY: 106 },
+            sprite: { key: 'characters/zeitzug/zeitzug.png', x: 92, y: 30, depthY: 106 },
             comments: { oeffne: 'say.k3.zug_oeffne', benutze: 'say.k3.zug_benutze' },
             verbs: {
               schauan: async (g) => {

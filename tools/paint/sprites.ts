@@ -186,7 +186,12 @@ export function zeitwagen(): Picture {
     });
   }
 
-  // Dunkle Umrisslinie wie bei den Figuren
+  umriss(p, dunkel);
+  return p;
+}
+
+/** Dunkle Umrisslinie wie bei den Figuren: um alles, was bisher bemalt ist. */
+function umriss(p: Picture, farbe: RGB): void {
   const rand: [number, number][] = [];
   for (let y = 0; y < p.h; y++) {
     for (let x = 0; x < p.w; x++) {
@@ -199,7 +204,161 @@ export function zeitwagen(): Picture {
       if (nachbar) rand.push([x, y]);
     }
   }
-  for (const [x, y] of rand) p.set(x, y, dunkel);
+  for (const [x, y] of rand) p.set(x, y, farbe);
+}
+
+/** Harte Linie über Stützpunkte. Anders als Picture.line bleibt der Rand auf Sprites sauber. */
+function pfad(p: Picture, punkte: readonly (readonly [number, number])[], breite: number, farbe: RGB): void {
+  for (let i = 0; i + 1 < punkte.length; i++) {
+    const [x0, y0] = punkte[i];
+    const [x1, y1] = punkte[i + 1];
+    const schritte = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0), 1);
+    for (let t = 0; t <= schritte; t++) {
+      const x = Math.round(x0 + ((x1 - x0) * t) / schritte);
+      const y = Math.round(y0 + ((y1 - y0) * t) / schritte);
+      p.area(x - Math.floor(breite / 2), y - Math.floor(breite / 2), breite, breite, () => farbe);
+    }
+  }
+}
+
+/** Messing, von oben beleuchtet. */
+const messing = (t: number): RGB => ramp([hex('#fff0b0'), hex('#e0a848'), hex('#a8702a'), hex('#5a3a18')], t);
+
+function rad(p: Picture, cx: number, cy: number, r: number): void {
+  scheibe(p, cx, cy, r, (d, x, y) => {
+    if (d > r - 1.2) return messing((y - (cy - r)) / (2 * r));
+    if (d < 1.6) return messing(0.2);
+    const winkel = Math.atan2(y + 0.5 - cy, x + 0.5 - cx);
+    const speichen = r > 7 ? 5 : 3;
+    return (Math.abs(Math.sin(winkel * speichen)) * d) / speichen < 0.6 ? hex('#a8acb8') : hex('#0c0c12');
+  });
+}
+
+/**
+ * Der Zeitzug, 180×76, Lok rechts, denn er fährt im Spiel nach rechts.
+ * Schwarzer Kessel, Messing, blaue Leuchtrohre, leuchtender Räumer und Blitzspule auf dem Wagen.
+ * Eigener Entwurf ohne Filmsymbol. Die Größe steht in den Räumen abstellgleis, festplatz und rathausplatz.
+ */
+export function zeitzug(): Picture {
+  const p = K.picture(180, 76);
+  const neon = hex('#3a9cff');
+  const neonHell = hex('#c4ecff');
+  const neonTief = hex('#17408c');
+  const kessel = [hex('#6a6c7c'), hex('#26273a'), hex('#14141e'), hex('#08080e')];
+  const blech = [hex('#7a8cb0'), hex('#34466c'), hex('#1e2a48'), hex('#10162a')];
+  const licht = (x: number, y: number): RGB => mix(hex('#ffd878'), hex('#d87a28'), (y % 12) / 12 + ((x * 7) % 5) * 0.03);
+
+  // --- Blitze über der Spule
+  const blitze: [number, number][][] = [
+    [[33, 12], [27, 8], [30, 6], [22, 3], [19, 7], [12, 4]],
+    [[33, 12], [38, 7], [35, 4], [43, 1], [47, 6], [54, 3]],
+  ];
+  for (const blitz of blitze) pfad(p, blitz, 2, neonTief);
+  for (const blitz of blitze) pfad(p, blitz, 1, neonHell);
+
+  // --- Wagen
+  p.area(4, 26, 58, 34, (x, y) => ramp(blech, 0.25 + ((y - 26) / 34) * 0.7 + (fbm(x / 9, y / 9, 2, 621) - 0.5) * 0.08));
+  p.poly([[1, 26], [5, 21], [61, 21], [65, 26]], (_x, y) => ramp(blech, (y - 21) / 8));
+  p.area(5, 24, 56, 1, () => neon);
+  p.area(4, 26, 58, 1, () => messing(0.15));
+  p.area(4, 45, 58, 1, () => messing(0.35));
+  for (const x of [9, 20, 31, 42, 53]) {
+    p.area(x, 30, 7, 12, licht);
+    p.area(x, 30, 7, 1, () => hex('#10162a'));
+    p.area(x + 3, 30, 1, 12, () => hex('#5a3a18'));
+  }
+  // Die Spule auf dem Dach: Messingfuß, Kupferwicklung, Teller
+  p.area(29, 17, 9, 4, (x, y) => messing((y - 17) / 5 + (x - 29) * 0.03));
+  p.area(30, 14, 7, 3, (_x, y) => ((y % 2) ? hex('#d07a38') : hex('#7a4018')));
+  p.poly([[23, 13], [27, 11], [40, 11], [44, 13], [40, 15], [27, 15]], (_x, y) => mix(hex('#ffc0a0'), hex('#9a4a28'), (y - 11) / 4));
+
+  // Fahrgestell des Wagens
+  p.area(4, 60, 58, 4, () => hex('#14141c'));
+  p.area(62, 58, 8, 3, () => hex('#14141c'));
+  p.area(6, 64, 16, 3, () => hex('#23232e'));
+  p.area(44, 64, 16, 3, () => hex('#23232e'));
+
+  // --- Kessel
+  p.area(90, 24, 72, 34, (x, y) => ramp(kessel, (y - 24) / 34 + (fbm(x / 14, y / 5, 2, 622) - 0.5) * 0.1));
+  p.area(90, 28, 56, 1, () => hex('#9a9cae'));
+  for (const x of [104, 120, 136]) p.area(x, 24, 2, 34, (_x, y) => messing((y - 24) / 34));
+  // Rauchkammer vorn mit Messingring
+  p.area(146, 23, 16, 36, (x, y) => ramp(kessel, 0.1 + (y - 23) / 38 + (x % 2) * 0.02));
+  p.area(146, 23, 2, 36, (_x, y) => messing((y - 23) / 36));
+  p.area(160, 23, 3, 36, (_x, y) => messing((y - 23) / 36));
+
+  // Schornstein mit Messingkrone
+  p.area(147, 9, 10, 15, (x) => mix(hex('#50525e'), hex('#0e0e16'), (x - 147) / 10));
+  p.poly([[143, 3], [161, 3], [157, 9], [147, 9]], (x, y) => messing((y - 3) / 8 + (x - 143) * 0.015));
+  p.area(144, 3, 16, 1, () => hex('#fff0b0'));
+  p.area(147, 20, 10, 1, () => messing(0.3));
+
+  // Dom, Pfeife, Sandkasten
+  p.area(117, 18, 12, 6, (x, y) => messing((y - 18) / 8 + (x - 117) * 0.04));
+  p.poly([[119, 13], [127, 13], [129, 18], [117, 18]], (x, y) => messing((y - 13) / 9 + (x - 117) * 0.04));
+  p.area(122, 11, 2, 2, () => messing(0.1));
+  p.area(106, 15, 4, 9, (x) => messing((x - 106) * 0.2));
+  p.area(105, 13, 6, 2, () => messing(0.1));
+  p.area(133, 19, 5, 5, (x) => messing(0.1 + (x - 133) * 0.15));
+
+  // Laterne
+  p.area(161, 15, 8, 9, (x, y) => mix(hex('#3a3a46'), hex('#14141c'), (y - 15) / 9 + (x - 161) * 0.01));
+  p.area(161, 15, 8, 1, () => messing(0.1));
+  scheibe(p, 169, 19, 3.6, (d) => (d < 1.8 ? hex('#fffbe0') : d < 3 ? hex('#ffd860') : messing(0.4)));
+
+  // --- Führerhaus
+  p.area(66, 24, 27, 36, (x, y) => ramp(blech, 0.3 + ((y - 24) / 36) * 0.65 + (fbm(x / 8, y / 8, 2, 623) - 0.5) * 0.08));
+  p.poly([[62, 24], [66, 19], [93, 19], [97, 24]], (_x, y) => ramp(blech, (y - 19) / 7));
+  p.area(67, 22, 25, 1, () => neon);
+  p.area(66, 24, 27, 1, () => messing(0.15));
+  p.area(66, 47, 27, 1, () => messing(0.35));
+  p.area(71, 28, 8, 14, licht);
+  p.area(82, 28, 7, 14, licht);
+  p.area(71, 28, 8, 1, () => hex('#10162a'));
+  p.area(82, 28, 7, 1, () => hex('#10162a'));
+  // Eigenes Zeichen am Führerhaus: ein leuchtender Ring mit Zeiger
+  scheibe(p, 80, 53, 4, (d) => (d > 2.4 ? neon : hex('#0e1426')));
+  p.area(80, 50, 1, 3, () => neonHell);
+  p.area(80, 53, 3, 1, () => neonHell);
+
+  // --- Rahmen und Triebwerk
+  p.area(66, 58, 97, 4, (_x, y) => mix(hex('#3a3a46'), hex('#14141c'), (y - 58) / 4));
+  p.area(66, 58, 97, 1, () => messing(0.35));
+  p.area(88, 62, 74, 4, () => hex('#0e0e16'));
+
+  // Leuchtrohre: Außen tiefes Blau, innen hell.
+  const rohr: [number, number][] = [[93, 49], [108, 49], [113, 44], [138, 44], [143, 50], [160, 50]];
+  pfad(p, rohr, 3, neonTief);
+  pfad(p, rohr, 2, neon);
+  pfad(p, rohr, 1, neonHell);
+  pfad(p, [[93, 54], [128, 54], [133, 49], [146, 49]], 2, neon);
+  pfad(p, [[93, 54], [128, 54], [133, 49], [146, 49]], 1, neonHell);
+  // Messingrohr darüber
+  pfad(p, [[93, 36], [146, 36]], 1, messing(0.25));
+
+  // Räder
+  for (const cx of [14, 52]) rad(p, cx, 70, 5.5);
+  rad(p, 98, 64, 11.5);
+  rad(p, 123, 64, 11.5);
+  for (const cx of [147, 160]) rad(p, cx, 70, 5.5);
+
+  // Zylinder und Treibstange
+  p.area(135, 56, 19, 11, (x, y) => mix(hex('#8a8c9c'), hex('#1e1f2a'), (y - 56) / 11 + (x % 3) * 0.02));
+  p.area(135, 56, 2, 11, () => messing(0.3));
+  p.area(152, 56, 2, 11, () => messing(0.3));
+  pfad(p, [[98, 66], [135, 61]], 2, messing(0.3));
+  pfad(p, [[98, 66], [123, 66]], 2, messing(0.2));
+  for (const cx of [98, 123]) scheibe(p, cx, 66, 1.6, () => hex('#fff0b0'));
+
+  // Schienenräumer: Stahlstäbe mit blauem Licht dazwischen
+  p.poly([[162, 58], [165, 58], [179, 74], [162, 74]], (x, y) => {
+    if (y >= 73) return hex('#c6ced9');
+    const stab = (x - y) % 4 === 0;
+    return stab ? mix(hex('#e6ebf2'), hex('#6b7382'), (y - 58) / 16) : mix(neon, neonHell, (y - 58) / 22);
+  });
+  p.area(162, 58, 4, 1, () => hex('#e6ebf2'));
+
+  umriss(p, hex('#0a0a10'));
   return p;
 }
 

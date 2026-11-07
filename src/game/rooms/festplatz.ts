@@ -15,7 +15,7 @@ const abfahrt: Script = async (g) => {
     g.hideActor('clara');
     g.hideActor();
     g.burst(170, 100, FX.dampf);
-    await zugFaehrtAb(g, 'zeitzug', [270, 94], [230, 0], 130, [132, 138], [1885, 1986]);
+    await zugFaehrtAb(g, 'zeitzug', [292, 68], [230, 0], 130, [132, 138], [1885, 1986]);
     g.setFlag('abfahrt_laeuft', false);
     g.setFlag('zug_abgefahren');
     await g.showCard('chapter.k4.title', 'chapter.k4.subtitle');
@@ -177,10 +177,10 @@ export const festplatz: RoomDef = {
           {
             id: 'zeitzug',
             name: 'hotspot.zeitzug',
-            area: rect(140, 92, 160, 48),
+            area: rect(140, 68, 180, 72),
             walkTo: [100, 130],
             visible: (s) => !!s.flags.abfahrt_laeuft,
-            sprite: { key: 'characters/zeitzug/zeitzug.png', x: 140, y: 92, depthY: 140 },
+            sprite: { key: 'characters/zeitzug/zeitzug.png', x: 140, y: 64, depthY: 140 },
           },
           {
             id: 'strasse',

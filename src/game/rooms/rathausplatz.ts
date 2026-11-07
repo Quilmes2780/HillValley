@@ -121,11 +121,11 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'zeitzug',
     name: 'hotspot.zeitzug',
-    area: rect(120, 96, 160, 44),
+    area: rect(120, 68, 180, 72),
     walkTo: [296, 122],
     face: 'links',
     visible: (s) => !!s.flags.zug_da,
-    sprite: { key: 'characters/zeitzug/zeitzug.png', x: 120, y: 92, depthY: 139 },
+    sprite: { key: 'characters/zeitzug/zeitzug.png', x: 120, y: 64, depthY: 139 },
     comments: { schauan: 'say.k4.zug_schau', benutze: 'say.k4.zug_benutze', oeffne: 'say.k4.zug_benutze' },
   },
   {
@@ -166,7 +166,7 @@ const hotspots1986: readonly Hotspot[] = [
           await g.walkTo([268, 124], undefined, 2);
           g.hideActor();
           g.hideActor('doc');
-          await zugFaehrtAb(g, 'zeitzug', [250, 94], [220, 0], 110, [130, 136], [1986, 2015]);
+          await zugFaehrtAb(g, 'zeitzug', [272, 68], [220, 0], 110, [130, 136], [1986, 2015]);
           await g.showCard('chapter.k5.title', 'chapter.k5.subtitle');
           g.state.chapter = 5;
           g.state.characters.doc = { room: 'turmplatz', era: 2015, x: 200, y: 118, face: 'links', inventory: [] };

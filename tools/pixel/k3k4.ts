@@ -1,7 +1,5 @@
-import { mkdirSync } from 'node:fs';
-import { drawText } from './schild.ts';
 import { C } from './palette.ts';
-import { Canvas, saveReplaceable } from './png.ts';
+import { Canvas } from './png.ts';
 
 function sprite(dir: string, name: string, w: number, h: number, paint: (c: Canvas) => void): void {
   const c = new Canvas(w, h);
@@ -63,30 +61,11 @@ function uhrwerk1885(dir: string): void {
   });
 }
 
-/**
- * Neutraler Platzhalter für die Zeitmaschine auf Schienen. Bewusst kein Film-Fahrzeug:
- * Eigene Grafik ersetzt einfach assets/characters/zeitzug/zeitzug.png (160×48).
- */
-function zeitzug(dir: string): void {
-  const c = new Canvas(160, 48);
-  c.rect(4, 12, 110, 28, C.grau3);
-  c.frame(4, 12, 110, 28, C.grau1);
-  c.rect(116, 18, 40, 22, C.grau4);
-  c.frame(116, 18, 40, 22, C.grau1);
-  for (const x of [20, 56, 92, 134]) {
-    c.poly([[x, 38], [x + 8, 38], [x + 12, 42], [x + 8, 47], [x, 47], [x - 4, 42]], C.schwarz);
-  }
-  drawText(c, 'ZEITZUG', 30, 18, C.weiss);
-  mkdirSync(`${dir}/characters/zeitzug`, { recursive: true });
-  saveReplaceable(c, `${dir}/characters/zeitzug/zeitzug.png`);
-}
-
 export function buildK3K4Backgrounds(dir: string): void {
   schmiede(dir);
   festplatz(dir);
   mietstall(dir);
   uhrwerk1885(dir);
-  zeitzug(dir);
 
   // Docs Labor 1986: neue Dinge für Kapitel 3 und 4
   sprite(dir, 'brecheisen', 6, 28, (s) => {
