@@ -109,9 +109,17 @@ export const docsLabor: RoomDef = {
         ],
         hotspots: [
           {
+            id: 'rohre',
+            name: 'hotspot.rohre',
+            area: rect(0, 4, 320, 10),
+            walkTo: [160, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_rohre' },
+          },
+          {
             id: 'tuer',
             name: 'hotspot.tuer_draussen',
-            area: rect(4, 22, 38, 68),
+            area: rect(4, 22, 39, 68),
             walkTo: [24, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.labor_tuer' },
@@ -139,13 +147,45 @@ export const docsLabor: RoomDef = {
             comments: { schauan: 'say.prolog.labor_regal', nimm: 'say.prolog.labor_regal_nimm' },
           },
           {
+            id: 'buechse',
+            name: 'hotspot.buechse',
+            area: rect(55, 27, 13, 15),
+            walkTo: [62, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_buechse' },
+          },
+          {
+            id: 'blaue_dose',
+            name: 'hotspot.blaue_dose',
+            area: rect(90, 29, 11, 13),
+            walkTo: [95, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_blaue_dose' },
+          },
+          {
+            id: 'konserven',
+            name: 'hotspot.konserven',
+            area: rect(55, 52, 20, 12),
+            walkTo: [65, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_konserven' },
+          },
+          {
+            id: 'holzkiste',
+            name: 'hotspot.holzkiste',
+            area: rect(79, 54, 22, 10),
+            walkTo: [90, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_holzkiste' },
+          },
+          {
             id: 'mr_fusion',
             name: 'item.mr_fusion.name',
-            area: rect(70, 24, 16, 20),
+            area: rect(70, 23, 16, 20),
             walkTo: [80, 96],
             face: 'hinten',
             visible: (s) => !s.flags.mr_fusion_genommen,
-            sprite: { key: 'backgrounds/sprites/mr_fusion.png', x: 72, y: 26 },
+            sprite: { key: 'backgrounds/sprites/mr_fusion.png', x: 72, y: 25 },
             comments: { schauan: 'say.prolog.labor_fusion_schau' },
             verbs: {
               nimm: async (g) => {
@@ -184,11 +224,11 @@ export const docsLabor: RoomDef = {
           {
             id: 'hundefutter',
             name: 'item.hundefutter.name',
-            area: rect(126, 52, 16, 14),
+            area: rect(126, 51, 16, 14),
             walkTo: [134, 96],
             face: 'hinten',
             visible: (s) => !!s.flags.labor_schrank_offen && !s.flags.hundefutter_genommen,
-            sprite: { key: 'backgrounds/sprites/hundefutter.png', x: 128, y: 54 },
+            sprite: { key: 'backgrounds/sprites/hundefutter.png', x: 128, y: 53 },
             comments: { schauan: 'say.prolog.labor_futter_schau' },
             verbs: {
               nimm: pickup((g) => {
@@ -200,7 +240,7 @@ export const docsLabor: RoomDef = {
           {
             id: 'uhren',
             name: 'hotspot.uhren',
-            area: rect(158, 12, 84, 34),
+            area: rect(158, 15, 77, 29),
             walkTo: [200, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.labor_uhren', nimm: 'say.prolog.labor_uhren_nimm' },
@@ -208,10 +248,50 @@ export const docsLabor: RoomDef = {
           {
             id: 'werkbank',
             name: 'hotspot.werkbank',
-            area: rect(158, 48, 84, 42),
+            area: rect(156, 55, 85, 36),
             walkTo: [200, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.labor_werkbank' },
+          },
+          {
+            id: 'deckenlampe',
+            name: 'hotspot.deckenlampe',
+            area: rect(193, 0, 18, 17),
+            walkTo: [202, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_deckenlampe' },
+          },
+          {
+            id: 'zahnrad_links',
+            name: 'hotspot.zahnrad',
+            area: rect(175, 6, 9, 9),
+            walkTo: [180, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_zahnrad' },
+          },
+          {
+            id: 'zahnrad_rechts',
+            name: 'hotspot.zahnrad',
+            area: rect(218, 6, 9, 9),
+            walkTo: [222, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_zahnrad' },
+          },
+          {
+            id: 'messgeraet',
+            name: 'hotspot.messgeraet',
+            area: rect(221, 52, 14, 8),
+            walkTo: [228, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_messgeraet' },
+          },
+          {
+            id: 'blechkiste',
+            name: 'hotspot.blechkiste',
+            area: rect(175, 65, 15, 8),
+            walkTo: [182, 96],
+            face: 'hinten',
+            comments: { schauan: 'say.prolog.labor_blechkiste' },
           },
           {
             id: 'docs_brief',
@@ -252,7 +332,7 @@ export const docsLabor: RoomDef = {
           {
             id: 'riesenverstaerker',
             name: 'hotspot.riesenverstaerker',
-            area: rect(258, 20, 46, 70),
+            area: rect(257, 20, 48, 71),
             walkTo: [280, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.labor_verstaerker', nimm: 'say.prolog.labor_verstaerker_nimm' },
@@ -309,11 +389,11 @@ export const docsLabor: RoomDef = {
           {
             id: 'brecheisen',
             name: 'item.brecheisen.name',
-            area: rect(42, 58, 8, 30),
+            area: rect(42, 60, 8, 30),
             walkTo: [46, 96],
             face: 'hinten',
             visible: (s) => s.chapter >= 3 && !s.flags.brecheisen_genommen,
-            sprite: { key: 'backgrounds/sprites/brecheisen.png', x: 43, y: 59 },
+            sprite: { key: 'backgrounds/sprites/brecheisen.png', x: 43, y: 61 },
             comments: { schauan: 'say.k3.labor_brecheisen' },
             verbs: {
               nimm: pickup((g) => {
@@ -325,14 +405,14 @@ export const docsLabor: RoomDef = {
           {
             id: 'sicherungskasten',
             name: 'hotspot.sicherungskasten',
-            area: rect(236, 12, 22, 30),
+            area: rect(235, 14, 22, 30),
             walkTo: [248, 96],
             face: 'hinten',
             defaultVerb: 'oeffne',
             sprite: {
               key: 'backgrounds/sprites/sicherungskasten.png',
-              x: 236,
-              y: 12,
+              x: 235,
+              y: 14,
               when: (s) => !s.flags.sicherungskasten_offen,
             },
             comments: { schauan: 'say.k3.labor_kasten' },
@@ -351,11 +431,11 @@ export const docsLabor: RoomDef = {
           {
             id: 'kasten_innen',
             name: 'hotspot.sicherungskasten',
-            area: rect(236, 12, 22, 30),
+            area: rect(235, 14, 22, 30),
             walkTo: [248, 96],
             face: 'hinten',
             visible: (s) => !!s.flags.sicherungskasten_offen,
-            sprite: { key: 'backgrounds/sprites/sicherungskasten_offen.png', x: 236, y: 12 },
+            sprite: { key: 'backgrounds/sprites/sicherungskasten_offen.png', x: 235, y: 14 },
             comments: { schauan: 'say.k3.labor_kasten_innen' },
             verbs: {
               schliesse: async (g) => {
@@ -366,11 +446,11 @@ export const docsLabor: RoomDef = {
           {
             id: 'sicherung',
             name: 'item.sicherung.name',
-            area: rect(238, 14, 14, 8),
+            area: rect(237, 16, 14, 8),
             walkTo: [248, 96],
             face: 'hinten',
             visible: (s) => !!s.flags.sicherungskasten_offen && !s.flags.sicherung_genommen,
-            sprite: { key: 'backgrounds/sprites/sicherung.png', x: 240, y: 15 },
+            sprite: { key: 'backgrounds/sprites/sicherung.png', x: 239, y: 17 },
             comments: { schauan: 'say.k3.labor_sicherung_schau' },
             verbs: {
               nimm: async (g) => {
