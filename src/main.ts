@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { AudioLoadScene } from './engine/AudioLoadScene';
 import { BootScene } from './engine/BootScene';
 import { GameScene } from './engine/GameScene';
 import { TitleScene } from './engine/TitleScene';
@@ -22,7 +23,7 @@ const game = new Phaser.Game({
     height: GAME_H,
     zoom: integerZoom(),
   },
-  scene: [BootScene, TitleScene, GameScene],
+  scene: [BootScene, TitleScene, GameScene, AudioLoadScene],
 });
 
 window.addEventListener('resize', () => game.scale.setZoom(integerZoom()));

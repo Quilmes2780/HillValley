@@ -12,6 +12,29 @@ function samples(name: string): Buffer {
 }
 
 test.describe('Meilenstein 9: Leben und Klang', () => {
+  test('Das Spiel startet ohne Ton, und die Musik setzt ein, sobald ihre Datei da ist', async ({ page }) => {
+    const errors = watchErrors(page);
+    let released = false;
+    const waiting: (() => Promise<void>)[] = [];
+    await page.route('**/audio/*.wav', async (route) => {
+      if (released) await route.continue();
+      else waiting.push(() => route.continue());
+    });
+    await openGame(page);
+    const music = await page.evaluate(() => window.__hv.music());
+    expect(music).not.toBeNull();
+    expect(await page.evaluate(() => window.__hv.musicPlaying())).toBe(false);
+
+    // Auch ohne geladene Effekte bleibt das Spiel bedienbar.
+    await page.mouse.click(480, 200);
+    await waitIdle(page);
+
+    released = true;
+    await Promise.all(waiting.map((go) => go()));
+    await expect.poll(() => page.evaluate(() => window.__hv.musicPlaying()), { timeout: 20_000 }).toBe(true);
+    expect(errors).toEqual([]);
+  });
+
   test('Alle Klänge gibt es, und sie sind weder stumm noch dauerhaft übersteuert', () => {
     for (const name of [...MUSIC, ...AMBIENCE, ...SFX]) {
       expect(existsSync(`assets/audio/${name}.wav`), name).toBe(true);

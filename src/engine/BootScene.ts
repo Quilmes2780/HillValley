@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import { colorValue } from '../../tools/pixel/palette';
-import { AMBIENCE, MUSIC, SFX } from '../game/audio';
 import { ITEMS } from '../game/items/items';
 import { PICTURES } from '../game/szenen';
 import { ROOMS } from '../game/rooms';
@@ -24,13 +23,15 @@ const UI_IMAGES = [
   'title',
 ];
 
-/** Lädt alles, was die Spieldaten verlangen. Neue Räume brauchen hier keinen Eintrag. */
+/** Lädt alle Bilder, die die Spieldaten verlangen. Neue Räume brauchen hier keinen Eintrag. Den Ton lädt AudioLoadScene. */
 export class BootScene extends Phaser.Scene {
   constructor() {
     super('boot');
   }
 
   preload(): void {
+    // Die Figuren zuerst einreihen, sonst springt der Ladebalken zurück, sobald ihre Bilder dazukommen.
+    queueCharacters(this);
     this.load.bitmapFont('hv', 'ui/font.png', 'ui/font.xml');
     for (const name of UI_IMAGES) this.load.image(`ui/${name}`, `ui/${name}.png`);
     for (const item of ITEMS) {
@@ -64,10 +65,8 @@ export class BootScene extends Phaser.Scene {
     for (const picture of PICTURES) {
       this.load.spritesheet(assetKey(picture.key), picture.key, picture);
     }
-    for (const name of [...MUSIC, ...AMBIENCE, ...SFX]) this.load.audio(`audio/${name}`, `audio/${name}.wav`);
-    queueCharacters(this);
 
-    // Ladebalken: Musik und Grafik brauchen beim ersten Start einen Moment.
+    // Ladebalken: Die Grafik braucht beim ersten Start einen Moment.
     this.add.rectangle(60, 98, 200, 4, colorValue('grau2')).setOrigin(0, 0);
     const bar = this.add.rectangle(60, 98, 1, 4, colorValue('tuerkis5')).setOrigin(0, 0);
     this.load.on('progress', (value: number) => bar.setSize(Math.max(1, 200 * value), 4));
@@ -78,6 +77,7 @@ export class BootScene extends Phaser.Scene {
     const params = new URLSearchParams(location.search);
     const testMode = params.has('test');
     initAudio(this.game, !testMode);
+    this.scene.launch('audioload');
     // Tests starten direkt im Spiel, außer sie prüfen ausdrücklich das Titelbild.
     this.scene.start(testMode && !params.has('titel') ? 'game' : 'title');
   }

@@ -45,6 +45,7 @@ export class GameAudio {
       if (event.key === 'm' || event.key === 'M') this.toggleMute();
     });
     game.events.on(Phaser.Core.Events.STEP, (_time: number, delta: number) => this.tickFades(delta));
+    game.cache.audio.events.on(Phaser.Cache.Events.ADD, (_cache: unknown, key: string) => this.onLoaded(key));
   }
 
   get muted(): boolean {
@@ -78,7 +79,7 @@ export class GameAudio {
     if (this.musicKey === key) return;
     this.fadeOut(this.music);
     this.musicKey = key;
-    this.music = key ? this.startLoop(`audio/${key}`, MUSIC_VOLUME, () => this.musicKey === key) : null;
+    this.music = key ? this.startMusic(key) : null;
   }
 
   /** Raumklang liegt leise unter der Musik und blendet beim Raumwechsel über. */
@@ -86,20 +87,44 @@ export class GameAudio {
     if (this.ambienceKey === key) return;
     this.fadeOut(this.ambience);
     this.ambienceKey = key;
-    this.ambience = key ? this.startLoop(`audio/${key}`, AMBIENCE_VOLUME, () => this.ambienceKey === key) : null;
+    this.ambience = key ? this.startAmbience(key) : null;
   }
 
   sfx(key: SfxName, volume = SFX_VOLUME): void {
     this.sfxLog.push(key);
-    if (!this.game.sound.locked) this.game.sound.play(`audio/${key}`, { volume });
+    this.playOnce(`audio/${key}`, volume);
   }
 
   /** Ein Schritt: Das geschieht so oft, dass es nicht ins Protokoll der Effekte gehört. */
   step(key: SfxName): void {
-    if (!this.game.sound.locked) this.game.sound.play(`audio/${key}`, { volume: STEP_VOLUME });
+    this.playOnce(`audio/${key}`, STEP_VOLUME);
   }
 
-  private startLoop(key: string, volume: number, wanted: () => boolean): LoopSound {
+  /** Noch nicht geladene Effekte entfallen einfach; der Ton kommt im Hintergrund nach. */
+  private playOnce(key: string, volume: number): void {
+    if (!this.game.sound.locked && this.game.cache.audio.exists(key)) this.game.sound.play(key, { volume });
+  }
+
+  /** Ein Stück, das schon laufen sollte, setzt ein, sobald seine Datei da ist. */
+  private onLoaded(key: string): void {
+    if (!this.music && this.musicKey && key === `audio/${this.musicKey}`) {
+      this.music = this.startMusic(this.musicKey);
+    }
+    if (!this.ambience && this.ambienceKey && key === `audio/${this.ambienceKey}`) {
+      this.ambience = this.startAmbience(this.ambienceKey);
+    }
+  }
+
+  private startMusic(key: MusicName): LoopSound | null {
+    return this.startLoop(`audio/${key}`, MUSIC_VOLUME, () => this.musicKey === key);
+  }
+
+  private startAmbience(key: AmbienceName): LoopSound | null {
+    return this.startLoop(`audio/${key}`, AMBIENCE_VOLUME, () => this.ambienceKey === key);
+  }
+
+  private startLoop(key: string, volume: number, wanted: () => boolean): LoopSound | null {
+    if (!this.game.cache.audio.exists(key)) return null;
     const sound = this.game.sound.add(key, { loop: true, volume: 0 }) as LoopSound;
     const begin = (): void => {
       if (!wanted()) return;
