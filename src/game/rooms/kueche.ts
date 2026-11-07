@@ -125,7 +125,7 @@ export const kueche: RoomDef = {
             walkTo: [288, 94],
             face: 'hinten',
             comments: { schauan: 'say.prolog.kueche_haustuer' },
-            exit: { room: 'vorgarten', at: [125, 100], face: 'vorne' },
+            exit: { room: 'vorgarten', at: [107, 110], face: 'vorne' },
           },
           {
             id: 'lorraine',
