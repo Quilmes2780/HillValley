@@ -240,7 +240,6 @@ const EXTRAS: readonly Extra[] = [
     room: 'docs_labor',
     era: 1955,
     add: [chuck(244, 74, [250, 96])],
-    patch: { helm: { comments: { benutze: say('helm_benutze') } } },
   },
   {
     room: 'rathausplatz',

@@ -31,7 +31,7 @@ export const mietstall: RoomDef = {
             walkTo: [270, 112],
             face: 'hinten',
             sprite: { key: 'backgrounds/sprites/misthaufen.png', x: 236, y: 72, depthY: 106 },
-            comments: { schauan: 'say.k3.stall_mist', benutze: 'say.k3.stall_mist_benutze' },
+            comments: { schauan: 'say.k3.stall_mist' },
           },
           {
             id: 'pferd',
