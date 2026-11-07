@@ -15,12 +15,12 @@ const paintOf = (c: Shader, u: number, v: number): RGB => (typeof c === 'functio
 const light = (c: RGB, f: number): RGB => mix(c, [255, 250, 235], f);
 
 /** Verlauf von oben nach unten. */
-const vgrad = (a: string | RGB, b: string | RGB, y0: number, y1: number) => (_u: number, v: number): RGB =>
+export const vgrad = (a: string | RGB, b: string | RGB, y0: number, y1: number) => (_u: number, v: number): RGB =>
   mix(toRgb(a), toRgb(b), clamp01((v - y0) / (y1 - y0)));
 const toRgb = (c: string | RGB): RGB => (typeof c === 'string' ? hex(c) : c);
 
 /** Stehender Zylinder: Licht links der Mitte, Schatten an den Rändern. */
-const cyl = (base: string | RGB, x0: number, x1: number) => (u: number): RGB => {
+export const cyl = (base: string | RGB, x0: number, x1: number) => (u: number): RGB => {
   const t = (u - x0) / (x1 - x0);
   const c = toRgb(base);
   const glow = Math.exp(-(((t - 0.3) / 0.13) ** 2)) * 0.5;
@@ -29,7 +29,7 @@ const cyl = (base: string | RGB, x0: number, x1: number) => (u: number): RGB => 
 };
 
 /** Kugel, von links oben beleuchtet. */
-const ballShade = (base: string | RGB, cx: number, cy: number, rx: number, ry: number) => (u: number, v: number): RGB => {
+export const ballShade = (base: string | RGB, cx: number, cy: number, rx: number, ry: number) => (u: number, v: number): RGB => {
   const nx = (u - cx) / rx;
   const ny = (v - cy) / ry;
   const nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
@@ -38,12 +38,19 @@ const ballShade = (base: string | RGB, cx: number, cy: number, rx: number, ry: n
   return light(shade(c, 0.42 + d * 0.78), d ** 9 * 0.8);
 };
 
-class Ink {
-  readonly hi = new Picture(W * S, H * S);
+export class Ink {
+  readonly hi: Picture;
+
+  constructor(
+    readonly w = W,
+    readonly h = H,
+  ) {
+    this.hi = new Picture(w * S, h * S);
+  }
 
   fill(x0: number, y0: number, x1: number, y1: number, inside: (u: number, v: number) => boolean, c: Shader): void {
-    for (let y = Math.max(0, Math.floor(y0 * S)); y < Math.min(H * S, Math.ceil(y1 * S)); y++) {
-      for (let x = Math.max(0, Math.floor(x0 * S)); x < Math.min(W * S, Math.ceil(x1 * S)); x++) {
+    for (let y = Math.max(0, Math.floor(y0 * S)); y < Math.min(this.h * S, Math.ceil(y1 * S)); y++) {
+      for (let x = Math.max(0, Math.floor(x0 * S)); x < Math.min(this.w * S, Math.ceil(x1 * S)); x++) {
         const u = (x + 0.5) / S;
         const v = (y + 0.5) / S;
         if (inside(u, v)) this.hi.set(x, y, paintOf(c, u, v));
@@ -128,6 +135,8 @@ class Ink {
 
   /** Verkleinert, schärft nach und zieht den dunklen Rand. */
   finish(outline: RGB = hex('#120c12')): Picture {
+    const W = this.w;
+    const H = this.h;
     const out = new Picture(W, H);
     const opaque = new Uint8Array(W * H);
     const colors: RGB[] = [];
@@ -190,7 +199,7 @@ interface SheetLook {
   first?: number;
 }
 
-function sheet(i: Ink, o: SheetLook): (a: number, b: number) => Pt {
+export function sheet(i: Ink, o: SheetLook): (a: number, b: number) => Pt {
   const tilt = o.tilt ?? 0;
   const cos = Math.cos(tilt);
   const sin = Math.sin(tilt);

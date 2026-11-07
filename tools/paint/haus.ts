@@ -72,10 +72,7 @@ export function martysZimmer(): Picture {
   p.poly([[226, 50], [240, 50], [236, 42], [230, 42]], (x, y) => mix(hex('#f0c060'), hex('#a06c28'), (y - 42) / 10 + (x - 226) * 0.01));
   p.glow(233, 56, 18, hex('#ffc070'), 0.16);
 
-  // Skateboard, Kram auf dem Boden, Tür
-  K.box(p, 255, 62, 8, 26, (x, y) => mix(hex('#c23a2c'), hex('#7a1e18'), fbm(x, y / 6, 2, 5)), { light: 0.3 });
-  p.area(254, 64, 10, 2, () => hex('#2a2830'));
-  p.area(254, 84, 10, 2, () => hex('#2a2830'));
+  // Kram auf dem Boden, Tür (das Skateboard ist ein eigenes Sprite)
   K.door(p, 270, 24, 36, 64, K.paint(hex('#ccc6ba')), hex('#e8e2d6'));
   // Sachen unter dem Fenster: Turnschuhe und ein Stapel Hefte
   p.area(100, 83, 10, 5, (x) => (x < 105 ? hex('#d8d4cc') : hex('#a02c24')));

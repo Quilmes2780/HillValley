@@ -159,7 +159,7 @@ test.describe('Meilenstein 6: Feinschliff', () => {
 
     const before = await page.evaluate(() => window.__hv.muted());
     await page.keyboard.press('m');
-    expect(await page.evaluate(() => window.__hv.muted())).toBe(!before);
+    await expect.poll(() => page.evaluate(() => window.__hv.muted())).toBe(!before);
     expect(errors).toEqual([]);
   });
 });

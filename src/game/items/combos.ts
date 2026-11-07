@@ -123,6 +123,50 @@ export const COMBOS: readonly Combo[] = [
     },
   },
 
+  // Nur Gags: Sie sorgen dafür, dass auch unsinnige Versuche eine Antwort bekommen.
+  {
+    a: 'kugelschreiber',
+    b: 'foto',
+    run: async (g) => {
+      await g.say('say.extra.combo_stift_foto');
+    },
+  },
+  {
+    a: 'kugelschreiber',
+    b: 'zeitung',
+    run: async (g) => {
+      await g.say('say.extra.combo_stift_zeitung');
+    },
+  },
+  {
+    a: 'banane',
+    b: 'kugelschreiber',
+    run: async (g) => {
+      await g.say('say.extra.combo_banane_stift');
+    },
+  },
+  {
+    a: 'bleistift',
+    b: 'kuchen',
+    run: async (g) => {
+      await g.say('say.extra.combo_stift_kuchen');
+    },
+  },
+  {
+    a: 'streichhoelzer',
+    b: 'kuchen',
+    run: async (g) => {
+      await g.say('say.extra.combo_streichholz_kuchen');
+    },
+  },
+  {
+    a: 'streichhoelzer',
+    b: 'festprogramm',
+    run: async (g) => {
+      await g.say('say.extra.combo_streichholz_programm');
+    },
+  },
+
   // Testräume
   {
     a: 'apfel',

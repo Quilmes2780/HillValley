@@ -205,7 +205,7 @@
 5. **Vorgarten:** *Rede mit* Einstein → „Hol's dir, Junge!“ → Einstein schnappt sich das Schlüsselbund.
 6. *Nimm* Sendeschlüssel vom Schlüsselbund. (Marty hängt den Rest heimlich zurück – Biff merkt nichts.)
 7. **Uhrwerk:** *Benutze* Sendeschlüssel *mit* Chronopost → Alle Jahre frei, das Empfangsfach blinkt.
-8. *Nimm* Brief aus 2015 → Brix an seinen Großvater: Der Plan mit Doc sei gescheitert, neue Anweisungen folgen. Er erwähnt, dass er seinen allerersten Brief am **21. Oktober 2015 um 16:29 Uhr** aus seinem **Büro 88 im Tannen-Turm** abgeschickt hat.
+8. *Nimm* Brief aus 2015 → Brix an seinen Großvater: Der Plan mit Doc sei gescheitert, neue Anweisungen folgen. Biff bekommt jetzt Aktienkurse statt Erfindungen. Er erwähnt, dass er seinen allerersten Brief am **21. Oktober 2015 um 16:29 Uhr** aus seinem **Büro 88 im Tannen-Turm** abgeschickt hat.
 9. *Ziehe* Mr. Fusion aus der Chronopost.
 10. **Zwischensequenz:** Der Zeitzug erscheint auf den Gleisen am Rathausplatz. Doc steigt aus.
 11. *Rede mit* Doc → Er braucht Energie für den Sprung nach 2015.
@@ -225,7 +225,7 @@
 *Wege:* Café 80er, Museum, Turm-Lobby und Gasse liegen alle am Platz vor dem Turm (Türen, kein Stadtplan). Brix' Büro erreicht man über den Aufzug. Jennifer ist überall dabei und lenkt auf Zuruf ab.
 
 ### A – Vorbereitung
-1. **Platz:** *Rede mit* Doc → Er gibt Marty eine 2015-Münze von seinem früheren Besuch.
+1. **Platz:** *Rede mit* Doc → Er erklärt, warum 2015 trotz verbrannter Mappe alles Tannen gehört: Brix hat Biff mit weiteren Briefen hochgeschoben, und alles hängt am allerersten. Dann gibt er Marty eine 2015-Münze von seinem früheren Besuch.
 2. **Turm-Lobby:** *Schau an* Aufzug → Fahrt nach oben nur mit Brix' Daumenabdruck.
 
 ### B – Das Café
@@ -268,6 +268,10 @@
 - Abspann. Danach steht Marty wieder in Docs Labor von 1986 und kann sich frei bewegen.
 
 ---
+
+## Optionale Gags und Easter Eggs
+
+Für die Lösung nicht nötig, stehen gesammelt in `src/game/rooms/extras.ts`. Das Skateboard aus Martys Zimmer lässt sich mitnehmen und reagiert je nach Ort. Tipps gibt es mit der Taste H, über das Menü oder per Klick aufs eigene Porträt.
 
 ## Gegenstandsliste
 

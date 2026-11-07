@@ -67,10 +67,14 @@ export const martysZimmer: RoomDef = {
             area: rect(253, 60, 12, 28),
             walkTo: [258, 96],
             face: 'hinten',
-            comments: {
-              schauan: 'say.prolog.zimmer_skateboard',
-              nimm: 'say.prolog.zimmer_skateboard_nimm',
-              benutze: 'say.prolog.zimmer_skateboard_nimm',
+            visible: (s) => !s.flags.skateboard_genommen,
+            sprite: { key: 'backgrounds/sprites/skateboard_wand.png', x: 253, y: 60 },
+            comments: { schauan: 'say.prolog.zimmer_skateboard' },
+            verbs: {
+              nimm: pickup((g) => {
+                g.setFlag('skateboard_genommen');
+                g.addItem('skateboard');
+              }),
             },
           },
           {

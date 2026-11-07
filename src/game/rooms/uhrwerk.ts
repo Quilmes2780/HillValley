@@ -143,6 +143,8 @@ async function vielleichtAnkunft(g: ScriptApi): Promise<void> {
     await g.goToRoom('rathausplatz', 1986);
     await g.sayAs('doc', 'say.k4.ankunft_3');
     await g.say('say.k4.ankunft_4');
+    await g.say('say.k4.ankunft_5');
+    await g.sayAs('doc', 'say.k4.ankunft_6');
   });
 }
 

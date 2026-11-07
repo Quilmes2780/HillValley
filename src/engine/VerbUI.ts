@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { t } from './i18n';
-import { UI_AMBER, UI_BRIGHT, UI_TEXT } from './theme';
+import { UI_AMBER, UI_BRIGHT, UI_DIM, UI_TEXT } from './theme';
 import { VERBS, type Verb } from './types';
 
 export const UI_DEPTH = 2000;
@@ -17,6 +17,7 @@ export class VerbUI {
   private readonly labels: Phaser.GameObjects.BitmapText[] = [];
   private readonly keys: Phaser.GameObjects.Image[] = [];
   private readonly sentenceText: Phaser.GameObjects.BitmapText;
+  private readonly menuText: Phaser.GameObjects.BitmapText;
   private currentSentence = '';
   private verbsVisible = true;
 
@@ -26,6 +27,12 @@ export class VerbUI {
       .setTint(UI_AMBER)
       .setScrollFactor(0)
       .setDepth(UI_DEPTH + 1);
+    this.menuText = scene.add
+      .bitmapText(0, 145, 'hv', t('save.menue'), 10)
+      .setTint(UI_DIM)
+      .setScrollFactor(0)
+      .setDepth(UI_DEPTH + 1);
+    this.menuText.setX(316 - this.menuText.width);
     VERBS.forEach((verb, i) => {
       const { x, y } = this.positionOf(i);
       // Die erleuchtete Taste liegt über dem Bild der Leiste und ist nur bei Bedarf zu sehen.
@@ -56,6 +63,19 @@ export class VerbUI {
     const index = Math.floor(y - TOP) / CELL_H;
     const row = Math.min(Math.floor(index), 2);
     return VERBS[row * 3 + Math.floor(x / CELL_W)] ?? null;
+  }
+
+  /** Der Menü-Knopf rechts in der Satzzeile: auch ohne Tastatur erreichbar. */
+  hitMenu(x: number, y: number): boolean {
+    return this.menuText.visible && y >= 144 && y < TOP && x >= this.menuText.x - 3;
+  }
+
+  setMenuHover(hover: boolean): void {
+    this.menuText.setTint(hover ? UI_AMBER : UI_DIM);
+  }
+
+  menuCenter(): { x: number; y: number } {
+    return { x: this.menuText.x + this.menuText.width / 2, y: 149 };
   }
 
   /** Mitte eines Verbs, für den automatischen Test. */
@@ -96,5 +116,6 @@ export class VerbUI {
 
   setSentenceVisible(visible: boolean): void {
     this.sentenceText.setVisible(visible);
+    this.menuText.setVisible(visible);
   }
 }

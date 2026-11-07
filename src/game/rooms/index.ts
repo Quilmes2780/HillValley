@@ -1,4 +1,5 @@
 import type { RoomDef } from '../../engine/types';
+import { withExtras } from './extras';
 import { abstellgleis } from './abstellgleis';
 import { arbeitszimmer } from './arbeitszimmer';
 import { bandraum } from './bandraum';
@@ -30,7 +31,7 @@ import { veranda } from './veranda';
 import { vorgarten } from './vorgarten';
 
 /** Neue Räume hier eintragen. Mehr ist nicht nötig. */
-export const ROOMS: readonly RoomDef[] = [
+export const ROOMS: readonly RoomDef[] = withExtras([
   martysZimmer,
   kueche,
   arbeitszimmer,
@@ -61,4 +62,4 @@ export const ROOMS: readonly RoomDef[] = [
   // Nur für die Engine-Tests (?szenario=engine) und den Debug-Modus
   testraum,
   testflur,
-];
+]);

@@ -2,15 +2,16 @@ import Phaser from 'phaser';
 import type { GameScene } from './GameScene';
 import { audio } from './Audio';
 import { t } from './i18n';
-import { SaveSystem, SLOT_COUNT } from './SaveSystem';
+import { AUTO_SLOT, SaveSystem, SLOT_COUNT } from './SaveSystem';
 import { UI_AMBER, UI_BRIGHT, UI_DIM, UI_TEXT } from './theme';
 import { UI_DEPTH } from './VerbUI';
 
 const DEPTH = UI_DEPTH + 100;
 const LEFT = 40;
 const TOP = 25;
-const SLOT_Y = 58;
-const SLOT_H = 13;
+const SLOT_Y = 57;
+const SLOT_H = 11;
+const MESSAGE_X = LEFT + 100;
 const COLOR_NORMAL = UI_TEXT;
 const COLOR_HOVER = UI_BRIGHT;
 const COLOR_TITLE = UI_AMBER;
@@ -91,7 +92,14 @@ export class SaveMenu {
     for (let slot = 0; slot < SLOT_COUNT; slot++) {
       this.row(SLOT_Y + slot * SLOT_H, this.slotLabel(slot), () => this.useSlot(slot));
     }
-    if (this.message) this.label(LEFT + 8, SLOT_Y + SLOT_COUNT * SLOT_H, this.message, COLOR_DIM);
+    if (this.mode === 'load' && SaveSystem.peek(AUTO_SLOT)) {
+      this.row(SLOT_Y + SLOT_COUNT * SLOT_H, this.slotLabel(AUTO_SLOT), () => this.useSlot(AUTO_SLOT));
+    }
+    if (this.message) this.label(MESSAGE_X, TOP + 20, this.message, COLOR_DIM);
+    this.row(TOP + 111, t('save.tipp'), () => {
+      this.close();
+      this.scene.showHint();
+    });
     this.row(TOP + 123, t(audio().muted ? 'title.ton_aus' : 'title.ton_an'), () => {
       audio().toggleMute();
       this.draw();
@@ -101,12 +109,13 @@ export class SaveMenu {
 
   private slotLabel(slot: number): string {
     const file = SaveSystem.peek(slot);
-    if (!file) return `${slot + 1}: ${t('save.empty')}`;
+    const name = slot === AUTO_SLOT ? t('save.auto') : String(slot + 1);
+    if (!file) return `${name}: ${t('save.empty')}`;
     const c = file.state.characters?.[file.state.activeCharacter];
     const date = new Date(file.savedAt);
     const stamp = `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}. ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
     return t('save.slot', {
-      n: slot + 1,
+      n: name,
       room: c ? this.scene.roomName(c.room) : '?',
       era: c?.era ?? '?',
       date: stamp,

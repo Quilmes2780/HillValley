@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { hintKey } from '../game/hints';
 import { UI_AMBER, UI_TEXT } from './theme';
 import { musicFor, SPEECH_SFX } from '../game/audio';
 import { COMBOS } from '../game/items/combos';
@@ -23,7 +24,7 @@ import { InventoryUI } from './InventoryUI';
 import { PortraitUI } from './PortraitUI';
 import { RoomManager } from './RoomManager';
 import { SaveMenu } from './SaveMenu';
-import { SaveSystem } from './SaveSystem';
+import { AUTO_SLOT, SaveSystem } from './SaveSystem';
 import { ScriptRunner } from './ScriptRunner';
 import type { Dir, Era, ItemDef, ItemId, Pt, Script, Verb } from './types';
 import { validateContent } from './validate';
@@ -31,6 +32,7 @@ import { UI_DEPTH, VerbUI } from './VerbUI';
 
 const SCENE_HEIGHT = 144;
 const SPEECH_MAX_WIDTH = 220;
+const DOUBLE_CLICK_MS = 400;
 const MS_PER_CHAR = 55;
 const MIN_SPEECH_MS = 1400;
 const CARD_MS = 3500;
@@ -53,6 +55,10 @@ export class GameScene extends Phaser.Scene {
 
   private interaction!: Interaction;
   private panel!: Phaser.GameObjects.Image;
+  private lastAutosave = '';
+  private lastExitClick: string | null = null;
+  private lastExitClickAt = 0;
+  private skipWalk = false;
   private cursor!: Phaser.GameObjects.Image;
   private fader!: Phaser.GameObjects.Rectangle;
   private testMode = false;
@@ -186,6 +192,7 @@ export class GameScene extends Phaser.Scene {
     this.lockedSentence = null;
     this.refreshRoom();
     this.refreshUi();
+    this.autosave();
   }
 
   addItem(id: ItemId): void {
@@ -232,6 +239,24 @@ export class GameScene extends Phaser.Scene {
   saveTo(slot: number): boolean {
     this.syncCharacters();
     return SaveSystem.write(slot, this.state);
+  }
+
+  /** Speichert still, sobald die Figur den Raum oder das Spiel das Kapitel gewechselt hat. */
+  private autosave(): void {
+    const c = this.activeState();
+    const mark = `${c.room}|${c.era}|${this.state.chapter}|${this.state.activeCharacter}`;
+    if (mark === this.lastAutosave) return;
+    this.lastAutosave = mark;
+    this.syncCharacters();
+    SaveSystem.write(AUTO_SLOT, this.state);
+  }
+
+  /** Lässt die aktive Figur laut über den nächsten Schritt nachdenken. */
+  showHint(): void {
+    if (this.runner.busy || this.dialog.choosing) return;
+    this.cancelPending();
+    this.interaction.reset();
+    void this.runner.run(async (g) => g.say(hintKey(this.state)));
   }
 
   applyLoadedState(state: GameState): void {
@@ -420,7 +445,9 @@ export class GameScene extends Phaser.Scene {
   // --- Eingabe -----------------------------------------------------------------------------
 
   private onKeyDown(event: KeyboardEvent): void {
-    if (event.key === 'F5') {
+    if (event.key === 'h' || event.key === 'H') {
+      if (!this.saveMenu.open) this.showHint();
+    } else if (event.key === 'F5') {
       event.preventDefault();
       if (!this.runner.busy && !this.dialog.choosing) this.saveMenu.toggle();
     } else if (event.key === 'F9') {
@@ -462,6 +489,7 @@ export class GameScene extends Phaser.Scene {
     this.inventoryUi.setHover(target?.kind === 'item' ? target.id : null);
     this.verbUi.setSentence(this.lockedSentence ?? this.interaction.sentence());
     const hoveredVerb: Verb | null = this.verbUi.hit(this.pointerX, this.pointerY);
+    this.verbUi.setMenuHover(this.verbUi.hitMenu(this.pointerX, this.pointerY));
     const fallback = target && !this.interaction.verb ? this.interaction.defaultVerbOf(target) : null;
     this.verbUi.highlight(this.interaction.verb, hoveredVerb, fallback);
   }
@@ -486,8 +514,14 @@ export class GameScene extends Phaser.Scene {
 
     if (y < SCENE_HEIGHT) {
       const target = this.targetAt(x, y);
+      this.noteExitClick(target, right);
       if (target) this.handleTarget(target, right);
       else this.walkTo(Math.floor(x) + this.cameras.main.scrollX, Math.floor(y));
+      return;
+    }
+    if (this.verbUi.hitMenu(x, y)) {
+      this.cancelPending();
+      this.saveMenu.toggle();
       return;
     }
     const verb = this.verbUi.hit(x, y);
@@ -499,12 +533,23 @@ export class GameScene extends Phaser.Scene {
     }
     const portrait = this.portraitUi.hit(x, y);
     if (portrait) {
-      void this.runner.run(async (g) => g.switchCharacter(portrait as CharacterId));
+      // Ein Klick auf die eigene Figur: Sie denkt nach.
+      if (portrait === this.state.activeCharacter) this.showHint();
+      else void this.runner.run(async (g) => g.switchCharacter(portrait as CharacterId));
       return;
     }
     const hit = this.inventoryUi.hit(x, y);
     if (hit?.kind === 'item') this.handleTarget({ kind: 'item', id: hit.id }, right);
     else if (hit) this.inventoryUi.scroll(hit.kind);
+  }
+
+  /** Zwei schnelle Klicks auf einen Ausgang: Die Figur steht sofort davor. */
+  private noteExitClick(target: Target | null, right: boolean): void {
+    const id = target?.kind === 'hotspot' && target.hotspot.exit && !right ? target.hotspot.id : null;
+    const now = this.time.now;
+    this.skipWalk = id !== null && id === this.lastExitClick && now - this.lastExitClickAt < DOUBLE_CLICK_MS;
+    this.lastExitClick = id;
+    this.lastExitClickAt = now;
   }
 
   private cancelPending(): void {
@@ -536,6 +581,11 @@ export class GameScene extends Phaser.Scene {
       action.b?.kind === 'hotspot' ? action.b.hotspot : action.a.kind === 'hotspot' ? action.a.hotspot : null;
 
     if (hotspot) {
+      if (this.skipWalk && action.verb === null) {
+        const actor = this.actorOf(this.state.activeCharacter);
+        actor?.place(hotspot.walkTo[0], hotspot.walkTo[1], hotspot.face ?? actor.dir);
+      }
+      this.skipWalk = false;
       this.pendingWalk = true;
       const arrived = await this.walkActor(this.state.activeCharacter, hotspot.walkTo);
       if (token !== this.pendingToken) return;

@@ -136,6 +136,8 @@ Was niemand weiß: Im Jahr **2015** hat **Brix Tannen** – Biffs zweiter Enkel,
 - an seinen Urgroßonkel **Buford „Mad Dog“ Tannen (1885)**: wo der Zeitzug steht und welches Teil man herausreißen muss,
 - an sein **jüngeres Ich (Dezember 1955)**: Docs Erfindungsmappe, damit der junge Biff die Erfindungen als seine eigenen ausgibt.
 
+Nach der verbrannten Mappe (Kapitel 2) ist 1986 geheilt. Brix schickt seinem Großvater aber weiter Briefe mit Aktienkursen und Grundstücken, deshalb gehört ihm 2015 trotzdem fast alles. Erst ohne den allerersten Brief löst sich das auf. Wer die Chronopost benutzt hat, behält sein Gedächtnis: Marty, Doc und Biff.
+
 Am Morgen danach ist Hill Valley **„Tannenburg“**: Das Rathaus heißt „Tannen-Turm“, überall Werbung für *Tannen Industries*, und Doc sitzt in 1885 fest.
 
 ### Die Chronopost – Spielregeln
@@ -210,6 +212,9 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Palette | Figuren: 64 Farben (`assets/palette.gpl`); Hintergründe, Oberfläche, Icons: je Bild bis zu 256 Farben |
 | Porträts | Spalte rechts neben dem Inventar |
 | Wege in der Stadt | Stadtplan, je Zeitebene ein eigener |
+| Neue Rätsel | Dürfen dazukommen, das Lösungsbuch wird mitgepflegt |
+| Figuren | Claude legt sie im Malstil neu an: erfundene Figuren, keine Filmgesichter, etwa 40×72 |
+| Anspielungen | Zunächst alle einbauen, was nicht gut ist, wird später entfernt (`src/game/rooms/extras.ts`) |
 | Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |
 | Rathausplatz 1955 | Lous Café und Radioladen mit Türen direkt am Platz |
 | Verstärker (K2) | Einbau erst nach der verbrannten Erfindungsmappe |

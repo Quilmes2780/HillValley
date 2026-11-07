@@ -3,7 +3,7 @@ import type { GameState } from '../game/state';
 import { ROOMS } from '../game/rooms';
 import { audio } from './Audio';
 import { t } from './i18n';
-import { SaveSystem, SLOT_COUNT } from './SaveSystem';
+import { AUTO_SLOT, SaveSystem, SLOT_COUNT } from './SaveSystem';
 import { UI_AMBER, UI_DIM, UI_TEXT } from './theme';
 
 const COLOR_NORMAL = UI_TEXT;
@@ -83,7 +83,7 @@ export class TitleScene extends Phaser.Scene {
 
   private showLoad(): void {
     this.clear();
-    this.top = this.message ? 118 : 128;
+    this.top = this.message ? 108 : 118;
     if (this.message) this.addRow(this.message);
     for (let slot = 0; slot < SLOT_COUNT; slot++) {
       const file = SaveSystem.peek(slot);
@@ -94,6 +94,12 @@ export class TitleScene extends Phaser.Scene {
       const c = file.state.characters?.[file.state.activeCharacter];
       const room = ROOMS.find((r) => r.id === c?.room);
       this.addRow(`${slot + 1}: ${room ? t(room.name) : '?'} (${c?.era ?? '?'})`, () => this.loadSlot(slot));
+    }
+    const auto = SaveSystem.peek(AUTO_SLOT);
+    if (auto) {
+      const c = auto.state.characters?.[auto.state.activeCharacter];
+      const room = ROOMS.find((r) => r.id === c?.room);
+      this.addRow(`${t('save.auto')}: ${room ? t(room.name) : '?'} (${c?.era ?? '?'})`, () => this.loadSlot(AUTO_SLOT));
     }
     this.addRow(t('title.zurueck'), () => {
       this.message = '';

@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { EXTRA_SPRITES, skateboardIcon, skateboardWand } from './extras.ts';
 import * as H from './haus.ts';
 import { ITEM_ICONS } from './items.ts';
 import { savePicture, type Picture } from './painter.ts';
@@ -84,6 +85,8 @@ const SPRITES: Record<string, () => Picture> = {
   kabel_kasten: Sp.kabelKasten,
   grundstein_auf: Sp.grundsteinAuf,
   kofferraum_offen: Sp.kofferraumOffen,
+  skateboard_wand: skateboardWand,
+  ...EXTRA_SPRITES,
 };
 
 const UI: Record<string, () => Picture> = {
@@ -121,5 +124,6 @@ for (const [name, paint] of Object.entries(BACKGROUNDS)) run(name, `assets/backg
 for (const [name, paint] of Object.entries(SPRITES)) run(name, `assets/backgrounds/sprites/${name}.png`, paint, true);
 for (const [name, paint] of Object.entries(UI)) run(name, `assets/ui/${name}.png`, paint, name === 'cursor' || name === 'portrait_active');
 for (const [name, paint] of Object.entries(ITEM_ICONS)) run(name, `assets/items/${name}.png`, paint, true);
+run('skateboard', 'assets/items/skateboard.png', skateboardIcon, true);
 run('titel', 'assets/ui/title.png', paintTitel, false);
 console.log(`Gemalt: ${painted}, unverändert: ${kept}.`);

@@ -4,6 +4,8 @@ import type { DepthScale, Dir, Pt } from './types';
 
 const SPEED_X = 56;
 const SPEED_Y = 32;
+const SHADOW_W = 20;
+const SHADOW_H = 5;
 
 /** Eine Figur im Raum. Die Position meint die Füße. */
 export class Actor {
@@ -12,6 +14,7 @@ export class Actor {
   private arrive: ((arrived: boolean) => void) | null = null;
   private talking = false;
   private walkSpeed = 1;
+  private readonly shadow: Phaser.GameObjects.Ellipse;
   dir: Dir;
 
   constructor(
@@ -24,6 +27,7 @@ export class Actor {
     private readonly speedFactor: number,
   ) {
     this.sprite = scene.add.sprite(x, y, `char:${id}:idle`, 'f0').setOrigin(0.5, 1);
+    this.shadow = scene.add.ellipse(x, y, SHADOW_W, SHADOW_H, 0x000000, 0.32);
     this.dir = dir;
     this.applyDepth();
     this.showIdle();
@@ -147,6 +151,7 @@ export class Actor {
   destroy(): void {
     this.finish(false);
     this.sprite.destroy();
+    this.shadow.destroy();
   }
 
   private finish(arrived: boolean): void {
@@ -186,5 +191,11 @@ export class Actor {
       const t = Phaser.Math.Clamp((this.sprite.y - s.yFar) / (s.yNear - s.yFar), 0, 1);
       this.sprite.setScale(s.sFar + (s.sNear - s.sFar) * t);
     }
+    // Wer oberhalb des Bodens steht (auf dem Pferd, hinter der Theke), wirft hier keinen Schatten.
+    this.shadow
+      .setPosition(this.sprite.x, this.sprite.y)
+      .setDepth(this.sprite.y - 0.5)
+      .setScale(this.sprite.scaleX)
+      .setVisible(!s || this.sprite.y >= s.yFar - 4);
   }
 }

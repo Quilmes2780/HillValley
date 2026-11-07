@@ -22,6 +22,17 @@ export const ITEMS: readonly ItemDef[] = [
   // Prolog
   plain('kugelschreiber'),
   {
+    // Nur ein Gag: Für die Lösung wird es nicht gebraucht.
+    ...plain('skateboard'),
+    verbs: {
+      benutze: async (g) => {
+        const here = g.state.characters[g.state.activeCharacter].room;
+        const places = ['vorgarten', 'rathausplatz', 'schule_flur', 'turmplatz', 'cafe80er', 'lobby'];
+        await g.say(places.includes(here) ? `say.extra.skate_${here}` : 'say.extra.skate_drinnen');
+      },
+    },
+  },
+  {
     ...plain('banane'),
     verbs: {
       benutze: async (g) => {

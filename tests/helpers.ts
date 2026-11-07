@@ -25,6 +25,7 @@ export interface HvApi {
   worldImages(): string[];
   walkPathLength(x: number, y: number): [number, number][];
   verb(verb: string): GamePoint;
+  menuButton(): GamePoint;
   inventory(): ({ id: string } & GamePoint)[];
   arrow(direction: 'up' | 'down'): GamePoint;
   portraits(): ({ id: string } & GamePoint)[];

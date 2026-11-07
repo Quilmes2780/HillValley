@@ -28,6 +28,8 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 - **Wege:** Innerhalb eines Gebäudes über Türen, zwischen Orten über den Stadtplan (`rooms/stadtplan.ts`, je Zeitebene eine Fassung). Neue Orte dort als Ziel eintragen.
 - **Testräume:** `testraum` und `testflur` dienen nur den Engine-Tests (`?szenario=engine`) und bleiben im echten Spiel unerreichbar, außer über den Debug-Modus.
 - **Spielstand ist reines JSON** (`GameState` in `src/game/state.ts`). Ändert sich das Format, `SAVE_VERSION` erhöhen.
+- **Gags und Easter Eggs:** gesammelt in `src/game/rooms/extras.ts` (Klickflächen, Füllung von Lücken), Texte unter `say.extra`, Bilder in `tools/paint/extras.ts`. Sie dürfen nie Rätsel verändern.
+- **Tipps:** `src/game/hints.ts` nennt je Spielstand den nächsten Schritt (Texte unter `say.hint`). Wird ein Rätsel geändert, auch hier anpassen.
 - **Debug-Modus (F9)** muss für neue Inhalte weiter funktionieren: Walkboxes, Hotspots, Flags, Raumsprung, Gegenstände geben.
 
 ## Phaser 4

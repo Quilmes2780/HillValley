@@ -1,7 +1,9 @@
 import { SAVE_VERSION, type GameState } from '../game/state';
 
 export const SLOT_COUNT = 6;
-const key = (slot: number): string => `hv_save_${slot}`;
+/** Eigener Platz für das automatische Speichern beim Raumwechsel. */
+export const AUTO_SLOT = -1;
+const key = (slot: number): string => (slot === AUTO_SLOT ? 'hv_save_auto' : `hv_save_${slot}`);
 
 export interface SaveFile {
   savedAt: number;

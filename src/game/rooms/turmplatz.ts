@@ -71,6 +71,9 @@ const HOTSPOTS: readonly Hotspot[] = [
           await g.sayAs('doc', 'say.k5.doc_danach');
           return;
         }
+        await g.sayAs('doc', 'say.k5.doc_briefe_1');
+        await g.say('say.k5.doc_briefe_2');
+        await g.sayAs('doc', 'say.k5.doc_briefe_3');
         await g.sayAs('doc', 'say.k5.doc_muenze');
         g.setFlag('muenze_erhalten');
         g.addItem('muenze_2015');

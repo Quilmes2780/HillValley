@@ -204,6 +204,7 @@ export function installTestApi(scene: GameScene, validationErrors: readonly stri
       return scene.rooms.pathfinder.path([actor.x, actor.y], [x, y]);
     },
     verb: (verb: Parameters<GameScene['verbUi']['centerOf']>[0]) => scene.verbUi.centerOf(verb),
+    menuButton: () => scene.verbUi.menuCenter(),
     inventory: () => scene.inventoryUi.layout(),
     arrow: (direction: 'up' | 'down') => scene.inventoryUi.arrowCenter(direction),
     portraits: () => scene.portraitUi.layout(),

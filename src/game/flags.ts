@@ -19,6 +19,7 @@ export const FLAGS = [
   'brief_genommen',
   'notizbuch_genommen',
   'mr_fusion_genommen',
+  'skateboard_genommen',
   // Kapitel 1
   'k1_begonnen',
   'zeitung_genommen',
