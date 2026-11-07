@@ -68,7 +68,7 @@ const HOTSPOTS: readonly Hotspot[] = [
     verbs: {
       redemit: async (g) => {
         if (g.getFlag('muenze_erhalten')) {
-          await g.sayAs('doc', 'say.k5.doc_danach');
+          await g.dialog('doc_platz');
           return;
         }
         await g.sayAs('doc', 'say.k5.doc_briefe_1');
@@ -90,7 +90,7 @@ const HOTSPOTS: readonly Hotspot[] = [
     comments: { schauan: 'say.k5.jennifer_schau' },
     verbs: {
       redemit: async (g) => {
-        await g.sayAs('jennifer', 'say.k5.jennifer_platz');
+        await g.dialog('jennifer_platz');
       },
     },
   },

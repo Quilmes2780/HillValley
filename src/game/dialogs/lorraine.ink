@@ -25,11 +25,34 @@ EXTERNAL hasItem(id)
     ich: Mom, seit wann gehört die Stadt den Tannens?
     lorraine: Marty, was für eine Frage. Schon immer. Hast du Fieber?
     -> hub
-+ [Ist noch etwas vom Frühstück da?]
-    ich: Ist noch etwas vom Frühstück da?
-    lorraine: In der Obstschale liegt noch etwas. Das ist gesünder als das, was du sonst isst.
-    -> hub
++ [Mal was anderes, Mom.]
+    ich: Mal was anderes, Mom.
+    lorraine: Ist es wieder wegen des Autos? Dein Vater sagt Nein.
+    -> plaudern
 + [Bis später, Mom.]
     ich: Bis später, Mom.
     lorraine: Bis später. Und sei pünktlich zum Essen!
     -> END
+
+=== plaudern ===
++ [Ist noch etwas vom Frühstück da?]
+    ich: Ist noch etwas vom Frühstück da?
+    lorraine: In der Obstschale liegt noch etwas. Das ist gesünder als das, was du sonst isst.
+    -> plaudern
++ [Wie habt ihr euch eigentlich kennengelernt, du und Dad?]
+    ich: Wie habt ihr euch eigentlich kennengelernt, du und Dad?
+    lorraine: Das habe ich dir doch schon hundertmal erzählt. Ein Tanzabend, ein Sturm und ein sehr netter Junge mit seltsamer Weste.
+    ich: Dad trug eine seltsame Weste?
+    lorraine: Nein, nein. Das war jemand anderes. Komisch, du siehst ihm wirklich ähnlich.
+    ich: Ja. Das höre ich öfter. Wechseln wir das Thema.
+    -> plaudern
++ [Woran schreibt Dad gerade?]
+    ich: Woran schreibt Dad gerade?
+    lorraine: Band 13. Ein Außerirdischer verliebt sich in eine Schreibmaschine.
+    ich: Klingt, als wäre das sehr persönlich.
+    lorraine: Sei nett. Das Buch bezahlt deine Gitarrensaiten.
+    -> plaudern
++ [Egal. Zurück zum Wichtigen.]
+    ich: Egal. Zurück zum Wichtigen.
+    lorraine: Gut. Iss was.
+    -> hub

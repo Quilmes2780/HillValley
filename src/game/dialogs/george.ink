@@ -6,7 +6,7 @@ EXTERNAL giveItem(id)
 
 {hasFlag("george_geholfen"):
     george_jung: Danke noch mal, Dr. Brown. Mein Held schlägt jetzt zurück. Es liest sich viel besser.
-    -> END
+    -> danach
 }
 george_jung: Oh, hallo, Dr. Brown. Ich schreibe an einer Science-Fiction-Geschichte.
 -> frage
@@ -35,4 +35,26 @@ george_jung: Ich weiß nur nicht, wie mein Held mit dem Schurken umgehen soll. W
 + [Darüber muss ich nachdenken.]
     ich: Darüber muss ich nachdenken.
     george_jung: Natürlich. Ich bin ja hier.
+    -> END
+
+=== danach ===
++ [Worum geht es in deiner Geschichte?]
+    ich: Worum geht es eigentlich in deiner Geschichte?
+    george_jung: Ein Mann vom Planeten Zeta rettet die Erde. Er ist sehr mutig und hat keine Nebenhöhlen.
+    ich: Keine Nebenhöhlen. Hm. Das ist vermutlich wichtig für die Handlung.
+    george_jung: Ich schicke sie vielleicht an einen Verlag. Oder ich lasse es. Wahrscheinlich lasse ich es.
+    ich: Schick sie ab. Ich habe das Gefühl, das könnte sich lohnen. Das ist aber nur ein Gefühl.
+    -> danach
++ [Wie geht es Lorraine?]
+    ich: Wie geht es Lorraine?
+    george_jung: Gut, denke ich. Sie hat mir gestern ein Brot geschmiert. Mit Absicht!
+    ich: Das ist, nach allem, was ich weiß, ein sehr gutes Zeichen.
+    -> danach
++ [Lässt Biff dich in Ruhe?]
+    ich: Lässt Biff dich jetzt eigentlich in Ruhe?
+    george_jung: Meistens. Er wachst jetzt mein Fahrrad. Ich habe ihn nicht darum gebeten.
+    -> danach
++ [Schreib weiter, George.]
+    ich: Schreib weiter, George.
+    george_jung: Das mache ich. Vermutlich.
     -> END

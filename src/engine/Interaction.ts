@@ -1,5 +1,5 @@
 import { hasText, t, textList } from './i18n';
-import type { Combo, Comments, Hotspot, ItemDef, ItemId, Script, Verb } from './types';
+import type { Combo, Comments, Hotspot, ItemDef, ItemId, Script, ScriptApi, Verb } from './types';
 
 export type Target = { kind: 'hotspot'; hotspot: Hotspot } | { kind: 'item'; id: ItemId };
 
@@ -112,7 +112,15 @@ export class Interaction {
     if (verb === null) return null;
     if (!b) {
       if (a.kind === 'hotspot') {
-        return a.hotspot.verbs?.[verb] ?? commentScript(verb, a.hotspot.comments);
+        const hotspot = a.hotspot;
+        return (
+          hotspot.verbs?.[verb] ??
+          commentScript(verb, {
+            comments: hotspot.comments,
+            reactions: (g) => [hotspotReaction(g, hotspot, verb)],
+            pool: poolOf(hotspot),
+          })
+        );
       }
       const item = this.item(a.id);
       const direct = item.verbs?.[verb];
@@ -123,54 +131,135 @@ export class Interaction {
           await g.say(typeof d === 'function' ? d(g.state) : d);
         };
       }
-      return commentScript(verb, item.comments);
+      return commentScript(verb, {
+        comments: item.comments,
+        reactions: () => [`reaktion_item.${a.id}.${verb}`],
+        pool: 'gegenstand',
+      });
     }
     if (a.kind === 'hotspot' && b.kind === 'hotspot') {
       const script = a.hotspot.useWith?.[b.hotspot.id] ?? b.hotspot.useWith?.[a.hotspot.id];
-      return script ?? commentScript(verb, b.hotspot.comments);
-    }
-    const hotspot = a.kind === 'hotspot' ? a.hotspot : b.kind === 'hotspot' ? b.hotspot : null;
-    const itemTarget = a.kind === 'item' ? a : b.kind === 'item' ? b : null;
-    if (hotspot) {
-      const script = itemTarget && hotspot.useWith?.[itemTarget.id];
-      return script || commentScript(verb, hotspot.comments);
+      const hotspot = b.hotspot;
+      return (
+        script ??
+        commentScript(verb, {
+          comments: pairComments(verb, hotspot),
+          reactions: (g) => [hotspotReaction(g, hotspot, 'mit')],
+          pool: poolOf(hotspot),
+        })
+      );
     }
     if (a.kind === 'item' && b.kind === 'item') {
       const combo = combos.find(
         (c) => (c.a === a.id && c.b === b.id) || (c.a === b.id && c.b === a.id),
       );
       if (combo) return combo.run;
-      return commentScript(verb, this.item(a.id).comments);
+      return commentScript(verb, {
+        comments: this.item(a.id).comments,
+        reactions: () => [
+          `reaktion_item.${a.id}.mit_${b.id}`,
+          `reaktion_item.${b.id}.mit_${a.id}`,
+          `reaktion_item.${a.id}.benutze_mit`,
+        ],
+      });
     }
-    return commentScript(verb);
+    const hotspot = a.kind === 'hotspot' ? a.hotspot : b.kind === 'hotspot' ? b.hotspot : null;
+    const itemTarget = a.kind === 'item' ? a : b.kind === 'item' ? b : null;
+    if (!hotspot || !itemTarget) return commentScript(verb);
+    const giving = verb === 'gib';
+    return (
+      hotspot.useWith?.[itemTarget.id] ??
+      commentScript(verb, {
+        // Reihenfolge: genau dieser Gegenstand an dieser Stelle, dann die Stelle, dann der Gegenstand.
+        early: (g) => [
+          hotspotReaction(g, hotspot, `mit_${itemTarget.id}`),
+          hotspotReaction(g, hotspot, giving ? 'gib' : 'mit'),
+        ],
+        comments: pairComments(verb, hotspot),
+        reactions: () => [`reaktion_item.${itemTarget.id}.${giving ? 'gib_an' : 'benutze_mit'}`],
+        pool: poolOf(hotspot),
+      })
+    );
   }
+}
+
+/** Schlüssel einer Reaktion aus de.json: je Ort und Zeitebene, dann Klickfläche und Verb. */
+function hotspotReaction(g: ScriptApi, hotspot: Hotspot, what: string): string {
+  const here = g.state.characters[g.state.activeCharacter];
+  return `reaktion.${here.room}_${here.era}.${hotspot.id}.${what}`;
+}
+
+/** Ein Kommentar zu „Benutze X“ passt nicht zu „Benutze Gegenstand mit X“; der zu „Gib“ schon. */
+function pairComments(verb: Verb, hotspot: Hotspot): Comments | undefined {
+  return verb === 'benutze' ? undefined : hotspot.comments;
+}
+
+/** Eigene Standardsprüche für Personen und Ausgänge. */
+function poolOf(hotspot: Hotspot): string | undefined {
+  if (hotspot.defaultVerb === 'redemit') return 'person';
+  return hotspot.exit ? 'ausgang' : undefined;
+}
+
+/** Eine Reaktion ist ein Text der aktiven Figur oder ein Paar aus Sprecher und Text. */
+async function sayReaction(g: ScriptApi, key: string): Promise<void> {
+  const pair = textList(key);
+  if (pair.length === 2) await g.sayAs(pair[0], `${key}.1`);
+  else await g.say(key);
 }
 
 const lastComment = new Map<string, number>();
 
-function commentScript(verb: Verb, comments?: Comments): Script {
+interface CommentSources {
+  /** Reaktionen, die noch vor dem Kommentar der Klickfläche kommen. */
+  early?: (g: ScriptApi) => string[];
+  comments?: Comments;
+  reactions?: (g: ScriptApi) => string[];
+  /** Name eines eigenen Spruch-Pools, z. B. `person`. */
+  pool?: string;
+}
+
+/** Schlüssel der Standardsprüche: zuerst der eigene Pool, sonst Figur und Zeitebene zusammen. */
+function poolKeys(g: ScriptApi, verb: Verb, pool?: string): string[] {
+  const who = g.state.activeCharacter;
+  const expand = (list: string): string[] => textList(list).map((_, i) => `${list}.${i}`);
+  if (pool) {
+    const own = expand(`comments.${who}.${pool}.${verb}`);
+    if (own.length > 0) return own;
+  }
+  const era = `comments.${who}.e${g.state.characters[who].era}`;
+  for (const slot of [verb, 'default']) {
+    const keys = [...expand(`${era}.${slot}`), ...expand(`comments.${who}.${slot}`)];
+    if (keys.length > 0) return keys;
+  }
+  return [...expand(`comments.default.${verb}`), ...expand('comments.default.default')];
+}
+
+function commentScript(verb: Verb, sources: CommentSources = {}): Script {
   return async (g) => {
-    const specific = comments?.[verb] ?? comments?.default;
+    for (const key of sources.early?.(g) ?? []) {
+      if (hasText(key)) {
+        await sayReaction(g, key);
+        return;
+      }
+    }
+    const specific = sources.comments?.[verb] ?? sources.comments?.default;
     if (specific && hasText(specific)) {
       await g.say(specific);
       return;
     }
-    const who = g.state.activeCharacter;
-    for (const key of [
-      `comments.${who}.${verb}`,
-      `comments.${who}.default`,
-      `comments.default.${verb}`,
-      'comments.default.default',
-    ]) {
-      const pool = textList(key);
-      if (pool.length > 0) {
-        // Nicht zweimal hintereinander derselbe Spruch.
-        let index = Math.floor(Math.random() * pool.length);
-        if (pool.length > 1 && index === lastComment.get(key)) index = (index + 1) % pool.length;
-        lastComment.set(key, index);
-        await g.say(`${key}.${index}`);
+    for (const key of sources.reactions?.(g) ?? []) {
+      if (hasText(key)) {
+        await sayReaction(g, key);
         return;
       }
     }
+    const keys = poolKeys(g, verb, sources.pool);
+    if (keys.length === 0) return;
+    // Nicht zweimal hintereinander derselbe Spruch.
+    const id = keys[0];
+    let index = Math.floor(Math.random() * keys.length);
+    if (keys.length > 1 && index === lastComment.get(id)) index = (index + 1) % keys.length;
+    lastComment.set(id, index);
+    await g.say(keys[index]);
   };
 }

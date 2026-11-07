@@ -1,5 +1,6 @@
 // Der Showdown in Brix' Büro (Kapitel 5, Schritt 16).
 // Drei Runden. Wer anbeißt, stürzt und landet wieder unten; Runde 1 beginnt dann von vorn.
+EXTERNAL hasFlag(name)
 EXTERNAL setFlag(name)
 
 brix: Da ist ja unser kleiner Besucher. Komm, trau dich näher. Oder bist du etwa ein Feigling?
@@ -23,6 +24,9 @@ brix: Da ist ja unser kleiner Besucher. Komm, trau dich näher. Oder bist du etw
     -> angebissen
 + [Dein Opa hat das auch immer versucht. Hat nie geklappt.]
     ich: Dein Opa hat das auch immer versucht. Hat nie geklappt.
+    {hasFlag("biff_feigling_gehoert"):
+        ich: Das letzte Mal hat es mich eine frisch gewachste Einfahrt gekostet. Aus so was lernt man.
+    }
     brix: Lass meinen Großvater aus dem Spiel! Nur noch ein Wort, und ich schicke diesen Brief ab, du Feigling!
     -> runde3
 + [Das nimmst du zurück!]

@@ -12,6 +12,12 @@ goldie: Morgen, Dr. Brown. Merken Sie sich mein Gesicht. Ich werde mal Bürgerme
     goldie: Saubere Straßen, und das Rathaus bekommt endlich seine Uhr zurück.
     ich: An der Uhr arbeite ich schon.
     -> hub
++ [Und wenn Sie gewählt sind?]
+    ich: Und was machen Sie, wenn Sie gewählt sind?
+    goldie: Erst einmal ein Denkmal. Klein, geschmackvoll, ungefähr vier Meter.
+    ich: Ich nehme an, Sie meinen das ernst.
+    goldie: Ich meine alles ernst, Doc. Das ist mein ganzes Programm.
+    -> hub
 + [Dann viel Erfolg.]
     ich: Dann viel Erfolg.
     goldie: Den werde ich haben.

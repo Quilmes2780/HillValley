@@ -14,6 +14,11 @@ jennifer: Hier hat also ein Biff Tannen die Zeitmaschine erfunden. Ich lerne heu
     ich: Was hältst du von der Ausstellung?
     jennifer: Die Bilder sind besser als die Wahrheit. Das scheint hier der Zweck zu sein.
     -> hub
++ [Könntest du darüber schreiben?]
+    ich: Könntest du darüber nicht mal etwas schreiben?
+    jennifer: Worauf denn? Hier kostet schon das Papier eine Mitgliedschaft.
+    jennifer: Aber ich merke mir alles. Das ist bei Tannens immer das Einzige, was sie nicht kaufen können.
+    -> hub
 + [Bis gleich.]
     ich: Bis gleich.
     jennifer: Bis gleich.

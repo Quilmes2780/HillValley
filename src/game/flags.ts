@@ -108,6 +108,11 @@ export const FLAGS = [
   'brix_gestuerzt',
   'brief_genommen_brix',
   'zeitlinie_geheilt',
+  // Nur für Gesprächsbezüge, ohne Einfluss auf Rätsel
+  'jennifer_band_gehoert',
+  'biff_k4_gesprochen',
+  'biff_feigling_gehoert',
+  'barkeeper_schuld',
 ] as const;
 
 export type FlagName = (typeof FLAGS)[number];

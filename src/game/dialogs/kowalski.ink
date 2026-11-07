@@ -12,6 +12,12 @@ kowalski: Halt. Hier rein nur auf direkten Befehl von Mr. Tannen.
     kowalski: Dann brüllt er. Und wenn er brüllt, renne ich.
     kowalski: Das letzte Mal hat mich das zwei Zähne und einen Wochenlohn gekostet.
     -> hub
++ [Wie ist das eigentlich so, für ihn zu arbeiten?]
+    ich: Wie ist das eigentlich so, für ihn zu arbeiten?
+    kowalski: Wunderbar. Das muss ich sagen. Das steht in meinem Vertrag.
+    ich: Und was sagen Sie, wenn keiner zuhört?
+    kowalski: Es hört immer einer zu. Die Säule da hat Ohren. Sie ist auch beim Betriebsrat.
+    -> hub
 + [Schönen Tag noch.]
     ich: Schönen Tag noch.
     kowalski: Den genehmigt Mr. Tannen.

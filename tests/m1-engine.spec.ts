@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { PNG } from 'pngjs';
 import {
   act,
@@ -132,9 +133,8 @@ test.describe('Meilenstein 1: Engine-Kern', () => {
     await expect.poll(() => page.evaluate(() => window.__hv.sentence())).toBe('Benutze Apfel mit Familienfoto');
     await clickItem(page, 'foto');
     await waitIdle(page);
-    expect(['Damit weiß ich nichts anzufangen.', 'Wie soll ich das denn benutzen?', 'Das passt nicht zusammen.']).toContain(
-      await lastSpeech(page),
-    );
+    const de = JSON.parse(readFileSync('src/i18n/de.json', 'utf8')) as { comments: { marty: { benutze: string[] } } };
+    expect(de.comments.marty.benutze).toContain(await lastSpeech(page));
     expect(await inventoryOf(page)).toContain('apfel');
 
     // Richtige Kombination: Reihenfolge B mit A.

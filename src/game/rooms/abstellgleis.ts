@@ -89,7 +89,7 @@ export const abstellgleis: RoomDef = {
             comments: { schauan: 'say.k3.jules_schau' },
             verbs: {
               redemit: async (g) => {
-                await g.sayAs('jules', 'say.k3.jules_rede');
+                await g.dialog('jules');
               },
             },
           },
