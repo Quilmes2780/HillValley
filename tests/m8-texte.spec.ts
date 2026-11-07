@@ -125,6 +125,10 @@ test.describe('Meilenstein 8: Text-Runde', () => {
     await go(page, 'tuer', 'kueche');
     await act(page, 'oeffne', 'haengeschrank');
     expect(await lastSpeech(page)).toBe(de.reaktion.kueche_1986.haengeschrank.oeffne);
+    await go(page, 'arbeitszimmer', 'arbeitszimmer');
+    await act(page, 'druecke', 'lampe');
+    expect(await lastSpeech(page)).toBe(de.reaktion.arbeitszimmer_1986.lampe.druecke);
+    await go(page, 'tuer', 'kueche');
     await act(page, 'ziehe', 'lorraine');
     const said = await page.evaluate(() => window.__hv.speech().at(-1));
     expect(said?.actor).toBe('lorraine');
