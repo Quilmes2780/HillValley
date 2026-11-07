@@ -106,6 +106,9 @@ const UI: Record<string, () => Picture> = {
   menu: U.menu,
 };
 
+/** Vom Nutzer gezeichnete Bilder: Sie werden nie übermalt, auch nicht mit --force oder Namensfilter. */
+const EIGENE_BILDER = new Set(['titel']);
+
 const args = process.argv.slice(2);
 const force = args.includes('--force');
 const filter = args.find((a) => !a.startsWith('--'));
@@ -113,7 +116,7 @@ const filter = args.find((a) => !a.startsWith('--'));
 let painted = 0;
 let kept = 0;
 const run = (name: string, path: string, paint: () => Picture, transparent: boolean): void => {
-  if (filter && !name.includes(filter)) return;
+  if (EIGENE_BILDER.has(name) || (filter && !name.includes(filter))) return;
   if (!filter && !force && existsSync(path)) {
     kept++;
     return;

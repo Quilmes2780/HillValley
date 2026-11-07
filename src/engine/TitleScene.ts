@@ -10,6 +10,7 @@ const COLOR_NORMAL = UI_TEXT;
 const COLOR_HOVER = UI_AMBER;
 const COLOR_DIM = UI_DIM;
 const ROW_H = 10;
+const LOAD_ROW_H = 9;
 
 interface Row {
   label: Phaser.GameObjects.BitmapText;
@@ -22,6 +23,7 @@ export class TitleScene extends Phaser.Scene {
   private rows: Row[] = [];
   private message = '';
   private top = 142;
+  private rowH = ROW_H;
 
   constructor() {
     super('title');
@@ -58,7 +60,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private addRow(text: string, action?: () => void): void {
-    const y = this.top + this.rows.length * ROW_H;
+    const y = this.top + this.rows.length * this.rowH;
     const label = this.add
       .bitmapText(160, y, 'hv', text, 10)
       .setOrigin(0.5, 0)
@@ -69,6 +71,7 @@ export class TitleScene extends Phaser.Scene {
   private showMain(): void {
     this.clear();
     this.top = 148;
+    this.rowH = ROW_H;
     this.addRow(t('title.neu'), () => this.startGame());
     this.addRow(t('title.laden'), () => this.showLoad());
     this.addRow(this.soundLabel(), () => {
@@ -83,7 +86,9 @@ export class TitleScene extends Phaser.Scene {
 
   private showLoad(): void {
     this.clear();
-    this.top = this.message ? 108 : 118;
+    // Das Lademenü liegt im dunklen Streifen unter dem Bild; mit Meldung reicht der Platz nicht ganz.
+    this.top = this.message ? 118 : 127;
+    this.rowH = LOAD_ROW_H;
     if (this.message) this.addRow(this.message);
     for (let slot = 0; slot < SLOT_COUNT; slot++) {
       const file = SaveSystem.peek(slot);
@@ -123,7 +128,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   private rowAt(y: number): Row | undefined {
-    return this.rows.find((row) => y >= row.y && y < row.y + ROW_H);
+    return this.rows.find((row) => y >= row.y && y < row.y + this.rowH);
   }
 
   private highlight(y: number): void {
