@@ -45,12 +45,34 @@ const deko = (id: string, area: Hotspot['area'], schau: string, name = id): Hots
   comments: { schauan: schau },
 });
 
+/** Hill Valley und Tannenburg sind getrennt gezeichnet: Die Ziele liegen nicht an derselben Stelle. */
+interface Lage {
+  haus: Hotspot['area'];
+  labor: Hotspot['area'];
+  turm: Hotspot['area'];
+  schule: Hotspot['area'];
+}
+
+const LAGE_HV: Lage = {
+  haus: rect(37, 80, 44, 40),
+  labor: rect(228, 88, 44, 34),
+  turm: rect(140, 2, 44, 64),
+  schule: rect(239, 8, 52, 40),
+};
+
+const LAGE_TB: Lage = {
+  haus: rect(48, 76, 38, 62),
+  labor: rect(217, 88, 37, 50),
+  turm: rect(141, 4, 32, 76),
+  schule: rect(232, 6, 45, 57),
+};
+
 const DEKO_1986: readonly Hotspot[] = [
-  deko('plan_fluss', rect(0, 121, 320, 21), 'say.prolog.plan_fluss'),
-  deko('plan_schild', rect(7, 6, 72, 40), 'say.prolog.plan_schild'),
-  deko('plan_kompass', rect(296, 4, 20, 46), 'say.prolog.plan_kompass'),
-  deko('plan_imbiss', rect(205, 66, 18, 17), 'say.prolog.plan_imbiss'),
-  deko('plan_voegel', rect(181, 4, 21, 17), 'say.prolog.plan_voegel'),
+  deko('plan_fluss', rect(0, 117, 320, 20), 'say.prolog.plan_fluss'),
+  deko('plan_schild', rect(8, 4, 80, 32), 'say.prolog.plan_schild'),
+  deko('plan_kompass', rect(294, 3, 22, 28), 'say.prolog.plan_kompass'),
+  deko('plan_cafe', rect(110, 77, 28, 17), 'say.prolog.plan_cafe'),
+  deko('plan_autos', rect(168, 88, 37, 9), 'say.prolog.plan_autos'),
 ];
 
 const DEKO_TANNENBURG: readonly Hotspot[] = [
@@ -63,27 +85,27 @@ const DEKO_TANNENBURG: readonly Hotspot[] = [
   deko('plan_banner2', rect(196, 54, 12, 34), 'say.k1.plan_banner', 'plan_banner'),
 ];
 
-const ZIELE_1986: readonly Hotspot[] = [
-  target('plan_haus', rect(48, 76, 38, 62), 'say.prolog.plan_haus', {
+const ziele1986 = (l: Lage): Hotspot[] => [
+  target('plan_haus', l.haus, 'say.prolog.plan_haus', {
     room: 'vorgarten',
     at: [296, 122],
     face: 'links',
   }),
-  target('plan_labor', rect(217, 88, 37, 50), 'say.prolog.plan_labor', {
+  target('plan_labor', l.labor, 'say.prolog.plan_labor', {
     room: 'docs_labor',
     at: [24, 100],
     face: 'rechts',
   }),
 ];
 
-const STADT_1986: readonly Hotspot[] = [
-  ...ZIELE_1986,
-  target('plan_turm', rect(141, 4, 32, 76), 'say.k1.plan_turm', {
+const stadt1986 = (l: Lage): Hotspot[] => [
+  ...ziele1986(l),
+  target('plan_turm', l.turm, 'say.k1.plan_turm', {
     room: 'rathausplatz',
     at: [296, 122],
     face: 'links',
   }),
-  target('plan_schule', rect(232, 6, 45, 57), 'say.k1.plan_schule', {
+  target('plan_schule', l.schule, 'say.k1.plan_schule', {
     room: 'schule_flur',
     at: [300, 100],
     face: 'links',
@@ -100,7 +122,7 @@ export const stadtplan: RoomDef = {
         background: 'backgrounds/stadtplan_1986_tannenburg.png',
         walkable: [],
         hidePlayer: true,
-        hotspots: [...DEKO_TANNENBURG, ...STADT_1986],
+        hotspots: [...DEKO_TANNENBURG, ...stadt1986(LAGE_TB)],
       },
       {
         // Nach der verbrannten Mappe: wieder Hill Valley, aber alle Wege bleiben offen.
@@ -108,7 +130,7 @@ export const stadtplan: RoomDef = {
         background: 'backgrounds/stadtplan_1986.png',
         walkable: [],
         hidePlayer: true,
-        hotspots: [...DEKO_1986, ...STADT_1986],
+        hotspots: [...DEKO_1986, ...stadt1986(LAGE_HV)],
       },
       {
         // Prolog: Erst einmal muss Marty ins Labor.
@@ -117,9 +139,9 @@ export const stadtplan: RoomDef = {
         hidePlayer: true,
         hotspots: [
           ...DEKO_1986,
-          ...ZIELE_1986,
-          closed('plan_turm', rect(141, 4, 32, 76), 'say.prolog.plan_turm'),
-          closed('plan_schule', rect(232, 6, 45, 57), 'say.prolog.plan_schule'),
+          ...ziele1986(LAGE_HV),
+          closed('plan_turm', LAGE_HV.turm, 'say.prolog.plan_turm'),
+          closed('plan_schule', LAGE_HV.schule, 'say.prolog.plan_schule'),
         ],
       },
     ],
