@@ -123,6 +123,8 @@ test.describe('Meilenstein 8: Text-Runde', () => {
 
     // Nebenfigur antwortet selbst.
     await go(page, 'tuer', 'kueche');
+    await act(page, 'oeffne', 'haengeschrank');
+    expect(await lastSpeech(page)).toBe(de.reaktion.kueche_1986.haengeschrank.oeffne);
     await act(page, 'ziehe', 'lorraine');
     const said = await page.evaluate(() => window.__hv.speech().at(-1));
     expect(said?.actor).toBe('lorraine');

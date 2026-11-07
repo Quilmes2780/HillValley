@@ -124,7 +124,7 @@ const EXTRAS: readonly Extra[] = [
     room: 'kueche',
     era: 1986,
     add: [
-      spot('mikrowelle', [238, 44, 18, 13], [246, 94], {
+      spot('mikrowelle', [238, 47, 18, 13], [246, 94], {
         sprite: { name: 'mikrowelle' },
         comments: { benutze: 'mikrowelle_benutze', oeffne: 'mikrowelle_oeffne', druecke: 'mikrowelle_benutze' },
       }),

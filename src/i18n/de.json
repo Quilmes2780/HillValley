@@ -154,6 +154,9 @@
     "werbetafel": "Werbetafel",
     "tuer_draussen": "Tür nach draußen",
     "regal": "Regal",
+    "kalender": "Kalender",
+    "haengeschrank": "Hängeschrank",
+    "reklame": "Reklameschild",
     "uhren": "Uhren",
     "werkbank": "Werkbank",
     "gitarre": "Gitarre",
@@ -566,6 +569,11 @@
 
       "kueche_treppe": "Da geht es hinauf in mein Zimmer.",
       "kueche_tuer_arbeitszimmer": "Dads Arbeitszimmer. Wenn es still ist, schreibt er gerade.",
+      "kueche_fenster": "Der Garten. Dad will bald mähen. Das will er seit dem Frühjahr.",
+      "kueche_kalender": "Moms Kalender. Jeder Tag ist voll, nur bei mir steht nie etwas drin.",
+      "kueche_pflanze": "Noch eine Pflanze. Die hier sieht gesund aus, weil ich sie nicht erreiche.",
+      "kueche_schrank": "Die Hängeschränke. Geschirr, Konserven und die Keksdose, von der Mom glaubt, ich kenne sie nicht.",
+      "kueche_reklame": "Cola-Reklame. Mom findet das gemütlich.",
       "kueche_kuehlschrank": "Der Kühlschrank der Familie McFly.",
       "kueche_kuehlschrank_oeffne": "Essen, das noch gekocht werden müsste. Ich lasse das.",
       "kueche_herd": "Der Herd. Davon verstehe ich nichts, und das ist für alle Beteiligten sicherer.",
@@ -1111,9 +1119,14 @@
       "stereoanlage": { "nimm": "Zu schwer für heute. Meine Schulter erinnert sich noch an den Sommer.", "benutze": "Lieber nicht. Beim letzten Mal ist Mom aus der Küche hochgekommen. Mit dem Besen.", "druecke": "Play, Stop, Play. Das Band klemmt, aber nur an den guten Stellen.", "oeffne": "Das Fach klemmt. Seit 1984 höre ich dieselbe Seite.", "schliesse": "Schon zu. Das ist ja das Problem.", "ziehe": "Am Kabel ziehen? Dann ist es still. Das will hier nur Mom.", "redemit": "Eins, zwei, Test. ... Falsche Seite. Das ist kein Mikrofon.", "mit_kassette": "Mr. Tannen in Stereo? Nein danke. Der ist schon in Mono zu laut." }
     },
     "kueche_1986": {
+      "fenster": { "oeffne": "Dann riecht die ganze Straße, was Mom kocht. Das wäre nicht fair.", "schliesse": "Schon zu. Der Garten kommt auch so nicht rein.", "nimm": "Die Aussicht gehört den Nachbarn. Die passen auch darauf auf.", "redemit": "Morgen, Garten. Du siehst besser aus als ich." },
+      "kalender": { "nimm": "Dann weiß hier niemand mehr, welcher Tag ist. Ich schon gar nicht.", "ziehe": "Ein Blatt abreißen? Das bringt die Woche auch nicht schneller rum.", "redemit": "Sag mir bitte nur, dass heute frei ist. ... Danke für nichts.", "mit_kugelschreiber": "Ich könnte mir ein paar freie Tage eintragen. Mom würde das merken." },
+      "pflanze": { "nimm": "Hängt zu hoch. Das ist wohl ihr Geheimnis.", "ziehe": "Wenn die runterkommt, komme ich auch nicht mehr davon.", "redemit": "Hallo da oben. Bleib, wo du bist." },
+      "haengeschrank": { "oeffne": "Teller, Tassen, keine Überraschung. Die Kekse sind auch schon weg.", "schliesse": "Schon zu. Mom kontrolliert das.", "nimm": "Die hängen da fest. Wie die meisten Leute in dieser Stadt.", "redemit": "Keks? Nein? Schade." },
+      "reklame": { "nimm": "Das Schild bleibt. Mom hat es auf dem Flohmarkt erkämpft.", "ziehe": "Der Nagel hält. Noch.", "druecke": "Blech. Klingt hohl. Wie die meisten Versprechen in der Werbung.", "redemit": "Trink mich, sagst du? Um diese Uhrzeit? Du bist keine gute Gesellschaft." },
       "kuehlschrank": { "schliesse": "Schon zu. Das spart Strom und ist das Einzige, was ich hier je gespart habe.", "nimm": "Der ganze Kühlschrank? Ganz so hungrig bin ich nicht.", "redemit": "Hallo? Geht das Licht wirklich aus, wenn die Tür zu ist? Die Wissenschaft schweigt.", "mit_banane": "Die Banane bleibt draußen. Bananen im Kühlschrank werden schwarz, sagt Mom. Das tun sie auch so." },
       "herd": { "nimm": "Der ist angeschlossen. Und ich bin nicht verrückt.", "oeffne": "Darin steht ein Blech von Weihnachten. Ich will nicht wissen, von welchem.", "druecke": "Ich fasse keine Knöpfe an, die etwas heiß machen.", "mit_kugelschreiber": "Toast aus Plastik gab es hier schon einmal. Ich rede nicht darüber." },
-      "obstschale": { "benutze": "Obst benutzt man, indem man es isst. Eins nach dem anderen.", "druecke": "Die Birne gibt nach. Das ist kein gutes Zeichen, für keinen von uns.", "redemit": "Ein Apfel, zwei Birnen und eine Melone, die sich für etwas Besseres hält." },
+      "obstschale": { "benutze": "Obst benutzt man, indem man es isst. Eins nach dem anderen.", "druecke": "Die Orange gibt nach. Das ist kein gutes Zeichen, für keinen von uns.", "redemit": "Äpfel und Orangen, die sich für etwas Besseres halten." },
       "banane": { "benutze": "Erst einmal nehmen, dann sehen wir weiter.", "redemit": "Banane. Hallo. Das ist jetzt der Tiefpunkt meines Vormittags." },
       "lorraine": { "nimm": ["lorraine", "Marty, wenn du mich umarmen willst, stell erst den Teller weg."], "ziehe": ["lorraine", "Nicht an meiner Schürze ziehen. Du bist siebzehn."], "druecke": "Ich drücke meine Mutter nicht aus heiterem Himmel. Sie würde den Arzt rufen.", "oeffne": "Sie ist meine Mutter, keine Keksdose." },
       "x_mikrowelle": { "nimm": "Die wiegt so viel wie ich. Und der Hamster hat offenbar Mietvertrag.", "schliesse": "Der Hamster hat sie schon selbst zugezogen. Er kennt sich aus.", "redemit": "Hallo, Kleiner. Du kommst hier raus, ja? Er nickt langsam." }

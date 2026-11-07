@@ -164,7 +164,7 @@ const LEBEN: Record<string, Leben> = {
     ambience: 'amb_cafe',
     fidget: { lorraine: ['pickup', 'blick', 'talk'] },
     effects: [
-      { type: 'particles', area: [160, 44, 18, 3], colors: [0xf0f0f0, 0xd8d8e0], rate: 3, life: [800, 1700], vx: [-3, 3], vy: [-13, -6], size: [2, 2] },
+      { type: 'particles', area: [159, 47, 12, 3], colors: [0xf0f0f0, 0xd8d8e0], rate: 3, life: [800, 1700], vx: [-3, 3], vy: [-13, -6], size: [2, 2] },
     ],
   },
   arbeitszimmer_1986: { floor: 'teppich', ambience: 'amb_schule' },
