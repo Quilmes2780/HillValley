@@ -1,27 +1,23 @@
-import { drawText } from '../pixel/schild.ts';
-import { Canvas } from '../pixel/png.ts';
+import { paintText } from './schrift.ts';
 import * as K from './kit.ts';
 import { clamp01, fbm, hex, mix, noise, type Picture, ramp, shade, smooth, type RGB } from './painter.ts';
 
 const HORIZON = 136;
 
 function bigText(p: Picture, text: string, x: number, y: number, top: RGB, bottom: RGB, glow: RGB, scale: number): void {
-  const t = new Canvas(200, 12);
-  drawText(t, text, 0, 0, 1);
-  const on = (tx: number, ty: number): boolean => tx >= 0 && ty >= 0 && tx < t.w && ty < t.h && t.get(tx, ty) === 1;
-  for (let ty = 0; ty < t.h; ty++) {
-    for (let tx = 0; tx < t.w; tx++) {
-      if (!on(tx, ty)) continue;
-      p.glow(x + tx * scale + scale / 2, y + ty * scale + scale / 2, 9, glow, 0.035);
-      for (let d = 1; d <= 2; d++) p.area(x + tx * scale + d, y + ty * scale + d, scale, scale, () => hex('#0c0814'));
-    }
-  }
-  for (let ty = 0; ty < t.h; ty++) {
-    for (let tx = 0; tx < t.w; tx++) {
-      if (!on(tx, ty)) continue;
-      p.area(x + tx * scale, y + ty * scale, scale, scale, (_px, py) => mix(top, bottom, (py - y) / (t.h * scale * 0.62)));
-    }
-  }
+  const h = 8 * scale;
+  paintText(p, text, {
+    x,
+    y,
+    h,
+    stil: 'block',
+    color: (_px, py) => mix(top, bottom, (py - y) / h),
+    shadow: hex('#0c0814'),
+    shadowAlpha: 1,
+    shadowOffset: 2,
+    glow,
+    glowStrength: 0.05,
+  });
 }
 
 function bolt(p: Picture, x0: number, y0: number, x1: number, y1: number, width: number, seed: number): void {

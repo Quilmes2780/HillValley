@@ -17,6 +17,8 @@ Stand: 6. November 2026. Grundlage sind `SPIELKONZEPT.md`, `LOESUNGSBUCH.md`, Te
 
 **Leben und Klang (7. November 2026):** Raumanimationen, beschäftigte Nebenfiguren, gezeigte große Szenen (Biff, Buford und Brix im Mist, Abfahrt und Ankunft des Zuges, Automat von nahem, neue Zeitwelle, ablaufende Jahreszahl), Raumklang, Schritte je Boden, Sprechlaute, Akzent bei großen Rätseln, Überblendung, elf Stücke mit gemeinsamem Leitmotiv im Klang früher Soundkarten, eigene Stücke für Saloon, Diner, Café 80er, Showdown und Abspann. Offen bleiben neue Bewegungen im Figurensprite (Hinsetzen, Staunen, Einsteigen), die Tönung der Figuren je Raum und ein gemalter Zug. Die Musik wurde nur technisch geprüft, nicht angehört.
 
+**Nach Rückmeldung:** Schilder, Stadtplan und Titel-Logo haben eine gemalte Schrift mit eigenem Stil je Ort. Motorrad und Denkmal am Rathausplatz sind in Figurengröße neu gemalt, das Motorrad steht jetzt vor der Bank, das Denkmal links vom Rathaus und nur außerhalb von Tannenburg. „ZEITZUG“ und „WAGEN“ bleiben Platzhalter.
+
 **Abweichungen:** „Gitarre überall“ entfällt, weil Marty nie in 1955 oder 1885 ist. „Tannen-Werbung, die mitwächst“ und ein Laufwitz-Zähler sind offen. Der gespielte Kopierschutz sitzt am Wählrad statt auf dem Titelbild.
 
 **Deine Entscheidungen:** Brix schickt weiter Briefe. Figuren malt Claude neu, etwa 40×72. Neue Rätsel sind erlaubt. Anspielungen erst einmal alle, später ausdünnen.

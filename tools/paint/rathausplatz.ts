@@ -1,5 +1,3 @@
-import { drawText } from '../pixel/schild.ts';
-import { Canvas } from '../pixel/png.ts';
 import * as K from './kit.ts';
 import { clamp01, fbm, grain, hex, mix, noise, Picture, ramp, shade, smooth, type RGB } from './painter.ts';
 
@@ -266,20 +264,6 @@ function clockTower(p: Picture): void {
   p.glow(cx, cy, 22, hex('#ffb860'), 0.28 * M.lamp);
 }
 
-/** Überträgt einen Pixel-Schriftzug in das Gemälde. */
-function lettering(p: Picture, text: string, x: number, y: number, c: RGB, glowC: RGB, glowS: number): void {
-  const t = new Canvas(120, 12);
-  drawText(t, text, 0, 0, 1);
-  for (let ty = 0; ty < t.h; ty++) {
-    for (let tx = 0; tx < t.w; tx++) {
-      if (t.get(tx, ty) !== 1) continue;
-      p.blend(x + tx + 1, y + ty + 1, hex('#1a0806'), 0.75);
-      p.set(x + tx, y + ty, c);
-      if (glowS) p.glow(x + tx, y + ty, 4, glowC, glowS);
-    }
-  }
-}
-
 function entrance(p: Picture): void {
   // Portal mit tiefer Laibung
   const x = 146;
@@ -323,7 +307,7 @@ function banner(p: Picture): void {
     p.area(136, 40, 48, 11, (x, y) => mix(hex('#3a3430'), hex('#26221f'), (y - 40) / 11 + noise(x / 7, 2, 3) * 0.2));
     p.area(136, 40, 48, 1, () => shade(hex(M.wall), 1.25));
     p.area(136, 50, 48, 1, () => hex('#14100e'));
-    lettering(p, 'RATHAUS', 142, 40, hex('#f4e4b8'), hex('#000000'), 0);
+    K.lettering(p, 'RATHAUS', 142, 40, hex('#f4e4b8'));
     return;
   }
   // Das Schild ist neuer als das Haus und auch so montiert.
@@ -333,7 +317,7 @@ function banner(p: Picture): void {
   });
   p.area(118, 40, 84, 1, () => hex('#e8b050'));
   p.area(118, 50, 84, 1, () => hex('#7a5022'));
-  lettering(p, 'TANNEN-TURM', 133, 39, hex('#ffe08a'), hex('#ff8a30'), 0.03);
+  K.lettering(p, 'TANNEN-TURM', 133, 39, hex('#ffe08a'), hex('#ff8a30'), 0.03, 'block');
   p.glow(160, 45, 42, hex('#ff5030'), 0.1, 0.4);
 }
 
@@ -372,13 +356,13 @@ function bank(p: Picture): void {
     // Neonschild
     p.area(L, T, R - L, 11, (x, y) => mix(hex('#5a1014'), hex('#2a060a'), (y - T) / 11 + noise(x / 6, 3, 2) * 0.2));
     p.area(L, T + 10, R - L, 1, () => hex('#ffb040'));
-    lettering(p, 'TANNEN BANK', 234, T - 1, hex('#fff2b0'), hex('#ff7a20'), 0.05);
+    K.lettering(p, 'TANNEN BANK', 234, T - 1, hex('#fff2b0'), hex('#ff7a20'), 0.05, 'block');
     p.glow((L + R) / 2, T + 6, 48, hex('#ff5a20'), 0.14, 0.5);
   } else {
     p.area(L, T, R - L, 11, (x, y) => mix(hex('#3a3430'), hex('#26221f'), (y - T) / 11 + noise(x / 7, 2, 3) * 0.2));
     p.area(L, T, R - L, 1, () => hex('#c8b8a0'));
     p.area(L, T + 10, R - L, 1, () => hex('#14100e'));
-    lettering(p, 'BANK', 256, T, hex('#f4e4b8'), hex('#000000'), 0);
+    K.lettering(p, 'BANK', 256, T, hex('#f4e4b8'));
   }
 }
 
@@ -418,7 +402,7 @@ function billboard(p: Picture): void {
   p.area(93, 34, 1, 22, () => hex('#a06a24'));
   // Ein Gesicht, das einem überallhin folgt: nur als Schattenriss
   p.poly([[73, 52], [73, 44], [76, 39], [80, 38], [84, 40], [85, 45], [84, 49], [86, 52]], hex('#23060a'));
-  lettering(p, 'B.T.', 62, 45, hex('#ffe08a'), hex('#ff8a30'), 0.02);
+  K.lettering(p, 'B.T.', 62, 45, hex('#ffe08a'), hex('#ff8a30'), 0.02, 'block');
   // Lampenarm wirft Licht von oben auf die Tafel
   p.glow(77, 33, 26, hex('#ffc070'), 0.22, 0.6);
 }
@@ -542,7 +526,7 @@ function shop(p: Picture, x: number, w: number, doorX: number, wallC: string, aw
   p.area(x, top - 2, w, 2, () => shade(hex(wallC), 0.6));
   p.area(x, top, w, 11, (px, py) => mix(hex(awning[1]), shade(hex(awning[1]), 0.72), (py - top) / 11 + noise(px / 8, 1, 3) * 0.1));
   p.area(x, top, w, 1, () => shade(hex(awning[1]), 1.5));
-  lettering(p, name, nameX, top, hex('#fff6dc'), hex('#ffffff'), 0);
+  K.lettering(p, name, nameX, top, hex('#fff6dc'));
   // Gestreifte Markise wirft Schatten aufs Glas
   for (let py = 51; py < 56; py++) {
     p.area(x + 1, py, w - 2, 1, (px) => {

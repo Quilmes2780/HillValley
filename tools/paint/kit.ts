@@ -1,5 +1,5 @@
-import { drawText } from '../pixel/schild.ts';
-import { Canvas } from '../pixel/png.ts';
+import { textWidth } from '../pixel/schild.ts';
+import { paintText, type Stil } from './schrift.ts';
 import { clamp01, fbm, grain, hex, mix, noise, Picture, ramp, shade, smooth, type RGB } from './painter.ts';
 
 export const W = 320;
@@ -243,22 +243,9 @@ export function books(p: Picture, x: number, y: number, w: number, h: number, se
   }
 }
 
-/** Schreibt Eigennamen auf Schilder. */
-export function lettering(p: Picture, text: string, x: number, y: number, c: RGB, glowC?: RGB, glowS = 0, scale = 1): void {
-  const t = new Canvas(160, 12);
-  drawText(t, text, 0, 0, 1);
-  for (let ty = 0; ty < t.h; ty++) {
-    for (let tx = 0; tx < t.w; tx++) {
-      if (t.get(tx, ty) !== 1) continue;
-      for (let sy = 0; sy < scale; sy++) {
-        for (let sx = 0; sx < scale; sx++) {
-          p.blend(x + tx * scale + sx + 1, y + ty * scale + sy + 1, hex('#100806'), 0.65);
-          p.set(x + tx * scale + sx, y + ty * scale + sy, c);
-        }
-      }
-      if (glowC && glowS) p.glow(x + tx * scale, y + ty * scale, 4 + scale, glowC, glowS);
-    }
-  }
+/** Schreibt Eigennamen auf Schilder, gemalt und passend zur Breite des Schilds. */
+export function lettering(p: Picture, text: string, x: number, y: number, c: RGB, glowC?: RGB, glowS = 0, stil: Stil = 'antiqua'): void {
+  paintText(p, text, { x, y: y + 1, h: 7, maxW: textWidth(text) + 1, center: true, stil, color: c, glow: glowC, glowStrength: glowS });
 }
 
 export interface SkyOpts {

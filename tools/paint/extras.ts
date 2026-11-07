@@ -279,21 +279,45 @@ const SPRITES: Record<string, { w: number; h: number; draw: Draw }> = {
     },
   },
   motorrad: {
-    w: 30,
-    h: 20,
+    w: 72,
+    h: 40,
     draw: (i) => {
-      for (const x of [6.4, 23.6]) {
-        i.ellipse(x, 14.6, 4.6, 4.6, hex('#14141a'));
-        i.ellipse(x, 14.6, 2.4, 2.4, hex('#8a8c94'));
-        i.ellipse(x, 14.6, 1, 1, hex('#14141a'));
+      // Schutzbleche und Räder
+      for (const x of [14, 58]) {
+        i.ellipse(x, 31, 8.6, 8.6, hex('#111116'));
+        i.ellipse(x, 31, 6.2, 6.2, hex('#2a2a30'));
+        i.ellipse(x, 31, 5.2, 5.2, hex('#8e9098'));
+        i.ellipse(x, 31, 4.2, 4.2, hex('#24242a'));
+        for (let a = 0; a < 6; a++) {
+          const t = (a / 6) * Math.PI;
+          i.rod(x - Math.cos(t) * 4.2, 31 - Math.sin(t) * 4.2, x + Math.cos(t) * 4.2, 31 + Math.sin(t) * 4.2, 0.35, '#a8acb4');
+        }
+        i.ellipse(x, 31, 1.5, 1.5, hex('#c8ccd4'));
       }
-      i.rod(23.6, 14.6, 21, 6, 1.1, '#c8ccd4');
-      i.rod(21, 6, 24.6, 2.6, 1, '#c8ccd4');
-      i.rod(6.4, 14.6, 14, 15, 1.2, '#70747c');
-      i.rect(11, 11.2, 7.6, 5.4, cyl('#5a5c64', 11, 18.6), 1);
-      i.rect(12, 6.6, 9, 4.2, vgrad('#c0401c', '#6e1e0c', 6.6, 11), 2);
-      i.rect(4.6, 7.6, 8, 2.6, vgrad('#3a2a1c', '#1c120c', 7.6, 10.4), 1);
-      i.rod(10, 16.6, 1.6, 17, 1.2, '#b8bcc4');
+      i.rod(5, 25, 16, 20.5, 2, '#4a1a0c');
+      // Gabel und Lenker
+      i.rod(58, 31, 48, 9, 1.4, '#c8ccd4');
+      i.rod(55, 31, 45, 9, 1.4, '#a8acb4');
+      i.rod(46, 9, 40, 3, 1.1, '#c8ccd4');
+      i.rod(40, 3, 35, 3, 1.5, '#16161a');
+      i.rod(46, 9, 52, 4, 1.1, '#c8ccd4');
+      i.ball(50, 12, 3, 3, '#e8e4c8');
+      // Rahmen
+      i.rod(47, 14, 24, 18, 1.5, '#2a2a30');
+      i.rod(46, 18, 32, 29, 1.5, '#2a2a30');
+      i.rod(14, 31, 32, 29, 1.2, '#70747c');
+      i.rod(14, 31, 24, 18, 1.1, '#70747c');
+      // Motor und Auspuff
+      i.rect(26, 22, 14, 10, cyl('#5a5c64', 26, 40), 1.4);
+      for (let y = 23; y < 28; y += 2) i.rod(27, y, 39, y, 0.35, '#8e9098');
+      i.rect(29, 28.5, 8, 4.5, vgrad('#74767e', '#34343a', 28.5, 33), 1.5);
+      i.rod(30, 33, 4, 35.5, 1.5, '#c8ccd4');
+      i.rod(10, 34.5, 1, 35.5, 1.8, '#8e9098');
+      // Tank mit Flammen, Sitz
+      i.rect(27, 11, 20, 9, vgrad('#c8401a', '#68180a', 11, 20), 4);
+      i.poly([[30, 19], [33, 14], [35, 17], [38, 13], [39, 17], [42, 15], [42, 19]], vgrad('#ffd060', '#f07020', 13, 19));
+      i.rect(9, 14.5, 19, 4.6, vgrad('#3a2a1c', '#1a100a', 14.5, 19), 2);
+      i.rect(6, 12.5, 6, 4, vgrad('#3a2a1c', '#1a100a', 12.5, 17), 1.6);
     },
   },
   wanderer: {
@@ -355,15 +379,33 @@ const SPRITES: Record<string, { w: number; h: number; draw: Draw }> = {
     },
   },
   denkmal: {
-    w: 14,
-    h: 24,
+    w: 32,
+    h: 80,
     draw: (i) => {
-      const bronze = '#7a8a70';
-      i.rect(2.6, 17, 8.8, 6, vgrad('#b8b0a0', '#7a7468', 17, 23));
-      i.rect(4.4, 8.6, 5.2, 8.6, vgrad('#6a7a62', '#3e4c3c', 8, 17), 0.8);
-      i.ball(7, 6, 2.4, 2.6, bronze);
-      i.rod(9.2, 10, 12, 3.4, 1.4, bronze);
-      i.rod(4.8, 10, 3.4, 15, 1.4, '#566a50');
+      const hell = '#8a9c80';
+      const dunkel = '#46583f';
+      // Sockel
+      i.rect(1, 74, 30, 5, vgrad('#b0a898', '#6a6458', 74, 79));
+      i.rect(5, 54, 22, 21, vgrad('#c4bcac', '#7e786a', 54, 75));
+      i.rect(3, 50, 26, 5, vgrad('#d4ccbc', '#8e8878', 50, 55));
+      i.rect(10, 59, 12, 9, vgrad('#a88a4a', '#6a5426', 59, 68), 0.8);
+      for (let y = 61; y < 67; y += 2) i.rod(12, y, 20, y, 0.35, '#3e2e12');
+      // Beine und Mantel
+      i.rect(11, 38, 4.4, 13, vgrad(hell, dunkel, 38, 51), 1);
+      i.rect(17, 38, 4.4, 13, vgrad('#6a7c60', dunkel, 38, 51), 1);
+      i.rect(8.6, 49.4, 7, 2.4, vgrad(hell, dunkel, 49, 52), 1);
+      i.rect(16.4, 49.4, 7, 2.4, vgrad(hell, dunkel, 49, 52), 1);
+      i.poly([[10, 21], [22, 21], [24, 42], [8, 42]], vgrad(hell, dunkel, 21, 42));
+      i.rod(16, 21, 16, 41, 0.35, '#34442e');
+      // Arme: einer zeigt in die Zukunft, einer hält die Rolle
+      i.rod(21.5, 23, 29, 11, 2, hell);
+      i.ball(29.4, 10, 1.6, 1.6, hell);
+      i.rod(10.5, 23, 7, 33, 2, dunkel);
+      i.rect(4, 32, 7, 2.6, vgrad('#b8c8ac', '#5e7056', 32, 35), 1);
+      // Kopf
+      i.ball(16, 14.6, 4.2, 5, hell);
+      i.rect(13.6, 18, 4.8, 3.6, vgrad(hell, dunkel, 18, 22));
+      i.rod(12.4, 10.6, 19.8, 10.6, 0.8, '#b8c8ac');
     },
   },
 };

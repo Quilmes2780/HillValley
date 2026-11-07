@@ -1,8 +1,8 @@
 import { Canvas } from './png.ts';
 
 /**
- * Die Schrift auf Schildern und Platzhaltern, die direkt ins Bild gemalt wird. Sie ist bewusst
- * von der Spielschrift (font.ts) getrennt, damit die Beschriftung der Räume stehen bleibt.
+ * Die Pixelschrift auf den Platzhaltern (Zeitzug, Wagen). Gemalte Schilder nutzen tools/paint/schrift.ts,
+ * hier steht nur noch ihre alte Breite als Maß, damit jede Schrift auf ihrem Schild bleibt.
  * Jede Glyphe: [erste Zeile, Muster mit # für Pixel und / als Zeilentrenner].
  */
 const G: Record<string, [number, string]> = {
@@ -126,6 +126,16 @@ export function drawText(canvas: Canvas, text: string, x: number, y: number, col
     drawGlyph(canvas, char, cx, y + glyph[0], color);
     cx += Math.max(...rowsOf(glyph[1]).map((row) => row.length)) + 1;
   }
+}
+
+/** Breite eines Schriftzugs in dieser Schrift. */
+export function textWidth(text: string): number {
+  let width = 0;
+  for (const char of text) {
+    const glyph = G[char];
+    if (glyph) width += Math.max(...rowsOf(glyph[1]).map((row) => row.length)) + 1;
+  }
+  return Math.max(0, width - 1);
 }
 
 /** Zeichnet Text direkt ins Bild (für Buchstaben auf Platzhaltern). */

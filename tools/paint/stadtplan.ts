@@ -1,5 +1,5 @@
-import { drawText } from '../pixel/schild.ts';
-import { Canvas } from '../pixel/png.ts';
+import { textWidth } from '../pixel/schild.ts';
+import { paintText } from './schrift.ts';
 import { clamp01, fbm, grain, hex, mix, noise, Picture, shade, smooth, type RGB } from './painter.ts';
 
 const W = 320;
@@ -320,17 +320,8 @@ function lab(p: Picture): void {
   p.line(249, 92, 255, 92, INK, 0.6);
 }
 
-function scaledText(p: Picture, text: string, x: number, y: number, c: RGB, scale: number): void {
-  const t = new Canvas(120, 12);
-  drawText(t, text, 0, 0, 1);
-  for (let ty = 0; ty < t.h; ty++) {
-    for (let tx = 0; tx < t.w; tx++) {
-      if (t.get(tx, ty) !== 1) continue;
-      for (let sy = 0; sy < scale; sy++) {
-        for (let sx = 0; sx < scale; sx++) p.blend(x + tx * scale + sx, y + ty * scale + sy, c, 0.92);
-      }
-    }
-  }
+function scaledText(p: Picture, text: string, x: number, y: number, c: RGB, _scale: number): void {
+  paintText(p, text, { x, y: y + 1, h: 7, maxW: textWidth(text) + 1, center: true, stil: 'antiqua', color: c, shadowAlpha: 0 });
 }
 
 function cartouche(p: Picture): void {

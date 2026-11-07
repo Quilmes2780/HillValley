@@ -337,7 +337,7 @@ export function mietstall(): Picture {
   p.area(75, 9, 1, 8, () => hex('#2a1810'));
   // Schild
   K.box(p, 34, 23, 80, 12, K.wood(hex('#4a2c18'), false, 407), { light: 0.15, rim: hex('#a07a48') });
-  K.lettering(p, 'MIETSTALL', 38, 24, hex('#f4e4b8'));
+  K.lettering(p, 'MIETSTALL', 38, 24, hex('#f4e4b8'), undefined, 0, 'western');
 
   // Offenes Stalltor
   p.area(40, 42, 50, 50, (x, y) => mix(hex('#0e0805'), hex('#2a1a0e'), (y - 42) / 60 + fbm(x / 8, y / 5, 2, 408) * 0.18));

@@ -319,8 +319,8 @@ export function vorgarten(tannenburg: boolean): Picture {
     // Werbetafel: Alles gehört jetzt den Tannens
     for (const x of [214, 262]) K.box(p, x, 8, 6, 40, K.metal(hex('#2a2830')), { light: 0.2 });
     K.box(p, 190, 6, 104, 32, (x, y) => mix(hex('#8a1c1c'), hex('#4a0c10'), (y - 6) / 34 + fbm(x / 8, y / 4, 3, 74) * 0.3), { light: 0.1, rim: hex('#f0c060') });
-    K.lettering(p, 'TANNEN', 214, 10, hex('#ffe08a'), hex('#ff8a30'), 0.03);
-    K.lettering(p, 'INDUSTRIES', 204, 23, hex('#f4ece0'));
+    K.lettering(p, 'TANNEN', 214, 10, hex('#ffe08a'), hex('#ff8a30'), 0.03, 'block');
+    K.lettering(p, 'INDUSTRIES', 204, 23, hex('#f4ece0'), undefined, 0, 'block');
     p.glow(242, 22, 40, hex('#ff6030'), 0.12, 0.5);
     p.grade((c, _x, y) => mix(c, hex('#a87a50'), smooth(70, 0, y) * 0.1));
   }

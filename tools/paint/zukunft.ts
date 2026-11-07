@@ -38,7 +38,7 @@ const glossy = (a: RGB, b: RGB, y0: number, seed: number, tile = 32): K.Mat => (
 };
 
 function neonSign(p: Picture, text: string, x: number, y: number, c: RGB, strength = 0.05): void {
-  K.lettering(p, text, x, y, mix(c, hex('#ffffff'), 0.65), c, strength);
+  K.lettering(p, text, x, y, mix(c, hex('#ffffff'), 0.65), c, strength, 'neon');
 }
 
 function neonLine(p: Picture, x: number, y: number, w: number, c: RGB, strength = 0.3): void {
@@ -298,7 +298,7 @@ export function lobby2015(): Picture {
   // Aufzugsrahmen; die Türen sind austauschbar
   K.box(p, 200, 24, 44, 64, K.solid(hex('#04040a')), { light: 0, rim: NEON, dark: hex('#106a7a') });
   K.box(p, 204, 14, 36, 8, K.solid(hex('#04040a')), { light: 0, rim: hex('#3a3c4c') });
-  K.lettering(p, '88', 216, 12, hex('#ff5040'), DANGER, 0.06);
+  K.lettering(p, '88', 216, 12, hex('#ff5040'), DANGER, 0.06, 'block');
   // Innenraum des Aufzugs, wenn die Türen offen stehen
   p.area(202, 26, 40, 60, (x, y) => mix(hex('#fff0c8'), hex('#a88a60'), (y - 26) / 60 + (x - 202) * 0.002));
   // Scanner
