@@ -1,4 +1,5 @@
 import type { Exit, Hotspot, RoomDef, RoomVariant, Script } from '../../engine/types';
+import { FX } from '../szenen';
 import { pickup, rect } from './util';
 
 const WALKABLE: RoomVariant['walkable'] = [[[8, 92], [312, 92], [316, 140], [4, 140]]];
@@ -94,9 +95,13 @@ const verfolgung: Script = async (g) => {
     await g.goToRoom('strasse_mist', 1955, [60, 116], 'rechts');
     await g.sayAs('biff_jung', 'say.k2.biff_he');
     await g.walkTo([262, 126], undefined, 2);
-    await g.walkTo([236, 100], 'biff_jung', 2.5);
+    await g.walkTo([190, 112], 'biff_jung', 3);
+    // Biff schaut nach hinten, nicht nach vorn: Er fliegt über die Ladekante.
+    g.sfx('fall');
+    await g.hop('biff_jung', [222, 56], { ms: 650, arc: 34, spin: 3.6, ease: 'Sine.easeOut' });
     g.setFlag('biff_im_mist');
     g.sfx('platsch');
+    g.burst(220, 52, FX.mist);
     g.shake(300);
     await g.sayAs('biff_jung', 'say.k2.biff_mist');
     await g.say('say.k2.nach_mist');

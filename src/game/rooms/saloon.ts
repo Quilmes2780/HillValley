@@ -71,7 +71,10 @@ export const saloon: RoomDef = {
                 g.setFlag('doc_trinkt', false);
                 await g.cutscene(async () => {
                   await g.say('say.k3.whisky_1');
+                  g.sfx('fall');
                   g.shake(400);
+                  await g.hop(undefined, [204, 122], { ms: 500, spin: -1.5, keepSpin: true, ease: 'Bounce.easeOut' });
+                  await g.wait(500);
                   await g.goToRoom('schmiede', 1885, [160, 120], 'vorne');
                   await g.say('say.k3.whisky_2');
                 });

@@ -1,5 +1,6 @@
 import type { Era } from '../../engine/types';
 import type { Hotspot, RoomDef, RoomVariant, Script, ScriptApi } from '../../engine/types';
+import { FX, zugKommtAn } from '../szenen';
 import { pickup, rect } from './util';
 
 const WALKABLE: RoomVariant['walkable'] = [[[8, 92], [312, 92], [316, 140], [4, 140]]];
@@ -62,14 +63,23 @@ const briefEinwerfen: Script = async (g) => {
   await g.say('say.k1.brief_drin');
 };
 
+/** Funken am Schlitz, der Kasten bebt, dann ist der Brief fort. */
+async function sendeBlitz(g: ScriptApi): Promise<void> {
+  g.sfx('senden');
+  g.burst(224, 52, FX.funken);
+  await g.wait(450);
+  g.burst(224, 52, FX.funken);
+  g.sfx('funken');
+  g.flash(500);
+  g.shake(500);
+}
+
 /** Der Lichtblitz: Der Brief reist nach 1955, das Spiel wechselt zum jungen Doc. */
 async function kapitel2Starten(g: ScriptApi): Promise<void> {
   await g.cutscene(async () => {
     await g.say('say.k1.hebel_los');
-    g.sfx('senden');
-    g.flash(700);
-    g.shake(700);
-    await g.wait(900);
+    await sendeBlitz(g);
+    await g.yearRoll(1986, 1955);
     g.setFlag('brief_im_schlitz', false);
     g.setFlag('brief_gesendet');
     await g.say('say.k1.brief_weg');
@@ -99,9 +109,8 @@ const sicherungEinwerfen: Script = async (g) => {
 };
 
 const sicherungSenden = async (g: ScriptApi): Promise<void> => {
-  g.sfx('senden');
-  g.flash(400);
-  g.shake(300);
+  await sendeBlitz(g);
+  await g.yearRoll(1986, 1885);
   g.setFlag('sicherung_im_schlitz', false);
   g.setFlag('sicherung_gesendet');
   await g.say('say.k3.sicherung_weg');
@@ -136,9 +145,10 @@ async function vielleichtAnkunft(g: ScriptApi): Promise<void> {
     await g.say('say.k4.ankunft_1');
     await g.goToRoom('rathausplatz', 1986, [296, 122], 'links');
     await g.say('say.k4.ankunft_2');
-    g.flash(600);
-    g.shake(700);
     g.setFlag('zug_da');
+    await zugKommtAn(g, 'zeitzug', [-300, 0], 110, [130, 136]);
+    g.sfx('pfeife');
+    await g.wait(500);
     g.state.characters.doc = { room: 'rathausplatz', era: 1986, x: 100, y: 122, face: 'rechts', inventory: [] };
     await g.goToRoom('rathausplatz', 1986);
     await g.sayAs('doc', 'say.k4.ankunft_3');

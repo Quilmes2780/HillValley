@@ -1,5 +1,6 @@
 import type { RoomDef, Script } from '../../engine/types';
 import { epilog } from '../epilog';
+import { FX } from '../szenen';
 import { rect } from './util';
 
 /** Marty lässt sich provozieren, rutscht aus und landet im Aufzug: zurück nach unten. */
@@ -7,9 +8,12 @@ const ausgerutscht: Script = async (g) => {
   await g.cutscene(async () => {
     await g.say('say.k5.showdown_wut');
     await g.walkTo([200, 114], undefined, 3);
+    g.sfx('fall');
     g.shake(250);
-    await g.say('say.k5.showdown_rutscht');
-    await g.walkTo([296, 96], undefined, 5);
+    void g.say('say.k5.showdown_rutscht');
+    await g.hop(undefined, [296, 96], { ms: 700, arc: 6, spin: 6.2, ease: 'Sine.easeIn' });
+    g.sfx('aufzug');
+    await g.wait(500);
     await g.goToRoom('lobby', 2015, [222, 98], 'vorne');
     await g.say('say.k5.showdown_unten');
   });
@@ -21,10 +25,18 @@ const brixStuerzt: Script = async (g) => {
     await g.sayAs('brix', 'say.k5.showdown_brix_wut');
     await g.say('say.k5.showdown_ausweichen');
     await g.walkTo([40, 102], 'brix', 4);
+    g.sfx('tuer');
+    g.setFlag('brix_rutscht');
     g.setFlag('brix_gestuerzt');
     await g.goToRoom('gasse', 2015, [296, 122], 'links');
-    await g.sayAs('brix', 'say.k5.showdown_rutschpartie');
+    // Das Geländer ist gewachst: vom oberen Rand bis ans Ende der Treppe, dann ab in den Laster.
+    void g.sayAs('brix', 'say.k5.showdown_rutschpartie');
+    await g.hop('brix', [138, 88], { ms: 900, ease: 'Quad.easeIn' });
+    g.sfx('fall');
+    await g.hop('brix', [208, 42], { ms: 600, arc: 26, spin: 5.2, ease: 'Sine.easeOut' });
+    g.setFlag('brix_rutscht', false);
     g.sfx('platsch');
+    g.burst(208, 40, FX.mist);
     g.shake(500);
     await g.say('say.k5.showdown_mist');
     await g.goToRoom('buero', 2015, [170, 112], 'links');

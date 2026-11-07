@@ -1,4 +1,4 @@
-import type { SfxName } from '../game/audio';
+import type { AmbienceName, FloorName, MusicName, SfxName } from '../game/audio';
 import type { FlagName } from '../game/flags';
 import type { CharacterId, GameState } from '../game/state';
 
@@ -72,7 +72,78 @@ export interface ScriptApi {
   sfx(name: SfxName): void;
   shake(ms?: number): void;
   flash(ms?: number): void;
+  /** Figur fliegt, rutscht oder fällt, unabhängig von den begehbaren Flächen. */
+  hop(actor: string | undefined, to: Pt, options: HopOptions): Promise<void>;
+  /** Figur bleibt im Raum, ist aber nicht zu sehen, z. B. nach dem Einsteigen. */
+  hideActor(actor?: string, hidden?: boolean): void;
+  /** Verschiebt das Bild einer Klickfläche relativ zur jetzigen Stelle. */
+  moveSprite(hotspot: string, by: Pt, ms: number, ease?: string): Promise<void>;
+  /** Einmaliger Teilchenausstoß an einer Stelle des Raums. */
+  burst(x: number, y: number, spec: BurstSpec): void;
+  /** Festes Stück für eine Szene, 'stille' für keine Musik, null für zurück zum Raum. */
+  setMusic(name: MusicName | 'stille' | null): void;
+  /** Jahreszahl läuft groß über das Bild von einem Jahr zum anderen. */
+  yearRoll(from: number, to: number): Promise<void>;
+  /** Bildschirmfüllendes Bild aus einem Bildstreifen unter assets/. Bleibt bis hidePicture(). */
+  showPicture(key: string, fps: number): void;
+  hidePicture(): void;
 }
+
+export interface HopOptions {
+  ms: number;
+  /** Höhe des Bogens in Pixeln. */
+  arc?: number;
+  /** Drehung im Bogenmaß über den ganzen Weg. */
+  spin?: number;
+  /** Die Figur bleibt danach so gedreht liegen. */
+  keepSpin?: boolean;
+  ease?: string;
+}
+
+export interface BurstSpec {
+  count: number;
+  colors: readonly number[];
+  /** Pixel je Sekunde. */
+  speed: readonly [number, number];
+  life: readonly [number, number];
+  gravity?: number;
+  /** Richtung im Bogenmaß; ohne Angabe in alle Richtungen. */
+  angle?: readonly [number, number];
+  /** Streuung des Startpunkts entlang x. */
+  spread?: readonly [number, number];
+  size?: number;
+}
+
+type Rect = readonly [number, number, number, number];
+
+/**
+ * Bewegte Raumdetails als Daten. Alle Effekte verändern nur das Bild, nie den Spielstand.
+ * Ohne `depthY` liegen sie vor dem Hintergrund und hinter den Figuren.
+ */
+export type RoomEffect =
+  | { type: 'strip'; key: string; frameWidth: number; frameHeight: number; x: number; y: number; fps: number; swing?: boolean; depthY?: number; when?: Condition }
+  | {
+      type: 'particles';
+      area: Rect;
+      colors: readonly number[];
+      /** Teilchen je Sekunde. */
+      rate: number;
+      life: readonly [number, number];
+      vx: readonly [number, number];
+      vy: readonly [number, number];
+      gravity?: number;
+      size?: readonly [number, number];
+      fade?: boolean;
+      /** Vor den Figuren, z. B. Regen. */
+      front?: boolean;
+      when?: Condition;
+    }
+  | { type: 'glow'; area: Rect; color: number; min: number; max: number; speed: number; flicker?: number; hard?: boolean; depthY?: number; when?: Condition }
+  | { type: 'pass'; key: string; frameWidth?: number; frameHeight?: number; y: number; fromX: number; toX: number; seconds: number; pause: readonly [number, number]; fps?: number; wobble?: number; flip?: boolean; depthY?: number; when?: Condition }
+  | { type: 'bob'; hotspot: string; amplitude: number; seconds: number; when?: Condition };
+
+/** Was eine Nebenfigur zwischendurch tut. */
+export type Fidget = 'pickup' | 'talk' | 'blick';
 
 /** Objektspezifische Kommentare: i18n-Schlüssel je Verb, `default` für alle übrigen. */
 export type Comments = Partial<Record<Verb | 'default', string>>;
@@ -120,6 +191,8 @@ export interface ActorPlacement {
   y: number;
   face?: Dir;
   visible?: Condition;
+  /** Kleine Bewegungen, wenn gerade nichts los ist. */
+  fidget?: readonly Fidget[];
 }
 
 export interface DepthScale {
@@ -142,6 +215,14 @@ export interface RoomVariant {
   hotspots: readonly Hotspot[];
   actors?: readonly ActorPlacement[];
   onEnter?: Script;
+  /** Bewegte Details, siehe `RoomEffect`. */
+  effects?: readonly RoomEffect[];
+  /** Leise Klangschleife unter der Musik. */
+  ambience?: AmbienceName;
+  /** Bodenbelag für die Schritte; ohne Angabe bleibt es still. */
+  floor?: FloorName;
+  /** Eigenes Stück statt der Musik der Zeitebene. */
+  music?: MusicName;
 }
 
 export interface RoomDef {

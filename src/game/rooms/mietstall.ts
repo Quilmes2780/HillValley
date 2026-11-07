@@ -1,4 +1,5 @@
 import type { RoomDef } from '../../engine/types';
+import { FX } from '../szenen';
 import { pickup, rect } from './util';
 
 export const mietstall: RoomDef = {
@@ -50,13 +51,27 @@ export const mietstall: RoomDef = {
                 g.removeItem('knallfrosch_brennend');
                 await g.cutscene(async () => {
                   await g.say('say.k3.frosch_wirft');
+                  g.sfx('funken');
+                  g.burst(186, 92, FX.funken);
+                  await g.wait(500);
                   g.sfx('knall');
+                  g.burst(186, 92, FX.funken);
                   g.flash(150);
                   g.shake(600);
-                  await g.sayAs('buford', 'say.k3.buford_fliegt');
-                  g.setFlag('buford_im_mist');
+                  // Das Pferd steigt, Buford hebt ab.
+                  g.sfx('pferd');
+                  const bockt = g.moveSprite('pferd', [0, -7], 160, 'Sine.easeOut');
+                  void g.sayAs('buford', 'say.k3.buford_fliegt');
+                  await bockt;
+                  await g.hop('buford', [270, 82], { ms: 850, arc: 46, spin: 6.2, ease: 'Sine.easeInOut' });
+                  void g.moveSprite('pferd', [0, 7], 220, 'Bounce.easeOut');
                   g.sfx('platsch');
-                  await g.wait(400);
+                  g.burst(270, 76, FX.mist);
+                  g.shake(300);
+                  g.hideActor('buford');
+                  await g.wait(700);
+                  g.hideActor('buford', false);
+                  g.setFlag('buford_im_mist');
                   await g.sayAs('buford', 'say.k3.buford_mist');
                   await g.say('say.k3.guertel_gerissen');
                 });

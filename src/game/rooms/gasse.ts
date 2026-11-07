@@ -10,6 +10,8 @@ export const gasse: RoomDef = {
         background: 'backgrounds/gasse_2015.png',
         walkable: [[[4, 94], [316, 94], [316, 140], [4, 140]]],
         scale: { yFar: 94, sFar: 0.88, yNear: 140, sNear: 1 },
+        // Nur während der Rutschpartie zu sehen, danach ragen seine Beine aus dem Laster.
+        actors: [{ id: 'brix', x: 4, y: 12, face: 'rechts', visible: (s) => !!s.flags.brix_rutscht }],
         hotspots: [
           {
             id: 'treppe',
@@ -34,7 +36,7 @@ export const gasse: RoomDef = {
             area: rect(196, 28, 22, 18),
             walkTo: [210, 108],
             face: 'hinten',
-            visible: (s) => !!s.flags.brix_gestuerzt,
+            visible: (s) => !!s.flags.brix_gestuerzt && !s.flags.brix_rutscht,
             sprite: { key: 'backgrounds/sprites/brix_beine.png', x: 198, y: 30, depthY: 101 },
             comments: { schauan: 'say.k5.gasse_beine', redemit: 'say.k5.gasse_beine_rede' },
           },

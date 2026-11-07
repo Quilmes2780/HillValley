@@ -212,6 +212,17 @@ export function installTestApi(scene: GameScene, validationErrors: readonly stri
     menu: () => (scene.saveMenu.open ? scene.saveMenu.layout() : null),
     debugOpen: () => scene.debug.open,
     music: () => audio().currentMusic,
+    ambience: () => audio().currentAmbience,
+    // Zeitlupe, um Zwischensequenzen im Test Bild für Bild anzusehen.
+    timeScale: (scale: number) => {
+      scene.time.timeScale = scale;
+      scene.tweens.timeScale = scale;
+    },
+    setFlag: (name: string, value: boolean | number) => {
+      scene.state.flags[name as FlagName] = value;
+      scene.refreshRoom();
+    },
+    effectCount: () => scene.rooms.variant.effects?.length ?? 0,
     musicPlaying: () => audio().musicPlaying,
     muted: () => audio().muted,
     sfx: () => audio().sfxLog,

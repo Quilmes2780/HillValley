@@ -1,4 +1,5 @@
 import type { RoomDef, Script } from '../../engine/types';
+import { FX, zugFaehrtAb } from '../szenen';
 import { pickup, rect } from './util';
 
 /** Die Familie steigt ein, der Zug fährt ab, Buford schaut tropfend zu. Kapitel 4 beginnt. */
@@ -9,9 +10,12 @@ const abfahrt: Script = async (g) => {
     await g.say('say.k3.abfahrt_1');
     await g.sayAs('buford', 'say.k3.buford_tropft');
     await g.say('say.k3.abfahrt_2');
-    g.flash(600);
-    g.shake(500);
-    await g.wait(700);
+    // Clara und Doc steigen ein. Die Jungen sitzen längst drin und zählen die Schrauben.
+    await Promise.all([g.walkTo([140, 120], 'clara', 2), g.walkTo([150, 124], undefined, 2)]);
+    g.hideActor('clara');
+    g.hideActor();
+    g.burst(170, 100, FX.dampf);
+    await zugFaehrtAb(g, 'zeitzug', [270, 94], [230, 0], 130, [132, 138], [1885, 1986]);
     g.setFlag('abfahrt_laeuft', false);
     g.setFlag('zug_abgefahren');
     await g.showCard('chapter.k4.title', 'chapter.k4.subtitle');

@@ -106,6 +106,7 @@ export const FLAGS = [
   'marty_beisst_an',
   'brix_verliert',
   'brix_gestuerzt',
+  'brix_rutscht',
   'brief_genommen_brix',
   'zeitlinie_geheilt',
   // Nur für Gesprächsbezüge, ohne Einfluss auf Rätsel

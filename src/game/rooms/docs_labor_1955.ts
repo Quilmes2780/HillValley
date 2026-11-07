@@ -1,4 +1,5 @@
 import type { Hotspot, RoomVariant } from '../../engine/types';
+import { FX } from '../szenen';
 import { pickup, rect } from './util';
 
 const helm = (leer: boolean): Hotspot => ({
@@ -43,6 +44,8 @@ export const docsLabor1955: RoomVariant = {
           g.setFlag('mappe_verbrannt');
           g.state.timeline.tannenburg = false;
           g.setPhotoStage(2);
+          g.sfx('akzent');
+          g.burst(50, 72, FX.funken);
           g.flash(200);
           await g.say('say.k2.mappe_verbrannt');
         },

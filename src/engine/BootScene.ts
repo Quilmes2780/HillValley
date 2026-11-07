@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { colorValue } from '../../tools/pixel/palette';
-import { MUSIC, SFX } from '../game/audio';
+import { AMBIENCE, MUSIC, SFX } from '../game/audio';
 import { ITEMS } from '../game/items/items';
+import { PICTURES } from '../game/szenen';
 import { ROOMS } from '../game/rooms';
 import { initAudio } from './Audio';
 import { buildCharacterAnimations, queueCharacters } from './CharacterLoader';
@@ -47,10 +48,23 @@ export class BootScene extends Phaser.Scene {
             if (!seen.has(path)) this.load.image(assetKey(path), path);
             seen.add(path);
           }
+          for (const effect of variant.effects ?? []) {
+            if ((effect.type !== 'strip' && effect.type !== 'pass') || seen.has(effect.key)) continue;
+            seen.add(effect.key);
+            if (effect.frameWidth && effect.frameHeight) {
+              const frame = { frameWidth: effect.frameWidth, frameHeight: effect.frameHeight };
+              this.load.spritesheet(assetKey(effect.key), effect.key, frame);
+            } else {
+              this.load.image(assetKey(effect.key), effect.key);
+            }
+          }
         }
       }
     }
-    for (const name of [...MUSIC, ...SFX]) this.load.audio(`audio/${name}`, `audio/${name}.wav`);
+    for (const picture of PICTURES) {
+      this.load.spritesheet(assetKey(picture.key), picture.key, picture);
+    }
+    for (const name of [...MUSIC, ...AMBIENCE, ...SFX]) this.load.audio(`audio/${name}`, `audio/${name}.wav`);
     queueCharacters(this);
 
     // Ladebalken: Musik und Grafik brauchen beim ersten Start einen Moment.

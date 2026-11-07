@@ -52,11 +52,17 @@ export const cafe80er: RoomDef = {
                 g.removeItem('muenze_2015');
                 await g.cutscene(async () => {
                   await g.say('say.k5.automat_1');
-                  g.flash(150);
-                  await g.wait(500);
+                  g.setMusic('stille');
+                  g.showPicture('backgrounds/sprites/fx_automat_spiel.png', 10);
+                  g.sfx('arcade');
+                  await g.wait(1300);
+                  g.sfx('arcade');
+                  await g.wait(1300);
                   g.sfx('rekord');
                   g.flash(150);
                   await g.say('say.k5.automat_2');
+                  g.hidePicture();
+                  g.setMusic(null);
                   await g.say('say.k5.automat_3');
                 });
                 g.addItem('freikarte');

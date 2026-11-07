@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { hintKey } from '../game/hints';
 import { UI_AMBER, UI_TEXT } from './theme';
-import { musicFor, SPEECH_SFX } from '../game/audio';
+import { musicFor, voiceOf, type MusicName } from '../game/audio';
 import { COMBOS } from '../game/items/combos';
 import { ITEMS } from '../game/items/items';
 import { ROOMS } from '../game/rooms';
@@ -22,7 +22,7 @@ import { t } from './i18n';
 import { Interaction, type Action, type Target } from './Interaction';
 import { InventoryUI } from './InventoryUI';
 import { PortraitUI } from './PortraitUI';
-import { RoomManager } from './RoomManager';
+import { assetKey, RoomManager } from './RoomManager';
 import { SaveMenu } from './SaveMenu';
 import { AUTO_SLOT, SaveSystem } from './SaveSystem';
 import { ScriptRunner } from './ScriptRunner';
@@ -38,6 +38,8 @@ const MIN_SPEECH_MS = 1400;
 const CARD_MS = 3500;
 const FADE_MS = 180;
 const CREDITS_SPEED = 14;
+const VOICE_VOLUME = 0.3;
+const YEAR_ROLL_MS = 1500;
 
 /** Hauptszene: verbindet Raum, Figuren, Bedienung und Skripte. */
 export class GameScene extends Phaser.Scene {
@@ -67,6 +69,9 @@ export class GameScene extends Phaser.Scene {
   private pendingWalk = false;
   private lockedSentence: string | null = null;
   private finishSpeech: (() => void) | null = null;
+  private musicOverride: MusicName | 'stille' | null = null;
+  private picture: Phaser.GameObjects.GameObject[] = [];
+  private pictureTimer: Phaser.Time.TimerEvent | null = null;
   private pointerX = 160;
   private pointerY = 72;
 
@@ -165,10 +170,97 @@ export class GameScene extends Phaser.Scene {
   private showCurrentRoom(): void {
     const c = this.activeState();
     this.rooms.enter(c.room, c.era);
-    audio().playMusic(musicFor(this.state));
+    this.applyMusic();
+    audio().playAmbience(this.rooms.variant.ambience ?? null);
     this.cameras.main.setScroll(0, 0);
     this.followActive();
     this.debug.refresh();
+  }
+
+  private applyMusic(): void {
+    if (this.musicOverride === 'stille') audio().playMusic(null);
+    else audio().playMusic(this.musicOverride ?? musicFor(this.state, this.rooms.variant));
+  }
+
+  setMusicOverride(name: MusicName | 'stille' | null): void {
+    this.musicOverride = name;
+    this.applyMusic();
+  }
+
+  moveSprite(hotspot: string, by: Pt, ms: number, ease = 'Linear'): Promise<void> {
+    const sprite = this.rooms.spriteById(hotspot);
+    if (!sprite) return Promise.resolve();
+    return new Promise((resolve) => {
+      this.tweens.add({
+        targets: sprite,
+        x: sprite.x + by[0],
+        y: sprite.y + by[1],
+        duration: this.testMode ? ms / 8 : ms,
+        ease,
+        onComplete: () => resolve(),
+      });
+    });
+  }
+
+  /** Jahreszahl läuft groß über das Bild. */
+  yearRoll(from: number, to: number): Promise<void> {
+    audio().sfx('zeitsprung');
+    const depth = UI_DEPTH - 3;
+    const band = this.add.rectangle(0, 52, 320, 40, 0x000000, 0.75).setOrigin(0, 0).setScrollFactor(0).setDepth(depth);
+    const label = this.add
+      .bitmapText(160, 72, 'hv', String(from), 30)
+      .setOrigin(0.5, 0.5)
+      .setTint(UI_AMBER)
+      .setScrollFactor(0)
+      .setDepth(depth + 1);
+    this.cameras.main.flash(this.testMode ? 40 : 300);
+    return new Promise((resolve) => {
+      this.tweens.addCounter({
+        from: 0,
+        to: 1,
+        duration: this.testMode ? YEAR_ROLL_MS / 8 : YEAR_ROLL_MS,
+        ease: 'Cubic.easeOut',
+        onUpdate: (tween) => {
+          const t = tween.getValue() ?? 0;
+          label.setText(String(Math.round(from + (to - from) * t)));
+        },
+        onComplete: () => {
+          label.setText(String(to));
+          this.cameras.main.flash(this.testMode ? 40 : 300);
+          this.time.delayedCall(this.testMode ? 40 : 450, () => {
+            band.destroy();
+            label.destroy();
+            resolve();
+          });
+        },
+      });
+    });
+  }
+
+  /** Bildschirmfüllendes, bewegtes Bild, z. B. der Automat von nahem. Sprechtexte bleiben davor sichtbar. */
+  showPicture(key: string, fps: number): void {
+    this.hidePicture();
+    const depth = UI_DEPTH - 3;
+    const back = this.add.rectangle(0, 0, 320, SCENE_HEIGHT, 0x000000).setOrigin(0, 0).setScrollFactor(0).setDepth(depth);
+    const sprite = this.add.sprite(160, 72, assetKey(key), 0).setScrollFactor(0).setDepth(depth + 1);
+    const frames = Math.max(1, sprite.texture.frameTotal - 1);
+    let frame = 0;
+    this.pictureTimer = this.time.addEvent({
+      delay: 1000 / fps,
+      loop: true,
+      callback: () => {
+        frame = (frame + 1) % frames;
+        sprite.setFrame(frame);
+      },
+    });
+    this.picture = [back, sprite];
+  }
+
+  hidePicture(): void {
+    this.pictureTimer?.remove();
+    this.pictureTimer = null;
+    for (const object of this.picture) object.destroy();
+    this.picture = [];
   }
 
   refreshRoom(): void {
@@ -261,6 +353,7 @@ export class GameScene extends Phaser.Scene {
 
   applyLoadedState(state: GameState): void {
     this.cancelPending();
+    this.musicOverride = null;
     this.state = state;
     this.interaction.reset();
     this.showCurrentRoom();
@@ -363,6 +456,28 @@ export class GameScene extends Phaser.Scene {
     audio().sfx('welle');
     const camera = this.cameras.main;
     const scale = this.testMode ? 0.125 : 1;
+    // Ringe laufen über das Bild, dazwischen reißen Zeilen auf.
+    const rings = this.add.graphics().setScrollFactor(0).setDepth(UI_DEPTH - 3);
+    this.tweens.addCounter({
+      from: 0,
+      to: 1,
+      duration: 1800 * scale,
+      onUpdate: (tween) => {
+        const t = tween.getValue() ?? 0;
+        rings.clear();
+        for (let i = 0; i < 4; i++) {
+          const r = (t * 1.6 - i * 0.22) * 340;
+          if (r <= 0) continue;
+          rings.lineStyle(3, i % 2 ? 0x80f0ff : 0xffffff, 0.75 * (1 - t));
+          rings.strokeCircle(160, 72, r);
+        }
+        for (let i = 0; i < 7; i++) {
+          rings.fillStyle(i % 2 ? 0x80f0ff : 0xffffff, 0.22 * (1 - t));
+          rings.fillRect(0, Math.random() * SCENE_HEIGHT, 320, 1 + Math.random() * 4);
+        }
+      },
+      onComplete: () => rings.destroy(),
+    });
     camera.flash(500 * scale, 255, 255, 255);
     camera.shake(1800 * scale, 0.012);
     camera.rotateTo(0.16, false, 600 * scale, 'Sine.easeInOut');
@@ -390,9 +505,10 @@ export class GameScene extends Phaser.Scene {
 
   /** Zeigt eine Zeile über dem Kopf in der Figurenfarbe. Ein Klick beendet sie vorzeitig. */
   sayLine(actorId: string, text: string): Promise<void> {
+    this.finishSpeech?.();
     this.speechLog.push({ actor: actorId, text });
-    const speechSfx = SPEECH_SFX[actorId];
-    if (speechSfx) audio().sfx(speechSfx);
+    const voice = voiceOf(actorId);
+    if (voice) audio().sfx(voice, voice === 'bellen' ? undefined : VOICE_VOLUME);
     const actor = this.actorOf(actorId);
     const view = this.cameras.main.scrollX;
     const label = this.add
@@ -413,14 +529,15 @@ export class GameScene extends Phaser.Scene {
 
     const duration = this.testMode ? 40 : Math.max(MIN_SPEECH_MS, text.length * MS_PER_CHAR);
     return new Promise((resolve) => {
-      const timer = this.time.delayedCall(duration, () => this.finishSpeech?.());
-      this.finishSpeech = () => {
-        this.finishSpeech = null;
+      const finish = (): void => {
+        if (this.finishSpeech === finish) this.finishSpeech = null;
         timer.remove();
         label.destroy();
         actor?.stopTalking();
         resolve();
       };
+      const timer = this.time.delayedCall(duration, finish);
+      this.finishSpeech = finish;
     });
   }
 

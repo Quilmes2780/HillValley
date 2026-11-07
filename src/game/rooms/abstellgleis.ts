@@ -60,6 +60,7 @@ export const abstellgleis: RoomDef = {
                 g.removeItem('sicherung');
                 g.setFlag('zug_repariert');
                 g.setPhotoStage(3);
+                g.sfx('akzent');
                 g.flash(200);
                 await g.say('say.k3.zug_repariert');
               },

@@ -218,7 +218,7 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Kapitelanfang | Titelkarte (schwarzer Bildschirm mit Kapitelname) |
 | Rathausplatz 1955 | Lous Café und Radioladen mit Türen direkt am Platz |
 | Verstärker (K2) | Einbau erst nach der verbrannten Erfindungsmappe |
-| Musik und Effekte | Eigene Chiptune-Stücke per Skript (`npm run audio`). Je Zeitebene ein Stück, dazu Titel und Tannenburg. Exporte aus BeepBox oder jsfxr ersetzen einfach die gleichnamige Datei in `assets/audio/` |
+| Musik und Effekte | Eigene Stücke per Skript (`npm run audio`) im Klang früher Soundkarten, alle mit demselben Leitmotiv: je Zeitebene eines, dazu Titel, Tannenburg, Saloon, Diner, Café 80er, Showdown und Abspann. Dazu Raumklang, Schritte und Sprechlaute. Exporte aus BeepBox oder jsfxr ersetzen einfach die gleichnamige Datei in `assets/audio/` |
 | Hosting | GitHub Pages über GitHub Actions, https://quilmes2780.github.io/HillValley/ |
 | Tasten | F5 Speichern/Laden, M Ton, F9 Debug; ein Klick überspringt Text und Karten |
 | Hill Valley 2015 | Café 80er, Museum, Lobby und Gasse mit Türen am Platz, kein eigener Stadtplan |

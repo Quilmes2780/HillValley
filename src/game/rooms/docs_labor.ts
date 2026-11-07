@@ -1,4 +1,5 @@
 import type { Hotspot, Polygon, RoomDef, Script, ScriptApi } from '../../engine/types';
+import { FX } from '../szenen';
 import { docsLabor1955 } from './docs_labor_1955';
 import { pickup, rect } from './util';
 
@@ -30,7 +31,9 @@ const gitarrenGag: Script = async (g) => {
     g.sfx('gitarre');
     g.flash();
     g.shake(500);
-    await g.walkTo([80, 98], undefined, 7);
+    await g.hop(undefined, [80, 98], { ms: 550, arc: 22, spin: -6.2, ease: 'Quad.easeOut' });
+    g.sfx('fall');
+    g.burst(80, 70, FX.funken);
     await g.say('say.prolog.labor_gag_2');
   });
 };

@@ -56,6 +56,16 @@ export class ScriptRunner {
       sfx: (name) => audio().sfx(name),
       shake: (ms = 400) => void self.cameras.main.shake(ms, 0.01),
       flash: (ms = 250) => void self.cameras.main.flash(ms),
+      hop: async (actor, to, options) => {
+        await self.actorOf(actor ?? self.state.activeCharacter)?.hop(to, options);
+      },
+      hideActor: (actor, hidden = true) => self.actorOf(actor ?? self.state.activeCharacter)?.setHidden(hidden),
+      moveSprite: (hotspot, by, ms, ease) => self.moveSprite(hotspot, by, ms, ease),
+      burst: (x, y, spec) => self.rooms.fx.burst(x, y, spec),
+      setMusic: (name) => self.setMusicOverride(name),
+      yearRoll: (from, to) => self.yearRoll(from, to),
+      showPicture: (key, fps) => self.showPicture(key, fps),
+      hidePicture: () => self.hidePicture(),
     };
   }
 

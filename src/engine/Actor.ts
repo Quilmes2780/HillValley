@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { heightOf, resolveAnim, type AnimName } from './CharacterLoader';
-import type { DepthScale, Dir, Pt } from './types';
+import type { DepthScale, Dir, Fidget, HopOptions, Pt } from './types';
 
 const SPEED_X = 56;
 const SPEED_Y = 32;
@@ -15,6 +15,10 @@ export class Actor {
   private talking = false;
   private walkSpeed = 1;
   private readonly shadow: Phaser.GameObjects.Ellipse;
+  private hidden = false;
+  private destroyed = false;
+  private hopping = false;
+  private fidgeting = false;
   dir: Dir;
 
   constructor(
@@ -43,6 +47,88 @@ export class Actor {
 
   get isWalking(): boolean {
     return this.path.length > 0;
+  }
+
+  /** Steht die Figur gerade unbeschäftigt herum? */
+  get isIdle(): boolean {
+    return !this.isWalking && !this.talking && !this.hopping && !this.fidgeting && !this.hidden;
+  }
+
+  /** Eine kleine Bewegung zwischendurch. */
+  fidget(kind: Fidget): void {
+    if (!this.isIdle) return;
+    if (kind === 'blick') {
+      this.face(this.dir === 'vorne' ? (Math.random() < 0.5 ? 'links' : 'rechts') : 'vorne');
+      return;
+    }
+    const side = this.dir === 'links' || this.dir === 'rechts';
+    const anim: AnimName = kind === 'pickup' ? 'pickup' : side ? 'talk_side' : 'talk_front';
+    const key = resolveAnim(this.scene, this.id, anim);
+    if (!key) return;
+    this.fidgeting = true;
+    this.sprite.setFlipX(this.dir === 'links');
+    this.sprite.play({ key, repeat: 0 });
+    this.sprite.once(`${Phaser.Animations.Events.ANIMATION_COMPLETE_KEY}${key}`, () => {
+      if (!this.fidgeting) return;
+      this.fidgeting = false;
+      this.showIdle();
+    });
+  }
+
+  private endFidget(): void {
+    if (!this.fidgeting) return;
+    this.fidgeting = false;
+    this.sprite.anims.stop();
+  }
+
+  /** Flug, Sturz oder Rutschpartie ohne Rücksicht auf die begehbaren Flächen. */
+  hop(to: Pt, options: HopOptions): Promise<void> {
+    this.stop();
+    this.endFidget();
+    const fromX = this.sprite.x;
+    const fromY = this.sprite.y;
+    const spin = options.spin ?? 0;
+    const arc = options.arc ?? 0;
+    // Beim Überschlag dreht sich die Figur um die Körpermitte, nicht um die Füße.
+    const midair = spin !== 0 && !options.keepSpin;
+    const lift = midair ? (this.sprite.height * this.sprite.scaleY) / 2 : 0;
+    if (midair) this.sprite.setOrigin(0.5, 0.5);
+    this.hopping = true;
+    this.shadow.setVisible(false);
+    return new Promise((resolve) => {
+      this.scene.tweens.addCounter({
+        from: 0,
+        to: 1,
+        duration: options.ms / this.speedFactor,
+        ease: options.ease ?? 'Linear',
+        onUpdate: (tween) => {
+          if (this.destroyed) return;
+          const t = tween.getValue() ?? 0;
+          this.sprite.setPosition(
+            fromX + (to[0] - fromX) * t,
+            fromY + (to[1] - fromY) * t - Math.sin(Math.PI * t) * arc - lift,
+          );
+          this.sprite.setRotation(spin * t);
+          this.sprite.setDepth(this.sprite.y + lift);
+        },
+        onComplete: () => {
+          if (!this.destroyed) {
+            this.hopping = false;
+            if (midair) this.sprite.setOrigin(0.5, 1);
+            this.sprite.setPosition(to[0], to[1]);
+            if (!options.keepSpin) this.sprite.setRotation(0);
+            this.applyDepth();
+          }
+          resolve();
+        },
+      });
+    });
+  }
+
+  setHidden(hidden: boolean): void {
+    this.hidden = hidden;
+    this.sprite.setVisible(!hidden);
+    this.applyDepth();
   }
 
   /** Kopfhöhe für Sprechtexte. */
@@ -75,6 +161,7 @@ export class Actor {
 
   update(deltaMs: number): void {
     if (this.path.length === 0) return;
+    this.endFidget();
     let budget = (deltaMs / 1000) * this.speedFactor * this.walkSpeed;
     while (budget > 0 && this.path.length > 0) {
       const [tx, ty] = this.path[0];
@@ -103,6 +190,8 @@ export class Actor {
   /** Stellt die Figur sofort woanders hin, z. B. wenn der Spielstand ihren Platz ändert. */
   place(x: number, y: number, dir: Dir): void {
     this.stop();
+    this.endFidget();
+    this.sprite.setRotation(0);
     this.sprite.setPosition(x, y);
     this.dir = dir;
     this.applyDepth();
@@ -116,6 +205,7 @@ export class Actor {
   }
 
   startTalking(): void {
+    this.endFidget();
     this.talking = true;
     const side = this.dir === 'links' || this.dir === 'rechts';
     this.play(side ? 'talk_side' : 'talk_front');
@@ -123,6 +213,7 @@ export class Actor {
   }
 
   stopTalking(): void {
+    if (this.destroyed) return;
     this.talking = false;
     this.showIdle();
   }
@@ -149,6 +240,7 @@ export class Actor {
   }
 
   destroy(): void {
+    this.destroyed = true;
     this.finish(false);
     this.sprite.destroy();
     this.shadow.destroy();
@@ -197,6 +289,6 @@ export class Actor {
       .setPosition(this.sprite.x, this.sprite.y)
       .setDepth(this.sprite.y - 0.5)
       .setScale(this.sprite.scaleX)
-      .setVisible(!s || this.sprite.y >= s.yFar - 4);
+      .setVisible(!this.hidden && (!s || this.sprite.y >= s.yFar - 4));
   }
 }

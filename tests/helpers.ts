@@ -33,6 +33,10 @@ export interface HvApi {
   menu(): ({ text: string } & GamePoint)[] | null;
   debugOpen(): boolean;
   music(): string | null;
+  ambience(): string | null;
+  timeScale(scale: number): void;
+  setFlag(name: string, value: boolean | number): void;
+  effectCount(): number;
   musicPlaying(): boolean;
   muted(): boolean;
   sfx(): string[];

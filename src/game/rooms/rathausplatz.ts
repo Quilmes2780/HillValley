@@ -1,4 +1,5 @@
 import type { Hotspot, RoomDef, RoomVariant, Script } from '../../engine/types';
+import { zugFaehrtAb } from '../szenen';
 import { rect } from './util';
 
 const SCALE = { yFar: 94, sFar: 0.86, yNear: 140, sNear: 1 };
@@ -162,9 +163,10 @@ const hotspots1986: readonly Hotspot[] = [
         await g.cutscene(async () => {
           await g.say('say.k4.abreise_1');
           await g.sayAs('jennifer', 'say.k4.abreise_2');
-          g.flash(700);
-          g.shake(700);
-          await g.wait(800);
+          await g.walkTo([268, 124], undefined, 2);
+          g.hideActor();
+          g.hideActor('doc');
+          await zugFaehrtAb(g, 'zeitzug', [250, 94], [220, 0], 110, [130, 136], [1986, 2015]);
           await g.showCard('chapter.k5.title', 'chapter.k5.subtitle');
           g.state.chapter = 5;
           g.state.characters.doc = { room: 'turmplatz', era: 2015, x: 200, y: 118, face: 'links', inventory: [] };

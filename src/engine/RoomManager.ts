@@ -1,8 +1,14 @@
 import Phaser from 'phaser';
 import type { GameState } from '../game/state';
 import { Actor } from './Actor';
+import { audio } from './Audio';
+import { RoomFx } from './RoomFx';
 import { Pathfinder } from './Pathfinder';
-import type { ActorPlacement, Era, Hotspot, Polygon, RoomDef, RoomVariant } from './types';
+import type { ActorPlacement, Dir, Era, Hotspot, Polygon, RoomDef, RoomVariant } from './types';
+
+const STEP_DISTANCE = 17;
+const FIDGET_MIN_MS = 2500;
+const FIDGET_MAX_MS = 8000;
 
 export function pointInPolygon(x: number, y: number, poly: Polygon): boolean {
   let inside = false;
@@ -30,13 +36,19 @@ export class RoomManager {
   private background: Phaser.GameObjects.Image | null = null;
   private readonly spriteOf = new Map<Hotspot, Phaser.GameObjects.Image>();
   private readonly placementOf = new Map<string, ActorPlacement>();
+  private readonly fidgetDue = new Map<string, number>();
+  private readonly homeFace = new Map<string, Dir>();
+  private stepAt: { x: number; y: number; walked: number } | null = null;
+  readonly fx: RoomFx;
 
   constructor(
     private readonly scene: Phaser.Scene,
     private readonly rooms: readonly RoomDef[],
     private readonly getState: () => GameState,
     private readonly speedFactor: number,
-  ) {}
+  ) {
+    this.fx = new RoomFx(scene, assetKey);
+  }
 
   getRoomDef(id: string): RoomDef {
     const room = this.rooms.find((r) => r.id === id);
@@ -90,6 +102,13 @@ export class RoomManager {
       this.placementOf.set(p.id, p);
     }
     this.refreshSprites();
+    this.fx.start(this.variant.effects ?? [], (id) => this.spriteById(id), state);
+  }
+
+  /** Das Bild einer Klickfläche; bei mehreren gleichnamigen das erste sichtbare. */
+  spriteById(id: string): Phaser.GameObjects.Image | undefined {
+    const images = [...this.spriteOf].filter(([hs]) => hs.id === id).map(([, image]) => image);
+    return images.find((image) => image.visible) ?? images[0];
   }
 
   /** Je Figur gilt der erste Eintrag, dessen Bedingung passt. So kann eine Figur je nach Spielstand woanders stehen. */
@@ -148,6 +167,49 @@ export class RoomManager {
 
   update(deltaMs: number): void {
     for (const actor of this.actors.values()) actor.update(deltaMs);
+    this.fx.update(deltaMs, this.getState());
+    this.updateFidgets(deltaMs);
+    this.updateSteps();
+  }
+
+  /** Nebenfiguren bewegen sich gelegentlich, solange nichts los ist. */
+  private updateFidgets(deltaMs: number): void {
+    for (const [id, placement] of this.placementOf) {
+      const kinds = placement.fidget;
+      const actor = this.actors.get(id);
+      if (!kinds || kinds.length === 0 || !actor) continue;
+      const due = (this.fidgetDue.get(id) ?? Math.random() * FIDGET_MAX_MS) - deltaMs;
+      if (due > 0) {
+        this.fidgetDue.set(id, due);
+        continue;
+      }
+      this.fidgetDue.set(id, FIDGET_MIN_MS + Math.random() * (FIDGET_MAX_MS - FIDGET_MIN_MS));
+      if (!actor.isIdle) continue;
+      // Wer sich umgesehen hat, schaut danach wieder dorthin, wo er hingehört.
+      const home = this.homeFace.get(id) ?? placement.face ?? 'vorne';
+      this.homeFace.set(id, home);
+      if (actor.dir !== home) actor.face(home);
+      else actor.fidget(kinds[Math.floor(Math.random() * kinds.length)]);
+    }
+  }
+
+  /** Schritte der aktiven Figur, passend zum Boden. */
+  private updateSteps(): void {
+    const actor = this.actors.get(this.getState().activeCharacter);
+    const floor = this.variant?.floor;
+    if (!actor || !floor || !actor.isWalking) {
+      this.stepAt = null;
+      return;
+    }
+    const last = this.stepAt ?? { x: actor.x, y: actor.y, walked: 0 };
+    last.walked += Math.hypot(actor.x - last.x, actor.y - last.y);
+    last.x = actor.x;
+    last.y = actor.y;
+    if (last.walked >= STEP_DISTANCE) {
+      last.walked = 0;
+      audio().step(`schritt_${floor}`);
+    }
+    this.stepAt = last;
   }
 
   private addActor(id: string, x: number, y: number, face: Actor['dir']): void {
@@ -155,6 +217,10 @@ export class RoomManager {
   }
 
   private clear(): void {
+    this.fx.clear();
+    this.fidgetDue.clear();
+    this.homeFace.clear();
+    this.stepAt = null;
     this.background?.destroy();
     this.background = null;
     for (const image of this.spriteOf.values()) image.destroy();

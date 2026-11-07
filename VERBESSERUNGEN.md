@@ -15,6 +15,8 @@ Stand: 6. November 2026. Grundlage sind `SPIELKONZEPT.md`, `LOESUNGSBUCH.md`, Te
 
 **Text-Runde (7. November 2026):** Reaktionstabellen je Raum und Gegenstand, eigene Sprüche für Personen, Ausgänge und Inventar, Marty mit Sprüchen für 2015, junger und alter Doc mit eigener Stimme, Nebengespräche in allen Dialogen außer dem Showdown, neue Gespräche mit Jules, mit Jennifer und mit Doc auf dem Platz 2015, Sprichwort-Faden der Tannens, „Feigling“-Faden bei Biff. Rätsel und Lösungsbuch sind unverändert. Offen aus Abschnitt 6: längere Verzweigungen über mehrere Kapitel und eine vollständige Durchsicht beim echten Spielen.
 
+**Leben und Klang (7. November 2026):** Raumanimationen, beschäftigte Nebenfiguren, gezeigte große Szenen (Biff, Buford und Brix im Mist, Abfahrt und Ankunft des Zuges, Automat von nahem, neue Zeitwelle, ablaufende Jahreszahl), Raumklang, Schritte je Boden, Sprechlaute, Akzent bei großen Rätseln, Überblendung, elf Stücke mit gemeinsamem Leitmotiv im Klang früher Soundkarten, eigene Stücke für Saloon, Diner, Café 80er, Showdown und Abspann. Offen bleiben neue Bewegungen im Figurensprite (Hinsetzen, Staunen, Einsteigen), die Tönung der Figuren je Raum und ein gemalter Zug. Die Musik wurde nur technisch geprüft, nicht angehört.
+
 **Abweichungen:** „Gitarre überall“ entfällt, weil Marty nie in 1955 oder 1885 ist. „Tannen-Werbung, die mitwächst“ und ein Laufwitz-Zähler sind offen. Der gespielte Kopierschutz sitzt am Wählrad statt auf dem Titelbild.
 
 **Deine Entscheidungen:** Brix schickt weiter Briefe. Figuren malt Claude neu, etwa 40×72. Neue Rätsel sind erlaubt. Anspielungen erst einmal alle, später ausdünnen.

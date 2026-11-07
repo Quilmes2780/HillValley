@@ -1,4 +1,5 @@
 import type { Script } from '../engine/types';
+import { FX } from './szenen';
 
 /**
  * Finale und Epilog: Brix' Brief wird vernichtet, die Zeitlinie heilt.
@@ -9,7 +10,12 @@ export const epilog: Script = async (g) => {
   await g.cutscene(async () => {
     await g.say('say.epilog.vernichten');
     g.sfx('reissen');
+    g.burst(90, 74, FX.papier);
+    await g.wait(600);
+    g.setMusic('stille');
     await g.timeWave();
+    g.sfx('akzent');
+    g.setMusic('abspann');
     g.setFlag('zeitlinie_geheilt');
     g.state.chapter = 6;
     g.state.timeline.tannenburg = false;
@@ -43,5 +49,6 @@ export const epilog: Script = async (g) => {
 
     await g.showCard('chapter.ende.title', 'chapter.ende.subtitle');
     await g.showCredits('credits');
+    g.setMusic(null);
   });
 };
