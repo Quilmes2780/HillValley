@@ -154,6 +154,13 @@
     "werbetafel": "Werbetafel",
     "tuer_draussen": "Tür nach draußen",
     "regal": "Regal",
+    "plan_schild": "Schild",
+    "plan_kompass": "Kompassrose",
+    "plan_fluss": "Fluss",
+    "plan_imbiss": "Imbiss",
+    "plan_voegel": "Vögel",
+    "plan_fabriken": "Fabriken",
+    "plan_banner": "Banner",
     "rohre": "Rohre",
     "deckenlampe": "Deckenlampe",
     "zahnrad": "Zahnrad",
@@ -644,6 +651,11 @@
       "labor_blaue_dose": "Eine blaue Dose ohne Etikett. Bei Doc heißt das: nicht schütteln.",
       "labor_konserven": "Drei Konserven ohne Etikett. Eine davon ist vermutlich Mittagessen.",
       "labor_holzkiste": "Eine flache Holzkiste, sauber zugenagelt. Bei Doc ist das schon ein Warnschild.",
+      "plan_fluss": "Der Fluss. Im Sommer badet man drin, im Winter fällt man rein.",
+      "plan_schild": "Hill Valley. Die Karte hat eindeutig jemand vom Fremdenverkehrsamt gemalt.",
+      "plan_kompass": "Norden ist oben. Wenigstens auf eine Sache ist hier Verlass.",
+      "plan_imbiss": "Der Imbiss. Gute Milchshakes, die Musik ist von vorgestern.",
+      "plan_voegel": "Vögel. Die Einzigen hier, die ohne Karte auskommen.",
       "labor_tuer": "Die Tür nach draußen.",
       "labor_noch_nicht": "Docs Brief, das Notizbuch, Mr. Fusion: Ich sollte hier erst alles zusammensuchen, was Doc mir dagelassen hat.",
       "labor_regal": "Ein Regal voller Dinge, die wahrscheinlich explodieren.",
@@ -701,6 +713,9 @@
     },
     "k1": {
       "schon_offen": "Das ist schon offen.",
+      "plan_fabriken": "Schornsteine, wo früher Bäume standen. Tannen Industries arbeitet offenbar rund um die Uhr.",
+      "plan_schild": "Tannenburg. Gestern hieß das hier noch Hill Valley. Ich hätte es gern zurück.",
+      "plan_banner": "Ein Banner mit einem großen T. Falls jemand vergisst, wem die Stadt gehört.",
       "plan_turm": "Der Tannen-Turm. Früher hieß das Rathaus.",
       "plan_schule": "Hill Valley High. Meine Schule, wenn Strickland nichts dagegen hat.",
       "platz_strasse": "Von hier komme ich überall in der Stadt hin.",
@@ -1249,6 +1264,16 @@
       "x_falle": { "nimm": "Doc hat Nie unterstrichen. Zweimal.", "redemit": "Da drin summt etwas zurück. In einer Stimmlage, die mir gar nicht gefällt." },
       "x_fleck": { "benutze": "Nein. Ich trete auch nicht drauf. Ich tue so, als hätte ich ihn nicht gesehen.", "redemit": "Er sagt: Gluck. Mehr möchte ich heute nicht erfahren.", "druecke": "Mit dem Finger? Das würde ich nicht einmal Biff raten. Doch, Biff schon.", "mit": "Der Fleck nimmt nichts an. Er wartet offenbar auf ein größeres Stück Marty." },
       "x_fuetterer": { "nimm": "Das Ding schießt. Ich lasse ihm lieber seinen Platz.", "redemit": "Bitte zielen. Nur einmal. Der Napf ist da unten.", "mit_hundefutter": "Der hat genug eigene Munition. Das Futter muss in den Napf, nicht in das Geschütz." }
+    },
+    "stadtplan_1986": {
+      "plan_fluss": { "nimm": "Den ganzen Fluss? Auf der Karte ist er schmaler, als er aussieht.", "benutze": "Ich gehe nicht schwimmen. Ich habe genug andere Probleme.", "redemit": "Fließ ruhig weiter. Einer hier sollte wissen, wohin er will." },
+      "plan_schild": { "nimm": "Das ist aufgemalt. Ich zerschneide doch nicht die Karte.", "redemit": "Willkommen. Steht da zwar nicht, ist aber gemeint. Hoffe ich." },
+      "plan_kompass": { "nimm": "Der ist aufgemalt. Ich laufe auch so meistens in die falsche Richtung.", "druecke": "Er zeigt weiter nach Norden. Stur, aber zuverlässig.", "redemit": "Wo geht es nach Hause? ... Gut, das weiß ich selbst." },
+      "plan_imbiss": { "nimm": "Auf der Karte gibt es nur die Fassade. Die Milchshakes muss man vor Ort holen.", "redemit": "Einmal Schoko, bitte. ... Karten sind schlechte Kellner." },
+      "plan_voegel": { "nimm": "Die fliegen schneller, als ich zeichnen kann.", "redemit": "Ihr habt es gut. Für euch ist jede Straße frei." },
+      "plan_fabriken": { "nimm": "Wenn ich die mitnehmen könnte, wäre ich sie sofort los.", "redemit": "Weniger Rauch, bitte. Danke. ... Hat nicht geklappt." },
+      "plan_banner": { "nimm": "Das hängt an jeder Ecke. Wenn ich eins abhänge, hängen sie zwei neue auf.", "ziehe": "Lieber nicht. Wer hier an Biffs Bannern zieht, zieht den Kürzeren.", "redemit": "T wie Tannen. Oder wie Tyrannei. Klingt ähnlich." },
+      "plan_banner2": { "nimm": "Das hängt an jeder Ecke. Wenn ich eins abhänge, hängen sie zwei neue auf.", "ziehe": "Lieber nicht. Wer hier an Biffs Bannern zieht, zieht den Kürzeren.", "redemit": "T wie Tannen. Oder wie Tyrannei. Klingt ähnlich." }
     },
     "stadtplan_1885": {
       "x_insel": { "nimm": "Sie ist klein genug für die Tasche, aber dann habe ich Piraten in der Tasche. Das ist ein Problem.", "redemit": "Ahoi! ... Keine Antwort. Vermutlich suchen sie gerade drei Schätze." }
