@@ -99,6 +99,14 @@ test.describe('Meilenstein 8: Text-Runde', () => {
     await act(page, 'schliesse', 'fenster');
     expect(await lastSpeech(page)).toBe(room.fenster.schliesse);
 
+    // Auch die Dinge auf dem Regal antworten.
+    await act(page, 'druecke', 'stereoanlage');
+    expect(await lastSpeech(page)).toBe(room.stereoanlage.druecke);
+    await act(page, 'redemit', 'pflanze');
+    expect(await lastSpeech(page)).toBe(room.pflanze.redemit);
+    await act(page, 'oeffne', 'regal');
+    expect(await lastSpeech(page)).toBe(room.regal.oeffne);
+
     // „Benutze Gegenstand mit Klickfläche“ nimmt nicht den Text für „Benutze Klickfläche“.
     await useItem(page, 'foto', 'bett');
     expect(await lastSpeech(page)).toBe(de.reaktion_item.foto.benutze_mit);

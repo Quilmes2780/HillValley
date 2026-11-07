@@ -266,6 +266,9 @@
     "museumsschild": "Schild",
     "ausstellung": "Ausstellungsstück",
     "delorean": "DeLorean",
+    "regal": "Regal",
+    "pflanze": "Pflanze",
+    "stereoanlage": "Stereoanlage",
     "kofferraum": "Kofferraum",
     "museumsroboter": "Museumsroboter",
     "empfang": "Empfang",
@@ -546,7 +549,7 @@
       "schon_zu": "Das ist schon zu.",
 
       "zimmer_fenster": "Hill Valley an einem ganz normalen Morgen. Nichts zu sehen. Genau so mag ich es.",
-      "zimmer_fenster_oeffne": "Es ist Oktober. Lieber nicht.",
+      "zimmer_fenster_oeffne": "Lieber nicht. Sonst hört mich beim Üben noch jemand.",
       "zimmer_bett": "Mein Bett. Es hat nicht verdient, dass ich so früh aufgestanden bin.",
       "zimmer_bett_benutze": "Wenn ich mich jetzt hinlege, stehe ich erst 1987 wieder auf.",
       "zimmer_poster": "Meine Lieblingsband und ein Blitz. Beides ziemlich laut.",
@@ -555,6 +558,9 @@
       "zimmer_schublade": "Noch mehr Hausaufgaben. Ich mache sie wieder zu.",
       "zimmer_kugelschreiber": "Ein Kugelschreiber. Sollte ich jemals einen Brief schreiben müssen, bin ich vorbereitet.",
       "zimmer_skateboard": "Mein Skateboard. Damit bin ich schon vor ganz anderen Leuten davongefahren.",
+      "zimmer_regal": "Mein Regal. Drei Bücher, die ich nie gelesen habe, und viel Platz für weitere.",
+      "zimmer_pflanze": "Moms Idee. Seit ich sie gieße, sieht sie schlechter aus. Wenn ich es vergesse, wieder besser.",
+      "zimmer_stereo": "Meine Anlage. Zwei Kassettendecks und genug Bass für Ärger mit den Nachbarn.",
       "zimmer_skateboard_nimm": "Heute nicht. Ich brauche beide Hände.",
       "zimmer_tuer": "Dahinter geht es hinunter in die Küche.",
 
@@ -1095,11 +1101,14 @@
   },
   "reaktion": {
     "martys_zimmer_1986": {
-      "fenster": { "schliesse": "Ist schon zu. Das Beste an Fenstern im Oktober.", "druecke": "Wenn ich dagegen drücke, habe ich ein Loch in der Scheibe und ein Gespräch mit Dad.", "redemit": "He, Hill Valley! Wach auf! ... Niemand. Typisch.", "nimm": "Die Aussicht hätte ich gern mit. Ein anderes Mal, vielleicht aus einer anderen Stadt." },
+      "fenster": { "schliesse": "Ist schon zu. So bleibt Hill Valley da draußen.", "druecke": "Wenn ich dagegen drücke, habe ich ein Loch in der Scheibe und ein Gespräch mit Dad.", "redemit": "He, Hill Valley! Wach auf! ... Niemand. Typisch.", "nimm": "Die Aussicht hätte ich gern mit. Ein anderes Mal, vielleicht aus einer anderen Stadt." },
       "bett": { "nimm": "Mein Bett bleibt hier. Es ist das Einzige im Haus, das mich versteht.", "ziehe": "Die Decke glatt ziehen? Mom wäre gerührt. So weit bin ich noch nicht.", "redemit": "Schlaf gut, altes Haus. Einer von uns sollte das.", "druecke": "Durchgelegen, und zwar an genau den richtigen Stellen.", "mit_banane": "Essen im Bett? Das letzte Mal habe ich die Schale erst im März gefunden." },
       "poster": { "ziehe": "Nicht ziehen. Die Ecke hält nur noch aus Gewohnheit.", "redemit": "Ihr seid meine Helden, Jungs. Das wisst ihr nur nicht.", "druecke": "Der Reißnagel sitzt. Die eine Sache hier, die ich richtig gemacht habe.", "mit_kugelschreiber": "Ein Autogramm von mir selbst? Das hebe ich mir auf, bis es etwas wert ist." },
       "schreibtisch": { "nimm": "Der kommt nicht mit. Die Hausaufgaben sollen ruhig allein bleiben.", "schliesse": "Zu ist die beste Stellung für diesen Schreibtisch.", "benutze": "Hausaufgaben? Heute? Ich habe schon genug Ärger mit der Zeit.", "redemit": "Ich schulde dir drei Aufsätze. Ich weiß. Hör auf, mich so anzusehen." },
-      "skateboard": { "benutze": "Hier drin nur einmal. Die Delle in der Wand erzählt noch davon.", "redemit": "Wir zwei haben schon größere Hügel überlebt." }
+      "skateboard": { "benutze": "Hier drin nur einmal. Die Delle in der Wand erzählt noch davon.", "redemit": "Wir zwei haben schon größere Hügel überlebt." },
+      "regal": { "nimm": "Das Regal hält nur, solange ich es nicht anfasse. Das ist unsere Abmachung.", "ziehe": "Zwei Dübel halten alles, was ich besitze. Daran wird nicht gezogen.", "druecke": "Es wackelt. Das tut es schon, seit ich es selbst angebracht habe.", "oeffne": "Ein Regal ist schon offen. Das ist seine ganze Idee.", "benutze": "Ich könnte eins der Bücher lesen. Ich könnte auch zum Mond laufen.", "redemit": "Du trägst echt schwer. Respekt.", "mit_kugelschreiber": "In die Bücher malen? Dafür müsste ich sie ja aufschlagen." },
+      "pflanze": { "nimm": "Die bleibt hier. Sie ist das Einzige in diesem Zimmer, das noch wächst.", "ziehe": "Wenn ich an den Blättern ziehe, habe ich eine Pflanze weniger und Ärger mit Mom.", "druecke": "Die Erde ist trocken. Das ist sicher wieder meine Schuld.", "benutze": "Gießen? Mach ich. Morgen. Das sage ich ihr seit August.", "redemit": "Man soll ja mit Pflanzen reden. Also: Wie läuft's? ... Dachte ich mir.", "mit_banane": "Dünger? Die Schale vielleicht. Die Banane ist für mich." },
+      "stereoanlage": { "nimm": "Zu schwer für heute. Meine Schulter erinnert sich noch an den Sommer.", "benutze": "Lieber nicht. Beim letzten Mal ist Mom aus der Küche hochgekommen. Mit dem Besen.", "druecke": "Play, Stop, Play. Das Band klemmt, aber nur an den guten Stellen.", "oeffne": "Das Fach klemmt. Seit 1984 höre ich dieselbe Seite.", "schliesse": "Schon zu. Das ist ja das Problem.", "ziehe": "Am Kabel ziehen? Dann ist es still. Das will hier nur Mom.", "redemit": "Eins, zwei, Test. ... Falsche Seite. Das ist kein Mikrofon.", "mit_kassette": "Mr. Tannen in Stereo? Nein danke. Der ist schon in Mono zu laut." }
     },
     "kueche_1986": {
       "kuehlschrank": { "schliesse": "Schon zu. Das spart Strom und ist das Einzige, was ich hier je gespart habe.", "nimm": "Der ganze Kühlschrank? Ganz so hungrig bin ich nicht.", "redemit": "Hallo? Geht das Licht wirklich aus, wenn die Tür zu ist? Die Wissenschaft schweigt.", "mit_banane": "Die Banane bleibt draußen. Bananen im Kühlschrank werden schwarz, sagt Mom. Das tun sie auch so." },
