@@ -16,7 +16,7 @@ export const martysZimmer: RoomDef = {
           {
             id: 'fenster',
             name: 'hotspot.fenster',
-            area: rect(30, 18, 50, 44),
+            area: rect(16, 10, 74, 52),
             walkTo: [100, 96],
             face: 'links',
             comments: { schauan: 'say.prolog.zimmer_fenster', oeffne: 'say.prolog.zimmer_fenster_oeffne' },
@@ -24,7 +24,7 @@ export const martysZimmer: RoomDef = {
           {
             id: 'bett',
             name: 'hotspot.bett',
-            area: rect(8, 62, 84, 48),
+            area: rect(6, 62, 89, 49),
             walkTo: [100, 106],
             face: 'links',
             comments: { schauan: 'say.prolog.zimmer_bett', benutze: 'say.prolog.zimmer_bett_benutze' },
@@ -32,7 +32,7 @@ export const martysZimmer: RoomDef = {
           {
             id: 'poster',
             name: 'hotspot.poster',
-            area: rect(110, 18, 58, 42),
+            area: rect(108, 14, 60, 46),
             walkTo: [140, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.zimmer_poster', nimm: 'say.prolog.zimmer_poster_nimm' },
@@ -40,7 +40,7 @@ export const martysZimmer: RoomDef = {
           {
             id: 'schreibtisch',
             name: 'hotspot.schreibtisch',
-            area: rect(172, 42, 76, 50),
+            area: rect(166, 44, 84, 50),
             walkTo: [210, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.zimmer_schreibtisch', oeffne: 'say.prolog.zimmer_schublade' },
@@ -80,7 +80,7 @@ export const martysZimmer: RoomDef = {
           {
             id: 'tuer',
             name: 'hotspot.tuer_kueche',
-            area: rect(268, 22, 40, 66),
+            area: rect(267, 20, 43, 70),
             walkTo: [287, 96],
             face: 'hinten',
             comments: { schauan: 'say.prolog.zimmer_tuer' },
