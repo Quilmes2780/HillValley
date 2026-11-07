@@ -49,7 +49,7 @@ export const veranda: RoomDef = {
             area: rect(286, 94, 34, 50),
             walkTo: [304, 120],
             face: 'rechts',
-            exit: { room: 'vorgarten', at: [30, 110], face: 'rechts' },
+            exit: { room: 'vorgarten', at: [30, 100], face: 'rechts' },
           },
         ],
       },

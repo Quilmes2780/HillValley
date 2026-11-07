@@ -2,29 +2,29 @@ import type { Hotspot, Polygon, RoomVariant } from '../../engine/types';
 import type { RoomDef } from '../../engine/types';
 import { pickup, rect } from './util';
 
-const SCALE = { yFar: 106, sFar: 0.88, yNear: 140, sNear: 1 };
+const SCALE = { yFar: 94, sFar: 0.88, yNear: 140, sNear: 1 };
 
 /** Um das Auto herum: links, davor, rechts. */
 const WALKABLE: readonly Polygon[] = [
-  [[4, 106], [185, 106], [185, 140], [4, 140]],
-  [[185, 120], [287, 120], [287, 140], [185, 140]],
-  [[287, 106], [316, 106], [316, 140], [287, 140]],
+  [[6, 94], [185, 94], [185, 140], [6, 140]],
+  [[185, 106], [314, 106], [314, 140], [185, 140]],
+  [[287, 94], [314, 94], [314, 106], [287, 106]],
 ];
 
 const COMMON: readonly Hotspot[] = [
   {
     id: 'haus',
     name: 'hotspot.haus',
-    area: rect(0, 0, 118, 104),
-    walkTo: [60, 108],
+    area: [[0, 0], [46, 0], [46, 8], [143, 8], [155, 24], [148, 24], [148, 92], [0, 92]],
+    walkTo: [60, 96],
     face: 'hinten',
     comments: { schauan: 'say.prolog.vorgarten_haus' },
   },
   {
     id: 'haustuer',
     name: 'hotspot.haustuer',
-    area: rect(97, 48, 22, 54),
-    walkTo: [107, 108],
+    area: rect(108, 44, 34, 48),
+    walkTo: [125, 96],
     face: 'hinten',
     comments: { schauan: 'say.prolog.kueche_haustuer' },
     exit: { room: 'kueche', at: [288, 98], face: 'links' },
@@ -32,48 +32,48 @@ const COMMON: readonly Hotspot[] = [
   {
     id: 'briefkasten',
     name: 'hotspot.briefkasten',
-    area: rect(119, 79, 11, 29),
-    walkTo: [125, 110],
+    area: rect(147, 70, 14, 23),
+    walkTo: [152, 96],
     face: 'hinten',
     comments: { schauan: 'say.prolog.vorgarten_briefkasten', oeffne: 'say.prolog.vorgarten_briefkasten_oeffne' },
   },
   {
     id: 'hecke',
     name: 'hotspot.hecke',
-    area: rect(44, 84, 50, 20),
-    walkTo: [68, 108],
+    area: rect(33, 77, 71, 15),
+    walkTo: [68, 96],
     face: 'hinten',
     comments: { schauan: 'say.prolog.vorgarten_hecke' },
   },
   {
     id: 'gartenmauer',
     name: 'hotspot.gartenmauer',
-    area: rect(130, 85, 170, 19),
-    walkTo: [160, 108],
+    area: rect(161, 79, 159, 13),
+    walkTo: [172, 96],
     face: 'hinten',
     comments: { schauan: 'say.prolog.vorgarten_mauer' },
   },
   {
     id: 'baum',
     name: 'hotspot.baum',
-    area: [[248, 0], [320, 0], [320, 42], [316, 42], [316, 104], [300, 104], [300, 42], [248, 42]],
-    walkTo: [305, 108],
+    area: [[253, 0], [320, 0], [320, 45], [311, 45], [311, 92], [298, 92], [298, 45], [253, 45]],
+    walkTo: [305, 96],
     face: 'hinten',
     comments: { schauan: 'say.prolog.vorgarten_baum' },
   },
   {
     id: 'auto',
     name: 'hotspot.auto',
-    area: rect(186, 73, 102, 46),
-    walkTo: [236, 122],
+    area: rect(186, 60, 102, 44),
+    walkTo: [236, 110],
     face: 'hinten',
-    sprite: { key: 'backgrounds/sprites/auto.png', x: 186, y: 72, depthY: 118 },
+    sprite: { key: 'backgrounds/sprites/auto.png', x: 186, y: 59, depthY: 104 },
     comments: { schauan: 'say.prolog.vorgarten_auto', oeffne: 'say.prolog.vorgarten_auto_oeffne' },
   },
   {
     id: 'strasse',
     name: 'hotspot.strasse',
-    area: rect(300, 106, 20, 34),
+    area: rect(300, 92, 20, 48),
     walkTo: [306, 120],
     face: 'rechts',
     comments: { schauan: 'say.prolog.vorgarten_strasse' },
@@ -91,11 +91,11 @@ const tannenburg: RoomVariant = {
     {
       id: 'zeitung',
       name: 'item.zeitung.name',
-      area: rect(70, 110, 20, 12),
-      walkTo: [80, 124],
+      area: rect(76, 103, 20, 12),
+      walkTo: [86, 118],
       face: 'hinten',
       visible: (s) => !s.flags.zeitung_genommen,
-      sprite: { key: 'backgrounds/sprites/zeitung.png', x: 72, y: 112 },
+      sprite: { key: 'backgrounds/sprites/zeitung.png', x: 78, y: 105 },
       comments: { schauan: 'say.k1.zeitung_rasen' },
       verbs: {
         nimm: pickup((g) => {
@@ -107,16 +107,24 @@ const tannenburg: RoomVariant = {
     {
       id: 'werbetafel',
       name: 'hotspot.werbetafel',
-      area: rect(200, 2, 72, 66),
-      walkTo: [236, 122],
+      area: rect(188, 3, 106, 39),
+      walkTo: [236, 110],
       face: 'hinten',
       comments: { schauan: 'say.prolog.vorgarten_werbetafel' },
     },
     {
+      id: 'baeume',
+      name: 'hotspot.baeume',
+      area: rect(175, 44, 90, 16),
+      walkTo: [176, 96],
+      face: 'hinten',
+      comments: { schauan: 'say.prolog.vorgarten_baeume' },
+    },
+    {
       id: 'fabrik',
       name: 'hotspot.fabrik',
-      area: rect(158, 44, 36, 42),
-      walkTo: [176, 108],
+      area: rect(147, 28, 28, 41),
+      walkTo: [160, 96],
       face: 'hinten',
       comments: { schauan: 'say.prolog.vorgarten_fabrik' },
     },
@@ -137,12 +145,12 @@ const normal: RoomVariant = {
   hotspots: [
     ...COMMON,
     {
-      id: 'nachbarhaus',
-      name: 'hotspot.nachbarhaus',
-      area: rect(256, 55, 40, 30),
-      walkTo: [292, 108],
+      id: 'baeume',
+      name: 'hotspot.baeume',
+      area: [[168, 28], [253, 28], [253, 45], [270, 45], [270, 60], [168, 60]],
+      walkTo: [176, 96],
       face: 'hinten',
-      comments: { schauan: 'say.prolog.vorgarten_nachbarhaus' },
+      comments: { schauan: 'say.prolog.vorgarten_baeume' },
     },
     {
       id: 'biff',
@@ -163,11 +171,11 @@ const normal: RoomVariant = {
     {
       id: 'wachsdose',
       name: 'item.wachsdose.name',
-      area: rect(289, 111, 12, 10),
-      walkTo: [295, 124],
+      area: rect(289, 100, 12, 10),
+      walkTo: [292, 112],
       face: 'hinten',
       visible: (s) => s.chapter >= 4 && !s.flags.wachsdose_genommen,
-      sprite: { key: 'backgrounds/sprites/wachsdose.png', x: 290, y: 112, depthY: 120 },
+      sprite: { key: 'backgrounds/sprites/wachsdose.png', x: 290, y: 101, depthY: 110 },
       comments: { schauan: 'say.k4.dose_schau' },
       verbs: {
         nimm: pickup((g) => {
@@ -179,11 +187,11 @@ const normal: RoomVariant = {
     {
       id: 'schluesselbund',
       name: 'hotspot.schluesselbund',
-      area: rect(240, 77, 12, 14),
-      walkTo: [246, 122],
+      area: rect(240, 64, 12, 14),
+      walkTo: [246, 110],
       face: 'hinten',
       visible: (s) => s.chapter >= 4 && !s.flags.einstein_apportiert,
-      sprite: { key: 'backgrounds/sprites/schluesselbund.png', x: 242, y: 79, depthY: 119 },
+      sprite: { key: 'backgrounds/sprites/schluesselbund.png', x: 242, y: 66, depthY: 105 },
       comments: { schauan: 'say.k4.bund_schau' },
       verbs: {
         nimm: async (g) => {
@@ -208,7 +216,7 @@ const normal: RoomVariant = {
           }
           await g.cutscene(async () => {
             await g.say('say.k4.einstein_hol');
-            await g.walkTo([246, 121], 'einstein', 3);
+            await g.walkTo([246, 108], 'einstein', 3);
             await g.sayAs('biff', 'say.k4.biff_prahlt');
             await g.walkTo([60, 126], 'einstein', 3);
             g.setFlag('einstein_apportiert');
@@ -239,8 +247,8 @@ const normal: RoomVariant = {
     {
       id: 'veranda',
       name: 'hotspot.veranda',
-      area: rect(6, 64, 38, 40),
-      walkTo: [24, 108],
+      area: rect(0, 57, 34, 36),
+      walkTo: [18, 96],
       face: 'links',
       visible: (s) => s.chapter >= 4,
       comments: { schauan: 'say.k4.veranda_schau' },
