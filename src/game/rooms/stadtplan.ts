@@ -61,10 +61,10 @@ const LAGE_HV: Lage = {
 };
 
 const LAGE_TB: Lage = {
-  haus: rect(48, 76, 38, 62),
-  labor: rect(217, 88, 37, 50),
-  turm: rect(141, 4, 32, 76),
-  schule: rect(232, 6, 45, 57),
+  haus: rect(40, 73, 41, 32),
+  labor: rect(220, 79, 50, 28),
+  turm: rect(137, 2, 36, 54),
+  schule: rect(202, 14, 84, 33),
 };
 
 const DEKO_1986: readonly Hotspot[] = [
@@ -76,13 +76,14 @@ const DEKO_1986: readonly Hotspot[] = [
 ];
 
 const DEKO_TANNENBURG: readonly Hotspot[] = [
-  deko('plan_fabriken', rect(120, 0, 120, 44), 'say.k1.plan_fabriken'),
-  deko('plan_fluss', rect(0, 121, 320, 21), 'say.prolog.plan_fluss'),
-  deko('plan_schild', rect(7, 6, 82, 40), 'say.k1.plan_schild'),
-  deko('plan_kompass', rect(296, 4, 20, 46), 'say.prolog.plan_kompass'),
-  deko('plan_imbiss', rect(205, 66, 18, 17), 'say.prolog.plan_imbiss'),
-  deko('plan_banner', rect(107, 50, 12, 32), 'say.k1.plan_banner'),
-  deko('plan_banner2', rect(196, 54, 12, 34), 'say.k1.plan_banner', 'plan_banner'),
+  deko('plan_fabriken', rect(95, 0, 110, 52), 'say.k1.plan_fabriken'),
+  deko('plan_fluss', rect(0, 108, 320, 28), 'say.prolog.plan_fluss'),
+  deko('plan_schild', rect(6, 4, 82, 32), 'say.k1.plan_schild'),
+  deko('plan_kompass', rect(290, 2, 28, 32), 'say.prolog.plan_kompass'),
+  deko('plan_wasserturm', rect(295, 83, 18, 22), 'say.k1.plan_wasserturm'),
+  deko('plan_banner', rect(101, 26, 12, 21), 'say.k1.plan_banner'),
+  deko('plan_banner2', rect(109, 83, 12, 20), 'say.k1.plan_banner', 'plan_banner'),
+  deko('plan_banner3', rect(196, 64, 11, 20), 'say.k1.plan_banner', 'plan_banner'),
 ];
 
 const ziele1986 = (l: Lage): Hotspot[] => [

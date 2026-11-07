@@ -157,7 +157,7 @@
     "plan_schild": "Schild",
     "plan_kompass": "Kompassrose",
     "plan_fluss": "Fluss",
-    "plan_imbiss": "Imbiss",
+    "plan_wasserturm": "Wasserturm",
     "plan_cafe": "Lous Café",
     "plan_autos": "Autos",
     "plan_fabriken": "Fabriken",
@@ -655,7 +655,6 @@
       "plan_fluss": "Der Fluss. Im Sommer badet man drin, im Winter fällt man rein.",
       "plan_schild": "Hill Valley, Stadtplan 1986. Die Karte hat eindeutig jemand vom Fremdenverkehrsamt gemalt.",
       "plan_kompass": "Norden ist oben. Wenigstens auf eine Sache ist hier Verlass.",
-      "plan_imbiss": "Der Imbiss. Gute Milchshakes, die Musik ist von vorgestern.",
       "plan_cafe": "Lous Café. Der Kaffee ist älter als ich, die Hocker auch.",
       "plan_autos": "Zwei Autos, sauber eingezeichnet. Auf der Karte findet sogar jeder einen Parkplatz.",
       "labor_tuer": "Die Tür nach draußen.",
@@ -717,6 +716,7 @@
       "schon_offen": "Das ist schon offen.",
       "plan_fabriken": "Schornsteine, wo früher Bäume standen. Tannen Industries arbeitet offenbar rund um die Uhr.",
       "plan_schild": "Tannenburg. Gestern hieß das hier noch Hill Valley. Ich hätte es gern zurück.",
+      "plan_wasserturm": "Ein Wasserturm. Der gehört vermutlich auch Biff, mitsamt dem Wasser.",
       "plan_banner": "Ein Banner mit einem großen T. Falls jemand vergisst, wem die Stadt gehört.",
       "plan_turm": "Der Tannen-Turm. Früher hieß das Rathaus.",
       "plan_schule": "Hill Valley High. Meine Schule, wenn Strickland nichts dagegen hat.",
@@ -1271,12 +1271,13 @@
       "plan_fluss": { "nimm": "Den ganzen Fluss? Auf der Karte ist er schmaler, als er aussieht.", "benutze": "Ich gehe nicht schwimmen. Ich habe genug andere Probleme.", "redemit": "Fließ ruhig weiter. Einer hier sollte wissen, wohin er will." },
       "plan_schild": { "nimm": "Das ist aufgemalt. Ich zerschneide doch nicht die Karte.", "redemit": "Willkommen. Steht da zwar nicht, ist aber gemeint. Hoffe ich." },
       "plan_kompass": { "nimm": "Der ist aufgemalt. Ich laufe auch so meistens in die falsche Richtung.", "druecke": "Er zeigt weiter nach Norden. Stur, aber zuverlässig.", "redemit": "Wo geht es nach Hause? ... Gut, das weiß ich selbst." },
-      "plan_imbiss": { "nimm": "Auf der Karte gibt es nur die Fassade. Die Milchshakes muss man vor Ort holen.", "redemit": "Einmal Schoko, bitte. ... Karten sind schlechte Kellner." },
       "plan_cafe": { "nimm": "Auf der Karte gibt es nur das Dach. Den Kaffee muss man vor Ort trinken.", "oeffne": "Die Tür ist aufgemalt. Lou würde sagen: Wir haben trotzdem geöffnet.", "redemit": "Einmal Kaffee, bitte. ... Karten sind schlechte Kellner." },
       "plan_autos": { "nimm": "Ich habe noch keinen Führerschein für Karten.", "benutze": "Ich fahre lieber in echt. Auf Papier sind die Kurven so eckig.", "redemit": "Hupen bringt hier nichts. Die stehen nur gezeichnet im Stau." },
       "plan_fabriken": { "nimm": "Wenn ich die mitnehmen könnte, wäre ich sie sofort los.", "redemit": "Weniger Rauch, bitte. Danke. ... Hat nicht geklappt." },
       "plan_banner": { "nimm": "Das hängt an jeder Ecke. Wenn ich eins abhänge, hängen sie zwei neue auf.", "ziehe": "Lieber nicht. Wer hier an Biffs Bannern zieht, zieht den Kürzeren.", "redemit": "T wie Tannen. Oder wie Tyrannei. Klingt ähnlich." },
-      "plan_banner2": { "nimm": "Das hängt an jeder Ecke. Wenn ich eins abhänge, hängen sie zwei neue auf.", "ziehe": "Lieber nicht. Wer hier an Biffs Bannern zieht, zieht den Kürzeren.", "redemit": "T wie Tannen. Oder wie Tyrannei. Klingt ähnlich." }
+      "plan_banner2": { "nimm": "Das hängt an jeder Ecke. Wenn ich eins abhänge, hängen sie zwei neue auf.", "ziehe": "Lieber nicht. Wer hier an Biffs Bannern zieht, zieht den Kürzeren.", "redemit": "T wie Tannen. Oder wie Tyrannei. Klingt ähnlich." },
+      "plan_banner3": { "nimm": "Das hängt an jeder Ecke. Wenn ich eins abhänge, hängen sie zwei neue auf.", "ziehe": "Lieber nicht. Wer hier an Biffs Bannern zieht, zieht den Kürzeren.", "redemit": "T wie Tannen. Oder wie Tyrannei. Klingt ähnlich." },
+      "plan_wasserturm": { "nimm": "Der ist auf der Karte so klein wie mein Daumen. In echt eher nicht.", "redemit": "Wem gehörst du? ... Dumme Frage." }
     },
     "stadtplan_1885": {
       "x_insel": { "nimm": "Sie ist klein genug für die Tasche, aber dann habe ich Piraten in der Tasche. Das ist ein Problem.", "redemit": "Ahoi! ... Keine Antwort. Vermutlich suchen sie gerade drei Schätze." }
