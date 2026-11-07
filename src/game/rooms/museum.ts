@@ -84,7 +84,7 @@ const normal: RoomVariant = {
     {
       id: 'delorean',
       name: 'hotspot.delorean',
-      area: rect(126, 42, 100, 44),
+      area: rect(126, 50, 100, 36),
       walkTo: [176, 98],
       face: 'hinten',
       sprite: WAGEN_SPRITE,
@@ -196,7 +196,7 @@ const geheilt: RoomVariant = {
     {
       id: 'delorean',
       name: 'hotspot.delorean',
-      area: rect(96, 42, 130, 44),
+      area: rect(96, 50, 130, 36),
       walkTo: [160, 98],
       face: 'hinten',
       sprite: WAGEN_SPRITE,

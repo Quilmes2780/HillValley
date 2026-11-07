@@ -53,7 +53,7 @@ Stand: 6. November 2026. Grundlage sind `SPIELKONZEPT.md`, `LOESUNGSBUCH.md`, Te
 - **Mehr Raumdetails (M).** Kleine Geschichten im Bild: Docs Notizzettel, Georges Manuskriptstapel, Reklame, die sich über die Zeitebenen verändert.
 - **Logo fürs Titelbild (S).** „Hill Valley Paradox“ steht noch in den alten klotzigen Buchstaben und passt nicht mehr zum Rest. Hier lohnt ein gezeichneter Schriftzug.
 - **Schilder im Bild (S).** Stadtpläne und Schilder nutzen bewusst noch die alte Schrift, damit sich nichts verschiebt. Sie sollten nachgezogen werden, ein Schild nach dem anderen.
-- **Zeitzug und DeLorean (M).** Beide sind noch Platzhalter und alte Pixelgrafik. Sie sind die Stars des Spiels. Ein eigener, nicht filmgleicher Entwurf wäre möglich. *Deine Entscheidung.*
+- **Zeitzug (M).** Noch Platzhalter und alte Pixelgrafik. Der Wagen im Museum ist bereits ein eigener, nicht filmgleicher Entwurf. *Deine Entscheidung.*
 - **Gemalte Kapitelkarten (S).** Bisher sind sie schwarz, wie vereinbart. Ein stimmungsvolles Bild je Kapitel wäre eine schöne Zäsur. *Deine Entscheidung.*
 
 ## 2. Animation und Leben

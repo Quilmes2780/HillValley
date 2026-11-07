@@ -222,7 +222,7 @@ Umfang: ca. 30 Räume, ca. 45 Gegenstände, Spielzeit 4–6 Stunden.
 | Hosting | GitHub Pages über GitHub Actions, https://quilmes2780.github.io/HillValley/ |
 | Tasten | F5 Speichern/Laden, M Ton, F9 Debug; ein Klick überspringt Text und Karten |
 | Hill Valley 2015 | Café 80er, Museum, Lobby und Gasse mit Türen am Platz, kein eigener Stadtplan |
-| DeLorean | Neutraler Platzhalter unter `assets/characters/delorean/delorean.png` (130×44), austauschbar ohne Codeänderung |
+| DeLorean | Eigener gemalter Entwurf unter `assets/characters/delorean/delorean.png` (130×44), austauschbar ohne Codeänderung |
 | Zeitzug | Neutraler Platzhalter unter `assets/characters/zeitzug/zeitzug.png` (160×48), austauschbar ohne Codeänderung |
 
 ---

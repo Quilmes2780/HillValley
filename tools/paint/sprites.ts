@@ -1,5 +1,5 @@
 import * as K from './kit.ts';
-import { fbm, hex, mix, type Picture, shade } from './painter.ts';
+import { fbm, hex, mix, type Picture, ramp, type RGB, shade } from './painter.ts';
 
 /** Die Sprites, die groß genug sind, dass sie im Malstil stehen müssen. */
 
@@ -107,6 +107,99 @@ export function grundsteinAuf(): Picture {
   p.area(3, 3, 12, 7, (x, y) => mix(hex('#0c0a0a'), hex('#2a2422'), (y - 3) / 7 + (x - 3) * 0.008));
   p.area(3, 3, 12, 1, () => hex('#050404'));
   p.area(3, 9, 12, 1, () => hex('#6a6464'));
+  return p;
+}
+
+function scheibe(p: Picture, cx: number, cy: number, r: number, f: (d: number, x: number, y: number) => RGB): void {
+  for (let y = Math.floor(cy - r - 1); y <= cy + r + 1; y++) {
+    for (let x = Math.floor(cx - r - 1); x <= cx + r + 1; x++) {
+      const d = Math.hypot(x + 0.5 - cx, y + 0.5 - cy);
+      if (d <= r) p.set(x, y, f(d, x, y));
+    }
+  }
+}
+
+/**
+ * Der Zeitwagen im Museum, 130×44, Heck links. Eine eigene Erfindung, kein Filmauto:
+ * flacher Stahlkeil mit durchgehender Linie von der Nase zum Dach, Heckflosse, Dachring und türkisem Lichtband statt Filmtechnik.
+ * Die Tür bleibt zu, und die Heckklappe muss zu kofferraum_offen (x 4–28, y 20–32) passen.
+ */
+export function zeitwagen(): Picture {
+  const p = K.picture(130, 44);
+  const stahl = [hex('#f2f5fa'), hex('#c6ced9'), hex('#98a2b1'), hex('#6b7382'), hex('#3c414e')];
+  const dunkel = hex('#14141c');
+
+  // Heckflosse und Dachring stehen hinter der Karosserie.
+  p.poly([[5, 22], [3, 13], [9, 13], [18, 21]], (x, y) => mix(hex('#5a6170'), hex('#23262f'), (y - 13) / 9 + (x - 3) * 0.01));
+  p.area(3, 13, 7, 1, () => hex('#39d8c8'));
+  scheibe(p, 62, 8, 3, (d) => (d > 1.6 ? hex('#39d8c8') : hex('#123038')));
+
+  // Keil: Von der Nase läuft eine gerade Linie über Haube und Frontscheibe bis zum flachen Dach.
+  const karosserie: [number, number][] = [
+    [3, 26], [6, 21], [40, 19], [53, 10], [70, 10], [127, 31], [127, 35], [120, 37], [3, 37],
+  ];
+  p.poly(karosserie, (x, y) => {
+    const t = (y - 10) / 27 + (fbm(x / 16, y * 1.4, 2, 611) - 0.5) * 0.09;
+    return ramp(stahl, t);
+  });
+
+  // Fensterband, Scheibe spiegelt den Saal.
+  p.poly([[54, 12], [69, 12], [84, 20], [45, 20]], (x, y) => mix(hex('#6a8ca8'), hex('#141c2c'), (y - 12) / 9 + (x - 45) * 0.008));
+  p.poly([[57, 12], [61, 12], [55, 20], [51, 20]], hex('#d8e8f4'), 0.28);
+  p.area(64, 12, 1, 9, () => hex('#20242e'));
+
+  // Eine Kante fällt zur Nase hin ab und betont den Keil; darunter wird es dunkler.
+  p.area(40, 21, 46, 1, () => hex('#fbfdff'));
+  const kante = (x: number): number => Math.round(26 + ((x - 4) * 6) / 122);
+  for (let x = 4; x < 127; x++) {
+    p.set(x, kante(x), hex('#e6ebf2'));
+    p.set(x, kante(x) + 1, hex('#4c5260'));
+  }
+  p.area(3, 33, 124, 4, (x, y) => mix(hex('#3a3e4a'), hex('#1c1e26'), (y - 33) / 4 + (x % 2) * 0.03));
+
+  // Türfuge und Griff
+  for (const x of [45, 85]) p.area(x, 22, 1, 10, () => hex('#2c303a'));
+  p.area(76, 24, 5, 1, () => hex('#20242e'));
+  p.area(76, 25, 5, 1, () => hex('#f4f6fa'));
+
+  // Heckklappe: Fuge um die Fläche, die sich öffnen lässt.
+  p.area(4, 21, 24, 1, () => hex('#3a3e4a'));
+  p.area(28, 21, 1, 11, () => hex('#3a3e4a'));
+
+  // Lichtband an der Schwelle
+  p.area(42, 34, 46, 2, () => hex('#39d8c8'));
+  p.area(42, 34, 46, 1, () => hex('#b4fff4'));
+
+  // Lichter
+  p.area(3, 24, 3, 4, () => hex('#e0382e'));
+  p.area(3, 24, 3, 1, () => hex('#ff8a70'));
+  p.poly([[114, 26], [122, 28], [127, 31], [118, 30]], hex('#fff0b8'));
+
+  // Räder
+  for (const cx of [30, 104]) {
+    scheibe(p, cx, 35, 8.5, () => hex('#101016'));
+    scheibe(p, cx, 35, 7.5, (d, x, y) => {
+      if (d > 4.5) return mix(hex('#34343e'), hex('#17171d'), (y - 28) / 14);
+      const speiche = (Math.floor(((Math.atan2(y + 0.5 - 35, x + 0.5 - cx) + Math.PI) / (2 * Math.PI)) * 10) % 2) === 0;
+      if (d < 1.3) return hex('#39d8c8');
+      return speiche ? hex('#d6dce6') : hex('#5c6270');
+    });
+  }
+
+  // Dunkle Umrisslinie wie bei den Figuren
+  const rand: [number, number][] = [];
+  for (let y = 0; y < p.h; y++) {
+    for (let x = 0; x < p.w; x++) {
+      if (p.touched[y * p.w + x]) continue;
+      const nachbar = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => {
+        const nx = x + dx;
+        const ny = y + dy;
+        return nx >= 0 && ny >= 0 && nx < p.w && ny < p.h && p.touched[ny * p.w + nx] === 1;
+      });
+      if (nachbar) rand.push([x, y]);
+    }
+  }
+  for (const [x, y] of rand) p.set(x, y, dunkel);
   return p;
 }
 
