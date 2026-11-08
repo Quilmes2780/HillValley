@@ -21,6 +21,8 @@ const COLOR_HOVER = UI_AMBER;
 export class Dialog {
   private rows: Phaser.GameObjects.BitmapText[] = [];
   private choose: ((index: number) => void) | null = null;
+  /** Zählt die gewählten Antworten, damit der Test erkennt, ob sein Klick angekommen ist. */
+  chosenCount = 0;
 
   constructor(private readonly scene: GameScene) {}
 
@@ -69,6 +71,7 @@ export class Dialog {
     return new Promise((resolve) => {
       this.choose = (index) => {
         this.choose = null;
+        this.chosenCount++;
         for (const row of this.rows) row.destroy();
         this.rows = [];
         this.scene.setPanelForChoices(false);

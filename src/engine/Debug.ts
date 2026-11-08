@@ -169,6 +169,7 @@ export function installTestApi(scene: GameScene, validationErrors: readonly stri
       !scene.hasPendingWalk() &&
       !scene.actorOf(scene.state.activeCharacter)?.isWalking,
     isChoosing: () => scene.dialog.choosing,
+    chosenCount: () => scene.dialog.chosenCount,
     speech: () => scene.speechLog,
     sentence: () => scene.verbUi.sentence,
     room: () => ({

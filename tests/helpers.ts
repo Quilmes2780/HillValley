@@ -16,6 +16,7 @@ export interface HvApi {
   };
   isIdle(): boolean;
   isChoosing(): boolean;
+  chosenCount(): number;
   speech(): { actor: string; text: string }[];
   sentence(): string;
   room(): { id: string; era: number; background: string; width: number; scrollX: number };
@@ -184,9 +185,17 @@ export async function chooseAnswer(page: Page, startsWith: string): Promise<void
     startsWith,
   );
   if (!choice) throw new Error(`Antwort „${startsWith}“ wird nicht angeboten`);
-  await clickGame(page, choice);
-  // Die Antwortzeilen verschwinden sofort; danach läuft der Dialog weiter.
-  await page.waitForFunction(() => !window.__hv.isChoosing());
+  // Unter hoher Last geht gelegentlich ein Klick verloren; dann wird erneut geklickt, solange die Antwort noch nicht gewählt ist.
+  const before = await page.evaluate(() => window.__hv.chosenCount());
+  for (let attempt = 0; ; attempt++) {
+    await clickGame(page, choice);
+    try {
+      await page.waitForFunction((n) => window.__hv.chosenCount() > n, before, { timeout: 3_000 });
+      return;
+    } catch (error) {
+      if (attempt >= 4) throw error;
+    }
+  }
 }
 
 export async function menuRow(page: Page, startsWith: string): Promise<GamePoint> {
