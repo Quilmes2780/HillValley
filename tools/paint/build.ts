@@ -134,7 +134,11 @@ run('skateboard', 'assets/items/skateboard.png', skateboardIcon, true);
 run('titel', 'assets/ui/title.png', paintTitel, false);
 run('delorean', 'assets/characters/delorean/delorean.png', Sp.zeitwagen, true);
 run('zeitzug', 'assets/characters/zeitzug/zeitzug.png', Sp.zeitzug, true);
+/** Vom Nutzer gezeichnete Figuren: Alle ihre Animationen und das Porträt bleiben unangetastet. */
+const EIGENE_FIGUREN = new Set(['marty']);
+
 for (const id of FIGURE_IDS) {
+  if (EIGENE_FIGUREN.has(id)) continue;
   for (const anim of Object.keys(ANIMS)) run(`figur_${id}_${anim}`, `assets/characters/${id}/${id}_${anim}.png`, () => figureSheet(id, anim), true);
   run(`figur_${id}_portrait`, `assets/characters/${id}/${id}_portrait.png`, () => figurePortrait(id), false);
 }
