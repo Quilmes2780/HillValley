@@ -21,7 +21,7 @@ function zahnrad(name: string, cx: number, cy: number, r: number, fps: number): 
   return { type: 'strip', key: fx(name), frameWidth: size, frameHeight: size, x: Math.round(cx - size / 2), y: Math.round(cy - size / 2), fps };
 }
 
-/** Die Zahnräder sind in allen Fassungen des Uhrwerks am selben Platz. */
+/** Die drehenden Zahnräder des Uhrwerks von 1955 (1986 sind sie ins Bild gemalt). */
 const UHRWERK_RAEDER: readonly RoomEffect[] = [
   zahnrad('zahn_grau22', 58.5, 46, 22, 5),
   zahnrad('zahn_gold17', 96.5, 30, 17, 7),
@@ -203,7 +203,8 @@ const LEBEN: Record<string, Leben> = {
     ],
   },
   turmeingang_1986: { floor: 'stein', ambience: 'amb_schule' },
-  uhrwerk_1986: { floor: 'holz', ambience: 'amb_uhrwerk', effects: UHRWERK_RAEDER },
+  // Die Zahnräder sind 1986 ins Bild gemalt und stehen still; nur die Lampe glimmt.
+  uhrwerk_1986: { floor: 'holz', ambience: 'amb_uhrwerk', effects: [lampe(291, 17, 14, 0xffc070, 0.3, 0.3)] },
   schule_flur_1986: { floor: 'stein', ambience: 'amb_schule', fidget: { strickland: ['blick', 'talk'] } },
   bandraum_1986: { floor: 'holz', ambience: 'amb_schule' },
   schuelerzeitung_1986: { floor: 'teppich', ambience: 'amb_schule', fidget: { jennifer: ['pickup', 'blick'] } },

@@ -158,19 +158,60 @@ async function vielleichtAnkunft(g: ScriptApi): Promise<void> {
   });
 }
 
+/** 1986 hat ein eigenes Bild: Zahnräder, Uhr und Chronopost liegen anders als 1955 und 1885. */
 const hotspots1986: readonly Hotspot[] = [
-  zahnraeder('say.k1.zahnrad_schau'),
-  zifferblatt('say.k1.zifferblatt'),
+  {
+    id: 'rohr_links',
+    name: 'hotspot.rohre',
+    area: rect(194, 0, 5, 52),
+    walkTo: [196, 96],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.uhr_rohr' },
+  },
+  {
+    id: 'rohr_rechts',
+    name: 'hotspot.rohre',
+    area: rect(259, 0, 5, 47),
+    walkTo: [261, 96],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.uhr_rohr' },
+  },
+  {
+    id: 'wandlampe',
+    name: 'hotspot.wandlampe',
+    area: rect(282, 4, 18, 25),
+    walkTo: [291, 96],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.uhr_lampe' },
+  },
+  {
+    id: 'gewicht',
+    name: 'hotspot.gewicht',
+    area: rect(128, 80, 8, 14),
+    walkTo: [132, 98],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.uhr_gewicht' },
+  },
+  {
+    id: 'schaltkasten',
+    name: 'hotspot.schaltkasten',
+    area: rect(192, 52, 10, 11),
+    walkTo: [197, 96],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.uhr_schaltkasten' },
+  },
+  { ...zahnraeder('say.k1.zahnrad_schau'), area: rect(26, 8, 105, 71) },
+  { ...zifferblatt('say.k1.zifferblatt'), area: rect(133, 3, 63, 61) },
   {
     id: 'chronopost',
     name: 'hotspot.chronopost',
-    area: rect(206, 46, 60, 42),
+    area: rect(206, 47, 63, 46),
     walkTo: [236, 96],
     face: 'hinten',
     sprite: {
       key: 'backgrounds/sprites/chronopost_lampe.png',
-      x: 216,
-      y: 60,
+      x: 221,
+      y: 63,
       when: (s) => s.chronopost.mode !== 'aus',
     },
     verbs: {
@@ -191,15 +232,15 @@ const hotspots1986: readonly Hotspot[] = [
       sendeschluessel: schluesselEinsetzen,
     },
   },
-  empfangsfach('say.k3.fach_leer'),
+  { ...empfangsfach('say.k3.fach_leer'), area: rect(213, 75, 27, 13), walkTo: [226, 96] },
   {
     id: 'brief_2015',
     name: 'item.brief_2015.name',
-    area: rect(212, 70, 22, 12),
+    area: rect(213, 75, 27, 13),
     walkTo: [224, 96],
     face: 'hinten',
     visible: (s) => !!s.flags.schluessel_eingesetzt && !s.flags.brief_2015_genommen,
-    sprite: { key: 'backgrounds/sprites/brief_fach.png', x: 216, y: 74 },
+    sprite: { key: 'backgrounds/sprites/brief_fach.png', x: 219, y: 78 },
     comments: { schauan: 'say.k4.fach_blinkt' },
     verbs: {
       nimm: async (g) => {
@@ -214,8 +255,8 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'waehlrad',
     name: 'hotspot.waehlrad',
-    area: rect(238, 54, 16, 16),
-    walkTo: [246, 96],
+    area: rect(241, 57, 21, 20),
+    walkTo: [251, 96],
     face: 'hinten',
     defaultVerb: 'druecke',
     comments: { schauan: 'say.k1.waehlrad' },
@@ -224,11 +265,11 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'fusion_im_kasten',
     name: 'item.mr_fusion.name',
-    area: rect(214, 28, 16, 18),
+    area: rect(214, 32, 16, 17),
     walkTo: [222, 96],
     face: 'hinten',
     visible: (s) => !!s.flags.fusion_eingebaut,
-    sprite: { key: 'backgrounds/sprites/mr_fusion.png', x: 216, y: 30 },
+    sprite: { key: 'backgrounds/sprites/mr_fusion.png', x: 216, y: 32 },
     comments: { schauan: 'say.k1.fusion_schau', nimm: 'say.k1.fusion_bleibt' },
     verbs: {
       ziehe: async (g) => {
@@ -247,8 +288,8 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'sendehebel',
     name: 'hotspot.sendehebel',
-    area: rect(267, 42, 14, 30),
-    walkTo: [272, 96],
+    area: rect(271, 43, 13, 39),
+    walkTo: [277, 96],
     face: 'hinten',
     defaultVerb: 'ziehe',
     comments: { schauan: 'say.k1.hebel_schau' },
@@ -264,7 +305,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'treppe',
     name: 'hotspot.treppe_runter',
-    area: rect(4, 34, 26, 54),
+    area: rect(3, 33, 29, 60),
     walkTo: [18, 96],
     face: 'links',
     exit: { room: 'turmeingang', at: [278, 100], face: 'links' },
