@@ -153,6 +153,7 @@
     "werbetafel": "Werbetafel",
     "tuer_draussen": "Tür nach draußen",
     "regal": "Regal",
+    "kritzelei": "Kritzelei",
     "gewicht": "Gewicht",
     "schaltkasten": "Schaltkasten",
     "rathaus": "Rathaus",
@@ -800,6 +801,8 @@
       "brief_weg": "Weg ist er. Jetzt kann ich nur noch warten. Oder wie Doc sagen würde: mich gedulden, bis gestern ist.",
       "flur_brett": "Aushang: Hausaufgaben sind Pflicht. Stiftung Tannen dankt für Ihr Verständnis.",
       "flur_spinde": "Spinde. In meinem ist nichts, was ich gerade brauche.",
+      "flur_lampe": "Neonlicht. Damit auch der letzte Pickel gut zu sehen ist.",
+      "flur_kritzelei": "Jemand hat an die Wand gekritzelt. Strickland sucht den Täter bestimmt schon mit der Lupe.",
       "flur_spinde_oeffne": "Meiner klemmt seit der neunten Klasse.",
       "flur_bandraum": "Der Bandraum. Da stehen meine Lieblingsgeräte.",
       "flur_zeitung": "Die Schülerzeitung. Jennifer arbeitet dort.",
@@ -1368,6 +1371,10 @@
       "strickland": { "nimm": ["strickland", "Finger weg von der Schulleitung, Doktor!"], "druecke": ["strickland", "Sie drängeln? In meinem Flur? Ein Nichtsnutz in Ihrem Alter!"], "ziehe": ["strickland", "Lassen Sie meinen Ärmel los! Die Wissenschaft ist kein Vorwand."], "gib": ["strickland", "Bestechung? Bei mir? Das ist der Dezember 1955, Mister, das schreibe ich auf!"] }
     },
     "schule_flur_1986": {
+      "lampe_links": { "nimm": "Die hängt an der Decke. Ich komme nicht mal an die Noten ran.", "druecke": "Zu hoch. Wie die Erwartungen hier.", "redemit": "Summ ruhig weiter. Du klingst fast wie unser Bass." },
+      "lampe_mitte": { "nimm": "Die hängt an der Decke. Ich komme nicht mal an die Noten ran.", "druecke": "Zu hoch. Wie die Erwartungen hier.", "redemit": "Summ ruhig weiter. Du klingst fast wie unser Bass." },
+      "lampe_rechts": { "nimm": "Die hängt an der Decke. Ich komme nicht mal an die Noten ran.", "druecke": "Zu hoch. Wie die Erwartungen hier.", "redemit": "Summ ruhig weiter. Du klingst fast wie unser Bass." },
+      "kritzelei": { "nimm": "Das ist auf die Wand gemalt. Abwischen würde nur Fragen aufwerfen.", "benutze": "Ich male nichts dazu. Bei meinem Glück steht Strickland schon hinter mir.", "druecke": "Trocken. Die ist älter als mein Nachsitzen.", "redemit": "Wer war das? ... Verrat's mir nicht. Dann muss ich nicht lügen." },
       "brett": { "nimm": "Wenn ich den Zettel nehme, steht morgen mein Name drauf.", "redemit": "Hey, Brett. Du bist hier der Einzige, der mich nicht anschreit.", "druecke": "Der Reißnagel hält. Das wird ihm von oben befohlen." },
       "spinde": { "nimm": "Festgeschraubt, bei Strickland keine Überraschung.", "schliesse": "Schon alles zu. Wie meine Zukunft, sagt Strickland.", "druecke": "Mein Spind hat seit der Neunten eine Delle. Die ist von meinem Kopf.", "redemit": "Hallo? Ist jemand von der Band da drin? Nein? Auch gut." },
       "strickland": { "nimm": ["strickland", "McFly! Das ist Körperkontakt! Das kommt ins Klassenbuch!"], "druecke": ["strickland", "Ich bleibe hier stehen, Nichtsnutz. Das habe ich schon vor deinem Vater getan."], "ziehe": ["strickland", "An der Krawatte zieht man nicht, McFly. Das ist Sache der Direktion."], "gib": ["strickland", "Das ist kein Schreiben deiner Eltern. Geh mir aus den Augen!"], "oeffne": "Strickland macht den Mund auf, und alles ist voller Nichtsnutz.", "mit_foto": ["strickland", "Bei deiner Familie würde mich gar nichts mehr wundern, McFly."], "mit_banane": ["strickland", "Nahrung auf dem Flur! Du bist schon ein Nichtsnutz, Marty, mit Banane bist du zwei."] },

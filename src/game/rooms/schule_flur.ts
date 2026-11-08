@@ -23,21 +23,57 @@ const zutritt: Exit['guard'] = async (g) => {
   return false;
 };
 
+/** 1986 reicht die Wand bis y 96: Der Boden beginnt tiefer als 1955. */
+const WALKABLE_1986: RoomVariant['walkable'] = [[[8, 97], [312, 97], [316, 140], [4, 140]]];
+const SCALE_1986 = { yFar: 97, sFar: 0.9, yNear: 140, sNear: 1 };
+
 const hotspots1986: readonly Hotspot[] = [
-  brett('say.k1.flur_brett'),
+  {
+    id: 'lampe_links',
+    name: 'hotspot.deckenlampe',
+    area: rect(25, 2, 44, 6),
+    walkTo: [48, 99],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.flur_lampe' },
+  },
+  {
+    id: 'lampe_mitte',
+    name: 'hotspot.deckenlampe',
+    area: rect(140, 2, 43, 6),
+    walkTo: [160, 99],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.flur_lampe' },
+  },
+  {
+    id: 'lampe_rechts',
+    name: 'hotspot.deckenlampe',
+    area: rect(255, 2, 44, 6),
+    walkTo: [276, 99],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.flur_lampe' },
+  },
+  {
+    id: 'kritzelei',
+    name: 'hotspot.kritzelei',
+    area: rect(80, 72, 20, 12),
+    walkTo: [90, 99],
+    face: 'hinten',
+    comments: { schauan: 'say.k1.flur_kritzelei' },
+  },
+  { ...brett('say.k1.flur_brett'), area: rect(71, 29, 37, 36), walkTo: [90, 99] },
   {
     id: 'spinde',
     name: 'hotspot.spinde',
-    area: rect(162, 26, 124, 62),
-    walkTo: [224, 96],
+    area: rect(160, 26, 127, 69),
+    walkTo: [224, 99],
     face: 'hinten',
     comments: { schauan: 'say.k1.flur_spinde', oeffne: 'say.k1.flur_spinde_oeffne' },
   },
   {
     id: 'bandraum',
     name: 'hotspot.tuer_bandraum',
-    area: rect(34, 22, 38, 66),
-    walkTo: [53, 96],
+    area: rect(26, 22, 44, 74),
+    walkTo: [48, 99],
     face: 'hinten',
     comments: { schauan: 'say.k1.flur_bandraum' },
     exit: { room: 'bandraum', at: [287, 100], face: 'links', guard: zutritt },
@@ -45,8 +81,8 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'zeitung_tuer',
     name: 'hotspot.tuer_zeitung',
-    area: rect(114, 22, 38, 66),
-    walkTo: [133, 96],
+    area: rect(109, 22, 43, 74),
+    walkTo: [131, 99],
     face: 'hinten',
     comments: { schauan: 'say.k1.flur_zeitung' },
     exit: { room: 'schuelerzeitung', at: [34, 100], face: 'rechts', guard: zutritt },
@@ -54,8 +90,8 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'ausgang',
     name: 'hotspot.ausgang',
-    area: rect(292, 20, 28, 68),
-    walkTo: [306, 96],
+    area: rect(290, 20, 30, 76),
+    walkTo: [306, 99],
     face: 'rechts',
     exit: { room: 'stadtplan', at: [306, 100] },
   },
@@ -225,8 +261,8 @@ export const schuleFlur: RoomDef = {
     1986: [
       {
         background: 'backgrounds/schule_flur_1986.png',
-        walkable: WALKABLE,
-        scale: SCALE,
+        walkable: WALKABLE_1986,
+        scale: SCALE_1986,
         actors: [{ id: 'strickland', x: 200, y: 110, face: 'vorne' }],
         hotspots: hotspots1986,
       },

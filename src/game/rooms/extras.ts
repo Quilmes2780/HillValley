@@ -169,11 +169,11 @@ const EXTRAS: readonly Extra[] = [
     room: 'schule_flur',
     era: 1986,
     add: [
-      spot('lautsprecher', [116, 6, 16, 12], [124, 96], {
+      spot('lautsprecher', [116, 6, 16, 12], [124, 99], {
         sprite: { name: 'lautsprecher' },
         comments: { redemit: 'lautsprecher_rede' },
       }),
-      spot('nachsitzen', [8, 36, 18, 24], [20, 96], { sprite: { name: 'aushang_rot' }, comments: { nimm: 'nachsitzen_nimm' } }),
+      spot('nachsitzen', [8, 36, 18, 24], [20, 99], { sprite: { name: 'aushang_rot' }, comments: { nimm: 'nachsitzen_nimm' } }),
     ],
   },
   {
