@@ -181,7 +181,7 @@ const EXTRAS: readonly Extra[] = [
     era: 1986,
     add: [
       spot('artikel', [190, 14, 24, 18], [202, 96], { sprite: { name: 'artikel' }, comments: { nimm: 'artikel_nimm' } }),
-      chuck(170, 72, [176, 96]),
+      chuck(160, 74, [166, 96]),
     ],
   },
   { room: 'rathausplatz', era: 1986, add: [motorrad] },

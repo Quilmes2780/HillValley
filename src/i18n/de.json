@@ -153,6 +153,8 @@
     "werbetafel": "Werbetafel",
     "tuer_draussen": "Tür nach draußen",
     "regal": "Regal",
+    "kassettenrekorder": "Kassettenrekorder",
+    "buecher": "Bücher",
     "strahler": "Strahler",
     "notenstaender": "Notenständer",
     "kritzelei": "Kritzelei",
@@ -824,7 +826,11 @@
       "band_kabel": "Eine Rolle Verlängerungskabel. Damit kommt man weit.",
       "zeitung_pinnwand": "Artikel der Schülerzeitung. Auf jedem zweiten lobt jemand Mr. Tannen, auf den übrigen hat Jennifer das durchgestrichen.",
       "zeitung_pinnwand_nimm": "Jennifer braucht die noch.",
-      "zeitung_tisch": "Eine Schreibmaschine und ein Kassettenrekorder.",
+      "zeitung_tisch": "Der Redaktionstisch. Hier entsteht die Schülerzeitung, Seite für Seite.",
+      "zeitung_lampe": "Neonlicht. Damit Jennifer jeden Tippfehler sieht. Auch meine.",
+      "zeitung_maschine": "Eine Schreibmaschine. Das E klemmt, sagt Jennifer. Deshalb schreibt sie lieber mit Nachdruck.",
+      "zeitung_rekorder": "Ein Kassettenrekorder mit Antenne. Für Interviews, sagt Jennifer. Und für Musik, sage ich.",
+      "zeitung_buecher": "Ein Stapel Bücher. Rechtschreibung, Grammatik und eins über Journalismus. Alle mit Eselsohren.",
       "jennifer_schau": "Jennifer. Auch in dieser Zeitlinie die Klügste im Raum."
     },
     "k2": {
@@ -1395,8 +1401,13 @@
       "kabel": { "benutze": "Ich nehme es erst einmal mit. Das ist schon der schwierigste Teil des Kabel-Benutzens.", "redemit": "Wir kennen uns. Wir sind schon oft übereinander gestolpert." }
     },
     "schuelerzeitung_1986": {
+      "lampe_links": { "nimm": "Die hängt an der Decke. Jennifer bräuchte sie auch noch zum Korrekturlesen.", "druecke": "Zu hoch. Und warm. Ich lasse sie leuchten.", "redemit": "Danke fürs Licht. Ohne dich wäre die Redaktion noch dunkler als ihre Artikel über Mr. Tannen." },
+      "lampe_rechts": { "nimm": "Die hängt an der Decke. Jennifer bräuchte sie auch noch zum Korrekturlesen.", "druecke": "Zu hoch. Und warm. Ich lasse sie leuchten.", "redemit": "Danke fürs Licht. Ohne dich wäre die Redaktion noch dunkler als ihre Artikel über Mr. Tannen." },
+      "schreibmaschine": { "nimm": "Die gehört der Redaktion. Und die Redaktion ist Jennifer.", "benutze": "Ich tippe zwei Wörter pro Minute. Das zweite meistens falsch.", "druecke": "Ein Tastendruck, ein Ratschen. Das E klemmt wirklich." },
+      "rekorder": { "nimm": "Da ist noch ein Interview drauf. Jennifer würde mich suchen. Und finden.", "benutze": "Lieber nicht. Wer weiß, ob da gerade aufgenommen wird.", "druecke": "Die Taste klemmt. Wie alles hier, außer Jennifers Meinung." },
+      "buecher": { "nimm": "Die Bücher sind von der Bibliothek. Und überfällig. Ich mische mich da nicht ein.", "oeffne": "Seite eins: Wer, was, wann, wo, warum. Ich bleibe beim Warum hängen.", "redemit": "Ihr wisst alles über Kommas. Ich weiß nicht mal, wo meins hingehört." },
       "pinnwand": { "druecke": "Ein Reißnagel fällt. Jennifer hört das. Jennifer hört alles.", "redemit": "Tolle Überschrift. Ich hab sie nur gelesen, um Jennifer zu beeindrucken.", "oeffne": "Eine Pinnwand öffnet man nicht. Man liest sie, wenn einem Jennifer zusieht.", "mit_kugelschreiber": "Ich streiche nichts durch. Das ist Jennifers Revier." },
-      "tisch": { "nimm": "Da klebt die halbe Ausgabe drauf. Der Rest klebt an Jennifer.", "benutze": "Ich schreibe zwei Wörter pro Minute. Das ist bei Dad erblich, nur andersherum.", "oeffne": "Darin sind Radiergummis und ein Tagebuch. Ich schaue nicht hinein. Ich bin ein guter Mensch.", "druecke": "Bei der Schreibmaschine klemmt das E. Das erklärt die Schulzeitung zum Teil." },
+      "tisch": { "nimm": "Da klebt die halbe Ausgabe drauf. Der Rest klebt an Jennifer.", "benutze": "Ich schreibe zwei Wörter pro Minute. Das ist bei Dad erblich, nur andersherum.", "oeffne": "Keine Schublade. Jennifer sagt, eine gute Redaktion hat nichts zu verbergen.", "druecke": "Bei der Schreibmaschine klemmt das E. Das erklärt die Schulzeitung zum Teil." },
       "jennifer": { "nimm": ["jennifer", "Marty. Nicht hier. Nicht während ich auf die Korrektur warte."], "druecke": ["jennifer", "Wenn das ein Annäherungsversuch ist, schreib ihn lieber erst auf. Mit Quellen."], "ziehe": ["jennifer", "Du ziehst an meinem Pulli. Ist das so ein Ding aus deiner Band?"], "gib": ["jennifer", "Süß. Aber das ist kein Beleg für irgendetwas."], "mit_foto": ["jennifer", "Das Foto ist seltsam, Marty. Oder du schaust seltsam. Oder beides. Mach das bitte."], "mit_banane": ["jennifer", "Die ist schon halb schwarz. Wie unser Haushalt in der Redaktion."] },
       "x_artikel": { "redemit": "Hört jemand mit? Aus diesem Artikel höre ich jemanden flüstern: ja.", "druecke": "Er hängt schief, und das ist das Glaubwürdigste an ihm." },
       "x_chuck": { "druecke": "Die Blätter sind fest. Der Topf hat noch Reste von Jennifers Kaffee.", "gib": "Chuck nimmt keine Geschenke an. Offenbar kein korrumpierbarer Topf." }
