@@ -153,6 +153,8 @@
     "werbetafel": "Werbetafel",
     "tuer_draussen": "Tür nach draußen",
     "regal": "Regal",
+    "strahler": "Strahler",
+    "notenstaender": "Notenständer",
     "kritzelei": "Kritzelei",
     "gewicht": "Gewicht",
     "schaltkasten": "Schaltkasten",
@@ -816,6 +818,8 @@
       "band_schlagzeug_benutze": "Nicht jetzt. Das würde man bis in den Tannen-Turm hören.",
       "band_verstaerker": "Ein Verstärker. Halb so groß wie der von Doc, also kaum gefährlich.",
       "band_verstaerker_benutze": "Ich habe keine Gitarre dabei.",
+      "band_strahler": "Ein Bühnenstrahler. Hier drin sieht sogar eine Probe aus wie ein Konzert.",
+      "band_noten": "Ein Notenständer. Darauf liegen Noten. Gelesen hat die bei uns noch niemand.",
       "band_poster": "Ein Bandposter. Die Band hat sich aufgelöst. Oder wurde gekauft.",
       "band_kabel": "Eine Rolle Verlängerungskabel. Damit kommt man weit.",
       "zeitung_pinnwand": "Artikel der Schülerzeitung. Auf jedem zweiten lobt jemand Mr. Tannen, auf den übrigen hat Jennifer das durchgestrichen.",
@@ -1382,6 +1386,9 @@
       "x_nachsitzen": { "druecke": "Hängt fest. Dabei hängen hier sonst ja nur Schüler herum.", "redemit": "Fünf Schüler, ein Samstag. Hoffentlich kommen die da heil raus." }
     },
     "bandraum_1986": {
+      "strahler_links": { "nimm": "Die hängen an der Decke. Und sie sind heiß. Zwei gute Gründe.", "druecke": "Zu hoch. Ich bin Gitarrist, kein Beleuchter.", "redemit": "Mehr Licht auf mich, bitte. ... Na gut, ihr seid ja schon an." },
+      "strahler_rechts": { "nimm": "Die hängen an der Decke. Und sie sind heiß. Zwei gute Gründe.", "druecke": "Zu hoch. Ich bin Gitarrist, kein Beleuchter.", "redemit": "Mehr Licht auf mich, bitte. ... Na gut, ihr seid ja schon an." },
+      "notenstaender": { "nimm": "Ohne Noten spiele ich sowieso besser. Behauptet die Band.", "ziehe": "Er wackelt. Wie unser Timing.", "redemit": "Du stehst hier nur rum. Willkommen in der Band." },
       "schlagzeug": { "nimm": "Das schleppt immer unser Drummer. Deshalb ist er Drummer.", "druecke": "Ein leises Tock. Das Beste, was unsere Rhythmusgruppe je gespielt hat.", "redemit": "Hey, Kumpel. Hat keiner Lust zu proben, oder?", "mit_kugelschreiber": "Tocktock. Tocktock. Ich würde sagen, ich bin jetzt in der Band." },
       "verstaerker": { "nimm": "Halb so groß wie der von Doc, doppelt so schwer wie mein Taschengeld.", "druecke": "Der Regler geht bis zehn. Bei uns ging es einmal bis zur Schulkonferenz.", "redemit": "Eins, zwei. Eins, zwei. Ja, du hörst mir wenigstens zu.", "oeffne": "Ich repariere nichts, das mir schon mal einen Schlag gegeben hat." },
       "poster": { "nimm": "Das Poster ist alles, was von unserem Vorspielen übrig ist. Es bleibt.", "ziehe": "Wenn ich daran ziehe, fällt der ganze Traum von der Wand.", "redemit": "Eines Tages hänge ich auf dem Poster. Sie werden sagen: Wer ist das?", "mit_kugelschreiber": "Ein Autogramm! Eines Tages teuer. Bis dahin ist es nur Sachbeschädigung." },

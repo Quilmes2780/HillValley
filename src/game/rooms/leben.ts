@@ -206,7 +206,11 @@ const LEBEN: Record<string, Leben> = {
   // Die Zahnräder sind 1986 ins Bild gemalt und stehen still; nur die Lampe glimmt.
   uhrwerk_1986: { floor: 'holz', ambience: 'amb_uhrwerk', effects: [lampe(291, 17, 14, 0xffc070, 0.3, 0.3)] },
   schule_flur_1986: { floor: 'stein', ambience: 'amb_schule', fidget: { strickland: ['blick', 'talk'] } },
-  bandraum_1986: { floor: 'holz', ambience: 'amb_schule' },
+  bandraum_1986: {
+    floor: 'stein',
+    ambience: 'amb_schule',
+    effects: [lampe(51, 6, 9, 0xff50c0, 0.3, 0.2), lampe(183, 6, 9, 0x40e0ff, 0.3, 0.2)],
+  },
   schuelerzeitung_1986: { floor: 'teppich', ambience: 'amb_schule', fidget: { jennifer: ['pickup', 'blick'] } },
 
   // --- 1955 ---------------------------------------------------------------------------------
