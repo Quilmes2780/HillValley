@@ -11,7 +11,8 @@
     "paint": "tsx tools/paint/build.ts",
     "pixel": "tsx tools/pixel/build.ts",
     "audio": "tsx tools/audio/build.ts",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:schnell": "playwright test -c playwright.schnell.config.ts"
   },
   "dependencies": {
     "inkjs": "2.4.0",

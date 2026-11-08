@@ -12,7 +12,8 @@ Point-&-Click-Adventure im SCUMM-Stil. Phaser 4, TypeScript, Vite, inkjs, navmes
 - `npm run audio` – Musik, Raumklang und Effekte in `assets/audio/` erzeugen, sofern sie fehlen (`-- --force` wie oben)
 - `npm run typecheck` / `npm run build`
 - Veröffentlichung: Jeder Push nach `main` baut das Spiel und stellt es auf GitHub Pages (`.github/workflows/pages.yml`): https://quilmes2780.github.io/HillValley/
-- `npm test` – Playwright-Durchläufe (`tests/`); nach jedem Meilenstein muss alles grün sein
+- `npm test` – alle Playwright-Tests (`tests/`, vier Worker, etwa 4–5 Minuten); nach jedem Meilenstein muss alles grün sein
+- `npm run test:schnell` – dasselbe ohne die Durchläufe durch das ganze Spiel (`komplett.spec.ts`), etwa 2 Minuten. Reicht bei reinen Bild- und Textwechseln, wenn der geänderte Raum zusätzlich gezielt geprüft wird; der volle Lauf folgt dann gesammelt nach einigen Räumen und immer vor dem Abschluss einer Arbeitsrunde. Während ein Lauf läuft, keine Dateien unter `src/` ändern: Vite lädt die Seite sonst neu, und der Lauf bricht ab.
 
 ## Regeln
 

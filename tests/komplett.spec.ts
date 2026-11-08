@@ -18,6 +18,9 @@ import {
 } from './helpers';
 import { playKapitel1, playKapitel2, playKapitel3, playKapitel4, playKapitel5, playProlog, switchTo } from './walkthrough';
 
+// Die Durchläufe sind voneinander unabhängig und laufen gleichzeitig.
+test.describe.configure({ mode: 'parallel' });
+
 test('Komplett-Durchlauf nach LOESUNGSBUCH.md: vom Prolog bis zum Abspann', async ({ page }) => {
   const errors = watchErrors(page);
   await openGame(page);
