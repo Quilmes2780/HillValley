@@ -27,6 +27,15 @@ export function bueste(): Picture {
   p.area(15, 7, 2, 1, () => hex('#5a3e14'));
   p.area(12, 11, 3, 1, () => hex('#7a5a20'));
   p.glow(10, 5, 5, hex('#fff4c0'), 0.2);
+  // Sockel aus dunklem Stein: Deckplatte, Schaft mit Goldschild, Fuß
+  const stein = (x: number, l: number): RGB => mix(hex('#8a7a6c'), hex('#3a302a'), (x - 3) / 20 + l);
+  p.area(4, 18, 18, 3, (x) => stein(x, -0.15));
+  p.area(4, 18, 18, 1, (x) => mix(hex('#c8b8a4'), hex('#6a5a4c'), (x - 4) / 18));
+  p.area(6, 21, 14, 13, (x, y) => shade(stein(x, 0), 1 + fbm(x / 2, y / 2, 2, 77) * 0.08));
+  p.area(9, 24, 8, 4, (x) => mix(hex('#ffe08a'), hex('#8a6420'), (x - 9) / 8));
+  p.area(10, 25, 6, 1, () => hex('#6a4a18'));
+  p.area(3, 34, 20, 4, (x) => stein(x, -0.08));
+  p.area(3, 34, 20, 1, (x) => mix(hex('#b0a090'), hex('#5a4a3c'), (x - 3) / 20));
   return p;
 }
 

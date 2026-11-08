@@ -763,6 +763,9 @@
       "eingang_schaukasten_oeffne": "Abgeschlossen. Mr. Tannen traut nicht einmal seinen eigenen Fotos.",
       "eingang_bueste": "Eine goldene Büste von Mr. Tannen. Der Bildhauer hat sich sehr bemüht, und es hat nicht geholfen.",
       "eingang_bueste_nimm": "Zu schwer. Und so etwas will ich nicht im Zimmer stehen haben.",
+      "eingang_lampe": "Eine kleine Lampe über dem Schaukasten. Sie beleuchtet Neuigkeiten von gestern.",
+      "eingang_pflanze": "Eine Topfpflanze. Die Einzige hier, die nie die Treppe nehmen muss.",
+      "eingang_fenster": "Ein Fenster. Draußen ist es heller als hier drin. Das ist auch nicht schwer.",
       "eingang_treppe": "Die Treppe führt hinauf ins Uhrwerk.",
       "zahnrad_schau": "Riesige Zahnräder. Doc hätte seine Freude daran.",
       "zahnrad_benutze": "Ich hänge an meinen Fingern. Alle zehn.",
@@ -1318,6 +1321,9 @@
       "platz_fabriken": { "nimm": "Wenn ich die mitnehmen könnte, wäre ich sie sofort los.", "redemit": "Weniger Rauch, bitte. Danke. ... Hat nicht geklappt." }
     },
     "turmeingang_1986": {
+      "wandlampe": { "nimm": "Die ist an die Wand geschraubt. Und ohne sie liest hier keiner mehr die Aushänge.", "druecke": "Warm. Sie hat Dienst, ich störe nur.", "redemit": "Mach weiter so. Wenigstens eine hier bringt Licht in die Sache." },
+      "pflanze": { "nimm": "Die bleibt. Sie ist die Einzige, die hier freiwillig steht.", "benutze": "Ich habe nichts zum Gießen. Nur gute Wünsche.", "ziehe": "Die hat Wurzeln geschlagen. Das kann ich nicht von mir behaupten.", "redemit": "Halt durch. Irgendwann macht jemand das Fenster auf." },
+      "fenster": { "oeffne": "Das klemmt. Vermutlich seit der Einweihung.", "druecke": "Massives Glas. Ich bin nicht hier, um auszubrechen. Ich will ja rein.", "redemit": "Hallo, draußen. Ich komme gleich wieder. Wahrscheinlich." },
       "schaukasten": { "nimm": "Die Fotos bleiben hinter Glas. Ich auch, wenn ich so weitermache.", "druecke": "Sicherheitsglas. Mr. Tannen hat Angst vor Bewertungen.", "schliesse": "Der ist schon zu. Er schließt besser als sonst etwas in dieser Stadt.", "redemit": "Hört auf, alle so zu grinsen. Es ist 9 Uhr morgens." },
       "bueste": { "druecke": "Wie sich zeigt, ist auch der Kopf massiv. Keine Überraschung.", "redemit": "Na, Mr. Tannen? Und wer poliert Sie, wenn Sie schlafen?", "benutze": "Ich möchte keine Tätigkeit ausführen, an der diese Büste beteiligt ist.", "mit_kugelschreiber": "Ein kleiner Schnurrbart. Es hat ihm geholfen, soweit das geht.", "mit_banane": "Ein Mann, eine Büste, eine Banane. Ich überlasse das der Kunstkritik." }
     },
