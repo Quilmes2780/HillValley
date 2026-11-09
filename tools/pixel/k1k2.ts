@@ -40,11 +40,7 @@ export function buildK1K2Backgrounds(dir: string): void {
   bandraum(dir);
   docsLabor1955(dir);
 
-  sprite(dir, 'zeitung', 16, 8, (s) => {
-    s.poly([[1, 2], [14, 0], [15, 6], [2, 7]], C.grau6);
-    s.line(3, 3, 12, 2, C.grau3);
-    s.line(4, 5, 13, 4, C.grau4);
-  });
+  // Die Zeitung hat der Nutzer gezeichnet; sie wird hier nicht mehr erzeugt.
   sprite(dir, 'mappe', 14, 10, (s) => {
     s.rect(0, 0, 14, 10, C.holz4);
     s.frame(0, 0, 14, 10, C.holz1);

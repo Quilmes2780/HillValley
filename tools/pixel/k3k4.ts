@@ -82,15 +82,5 @@ export function buildK3K4Backgrounds(dir: string): void {
     s.rect(0, 0, 11, 6, C.gelb3);
     s.frame(0, 0, 11, 6, C.holz5);
   });
-  sprite(dir, 'wachsdose', 10, 8, (s) => {
-    s.rect(0, 2, 10, 6, C.gelb1);
-    s.rect(0, 0, 10, 2, C.grau5);
-    s.rect(2, 4, 6, 2, C.rot3);
-  });
-  sprite(dir, 'schluesselbund', 8, 10, (s) => {
-    s.line(4, 0, 4, 3, C.grau1);
-    s.rect(2, 3, 4, 3, C.gelb2);
-    s.rect(3, 6, 2, 4, C.gelb2);
-    s.rect(5, 8, 2, 1, C.gelb2);
-  });
+  // Wachsdose und Schlüsselbund hat der Nutzer gezeichnet; sie werden hier nicht mehr erzeugt.
 }
