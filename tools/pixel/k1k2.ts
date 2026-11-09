@@ -13,12 +13,7 @@ function uhrwerkSprites(dir: string): void {
     s.rect(1, 1, 6, 4, C.neon);
     s.rect(2, 1, 2, 1, C.weiss);
   });
-  sprite(dir, 'diktiergeraet', 14, 10, (s) => {
-    s.rect(0, 1, 14, 9, C.grau2);
-    s.frame(0, 1, 14, 9, C.grau1);
-    s.rect(3, 3, 8, 4, C.grau4);
-    s.rect(10, 0, 3, 2, C.rot4);
-  });
+  // Das Diktiergerät hat der Nutzer gezeichnet; es wird hier nicht mehr erzeugt.
 }
 
 function bandraum(dir: string): void {
