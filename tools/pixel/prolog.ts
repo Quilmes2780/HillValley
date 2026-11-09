@@ -1,15 +1,7 @@
 import { C } from './palette.ts';
 import { Canvas } from './png.ts';
 
-// Den Kugelschreiber in Martys Zimmer hat der Nutzer gezeichnet; er wird hier nicht mehr erzeugt.
-
-function kueche(dir: string): void {
-  const banana = new Canvas(16, 8);
-  banana.poly([[1, 1], [4, 4], [10, 5], [14, 3], [15, 4], [11, 7], [4, 7], [0, 3]], C.gelb2);
-  banana.rect(0, 1, 2, 1, C.holz3);
-  banana.rect(4, 6, 7, 1, C.gelb1);
-  banana.save(`${dir}/backgrounds/sprites/banane.png`);
-}
+// Kugelschreiber (Martys Zimmer) und Banane (Küche) hat der Nutzer gezeichnet; sie werden hier nicht mehr erzeugt.
 
 function labor(dir: string): void {
   const food = new Canvas(12, 12, C.orange2);
@@ -44,6 +36,5 @@ function labor(dir: string): void {
 }
 
 export function buildPrologBackgrounds(dir: string): void {
-  kueche(dir);
   labor(dir);
 }
