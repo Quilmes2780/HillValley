@@ -187,11 +187,11 @@ const normal: RoomVariant = {
     {
       id: 'schluesselbund',
       name: 'hotspot.schluesselbund',
-      area: rect(240, 64, 12, 14),
+      area: rect(240, 68, 12, 14),
       walkTo: [246, 110],
       face: 'hinten',
       visible: (s) => s.chapter >= 4 && !s.flags.einstein_apportiert,
-      sprite: { key: 'backgrounds/sprites/schluesselbund.png', x: 242, y: 66, depthY: 105 },
+      sprite: { key: 'backgrounds/sprites/schluesselbund.png', x: 242, y: 70, depthY: 105 },
       comments: { schauan: 'say.k4.bund_schau' },
       verbs: {
         nimm: async (g) => {
