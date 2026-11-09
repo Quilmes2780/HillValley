@@ -101,3 +101,26 @@ Der Sprechtext erscheint über Martys Kopf und kann den oberen Rand des Fotos ü
 | `assets/backgrounds/sprites/diktiergeraet.png` | 14 × 10 | dasselbe Gerät klein, liegt auf dem Schreibtisch neben der Schreibmaschine unter der Lampe |
 
 Das Raumbild wird später ein zweites Mal verwendet: Auf dem Rathausplatz steht das Gerät, mit einem Kabel an die Lautsprecheranlage angeschlossen, auf dem Boden. Es sollte deshalb auch ohne den Schreibtisch darunter gut aussehen (keine Tischkante, kein Schatten auf der Tischplatte im Bild). Ob eine Kassette eingelegt ist, zeigt das Bild nicht; es bleibt in beiden Fällen dasselbe.
+
+---
+
+# Prolog – Vorgarten
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/backgrounds/sprites/auto.png` | **102 × 46** | **Georges Auto**: eine biedere Familien-Limousine der 80er (Stufenheck, vier Türen), genau von der Seite, Front nach **rechts**. Kein Gegenstand fürs Inventar; Biff wachst es, Marty geht davor und dahinter vorbei. Die Reifen stehen auf der untersten Pixelzeile. Die Seitenfenster müssen hell genug sein, dass man innen den Rückspiegel erahnt: Ab Kapitel 4 hängt dort ein Schlüsselbund (siehe unten), etwa 56–64 Pixel vom linken Bildrand und 7–17 Pixel vom oberen Rand entfernt. |
+
+Das Auto steht im Vorgarten in allen Kapiteln, auch in der düsteren Tannenburg-Fassung; es muss also zu beiden Hintergründen passen.
+
+## Vorgarten – spätere Kapitel
+
+Diese Gegenstände tauchen erst in Kapitel 1 und 4 im Vorgarten auf. Sie können gleich mitgemacht oder später nachgeholt werden.
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/items/zeitung.png` | 32 × 20 | **Zeitung** „Tannenburg Tageblatt“, gefaltet, mit großem Foto auf der Titelseite (Kapitel 1). Keine lesbare Schrift nötig, Titelzeile als Strichmuster |
+| `assets/backgrounds/sprites/zeitung.png` | 16 × 8 | dieselbe Zeitung zusammengerollt bzw. gefaltet auf dem Rasen |
+| `assets/items/wachsdose.png` | 32 × 20 | **Wachsdose**: flache, leere Dose Autowachs, Deckel halb offen (Kapitel 4) |
+| `assets/backgrounds/sprites/wachsdose.png` | 10 × 8 | dieselbe Dose auf dem Asphalt neben dem Auto |
+| `assets/backgrounds/sprites/schluesselbund.png` | 8 × 10 | **Schlüsselbund** am Ring, hängt am Rückspiegel im Auto (nur Raumbild, Kapitel 4) |
+| `assets/items/sendeschluessel.png` | 32 × 20 | **Sendeschlüssel**: Docs besonderer Schlüssel aus dem Schlüsselbund, messingfarben, mit einem kleinen leuchtenden Kristall oder einer Platine im Griff (Kapitel 4, nur Inventar) |
