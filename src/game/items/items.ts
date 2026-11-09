@@ -8,6 +8,8 @@ const plain = (id: string): Pick<ItemDef, 'id' | 'name' | 'icon' | 'description'
 });
 
 const fotoIcon = (stage: number): string => `items/foto_stufe${stage}.png`;
+/** Das Foto groß, für „Schau an“ (Bildgröße in `PICTURES`, `szenen.ts`). */
+const fotoGross = (stage: number): string => `items/foto_gross_stufe${stage}.png`;
 
 export const ITEMS: readonly ItemDef[] = [
   {
@@ -17,6 +19,16 @@ export const ITEMS: readonly ItemDef[] = [
     iconVariants: [0, 1, 2, 3, 4].map(fotoIcon),
     // Text je Stufe laut LOESUNGSBUCH.md
     description: (s) => `item.foto.stufe${s.photoStage}`,
+    verbs: {
+      // Auf dem kleinen Bild sind die Personen kaum zu erkennen: Das Foto erscheint groß, solange Marty spricht.
+      schauan: async (g) => {
+        await g.cutscene(async () => {
+          g.showPicture(fotoGross(g.state.photoStage), 1);
+          await g.say(`item.foto.stufe${g.state.photoStage}`);
+          g.hidePicture();
+        });
+      },
+    },
   },
 
   // Prolog

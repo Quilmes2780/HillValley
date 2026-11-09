@@ -53,6 +53,7 @@ export const FX = {
 /** Bildschirmfüllende Bildstreifen. Sie laden beim Start wie alles andere. */
 export const PICTURES = [
   { key: 'backgrounds/sprites/fx_automat_spiel.png', frameWidth: 192, frameHeight: 120 },
+  ...[0, 1, 2, 3, 4].map((stage) => ({ key: `items/foto_gross_stufe${stage}.png`, frameWidth: 160, frameHeight: 100 })),
 ] as const;
 
 const FIRE_Y_STEP = 18;

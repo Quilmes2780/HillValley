@@ -69,3 +69,24 @@ Rahmen, Bildaufteilung und Personen bleiben in allen fünf Bildern **pixelgenau 
 | `foto_stufe2.png` | Werbetafel weg, Himmel wieder normal, der Erfinder weiterhin blass |
 | `foto_stufe3.png` | der Erfinder wieder deutlich zu sehen |
 | `foto_stufe4.png` | alles wie Stufe 0, der Erfinder grinst und schaut in die Kamera |
+
+### Großansicht
+
+Bei „Schau an Familienfoto“ wird das Foto groß auf schwarzem Grund eingeblendet, solange Marty spricht. Dafür gibt es zu jeder Stufe eine große Fassung mit demselben Inhalt, nur so detailliert, dass die Personen gut zu erkennen sind (Gesichter, Kleidung, die winkende Hand des Erfinders).
+
+| Datei | Größe |
+|---|---|
+| `assets/items/foto_gross_stufe0.png` … `foto_gross_stufe4.png` | je genau **160 × 100 Pixel**, deckend oder mit transparentem Rand; Rahmen eingeschlossen |
+
+Der Sprechtext erscheint über Martys Kopf und kann den oberen Rand des Fotos überdecken; wichtige Details deshalb nicht in die obersten 15 Pixel legen. Auch hier bleiben Rahmen und Personen in allen fünf Fassungen pixelgenau gleich.
+
+---
+
+# Prolog – Küche
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/items/banane.png` | 32 × 20 | **Banane**, reif, mit ersten braunen Flecken („noch nicht ganz schwarz“), leicht gebogen liegend |
+| `assets/backgrounds/sprites/banane.png` | 16 × 8 | dieselbe Banane klein, sie liegt oben auf der Obstschale neben dem Fenster (Unterkante auf den Äpfeln) |
+| `assets/items/bananenschale.png` | 32 × 20 | **Bananenschale**: die leere, aufgeklappte Schale derselben Banane (entsteht, wenn Marty die Banane isst; nur Inventar) |
+| `assets/backgrounds/sprites/x_mikrowelle.png` | 18 × 13 | **Mikrowelle** auf der Arbeitsplatte rechts neben dem Fenster, von vorn: Tür mit dunklem Sichtfenster links, Bedienfeld rechts. Kein Gegenstand fürs Inventar, nur eine Klickfläche für einen Gag; sie steht fest im Raum |
