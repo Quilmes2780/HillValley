@@ -202,7 +202,7 @@ const normal: RoomVariant = {
     {
       id: 'einstein',
       name: 'hotspot.einstein',
-      area: rect(46, 102, 28, 25),
+      area: rect(43, 99, 34, 28),
       walkTo: [90, 128],
       face: 'links',
       defaultVerb: 'redemit',
@@ -228,7 +228,7 @@ const normal: RoomVariant = {
     {
       id: 'sendeschluessel',
       name: 'item.sendeschluessel.name',
-      area: rect(46, 102, 28, 25),
+      area: rect(43, 99, 34, 28),
       walkTo: [90, 128],
       face: 'links',
       visible: (s) => !!s.flags.einstein_apportiert && !s.flags.schluessel_genommen,
