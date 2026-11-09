@@ -1,13 +1,7 @@
 import { C } from './palette.ts';
 import { Canvas } from './png.ts';
 
-function martysZimmer(dir: string): void {
-  const pen = new Canvas(9, 3);
-  pen.rect(0, 1, 8, 1, C.blau5);
-  pen.rect(0, 0, 3, 1, C.blau3);
-  pen.set(8, 1, C.schwarz);
-  pen.save(`${dir}/backgrounds/sprites/kugelschreiber.png`);
-}
+// Den Kugelschreiber in Martys Zimmer hat der Nutzer gezeichnet; er wird hier nicht mehr erzeugt.
 
 function kueche(dir: string): void {
   const banana = new Canvas(16, 8);
@@ -50,7 +44,6 @@ function labor(dir: string): void {
 }
 
 export function buildPrologBackgrounds(dir: string): void {
-  martysZimmer(dir);
   kueche(dir);
   labor(dir);
 }

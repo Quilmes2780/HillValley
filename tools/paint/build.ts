@@ -107,7 +107,9 @@ const UI: Record<string, () => Picture> = {
 };
 
 /** Vom Nutzer gezeichnete Bilder: Sie werden nie übermalt, auch nicht mit --force oder Namensfilter. */
-const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'arbeitszimmer_1986', 'vorgarten_1986', 'vorgarten_1986_tannenburg', 'veranda_1986', 'docs_labor_1986', 'stadtplan_1986', 'stadtplan_1986_tannenburg', 'rathausplatz_1986', 'rathausplatz_1986_tannenburg', 'turmeingang_1986', 'uhrwerk_1986', 'schule_flur_1986', 'bandraum_1986', 'schuelerzeitung_1986']);
+const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'arbeitszimmer_1986', 'vorgarten_1986', 'vorgarten_1986_tannenburg', 'veranda_1986', 'docs_labor_1986', 'stadtplan_1986', 'stadtplan_1986_tannenburg', 'rathausplatz_1986', 'rathausplatz_1986_tannenburg', 'turmeingang_1986', 'uhrwerk_1986', 'schule_flur_1986', 'bandraum_1986', 'schuelerzeitung_1986',
+  // Gegenstände
+  'foto_stufe0', 'foto_stufe1', 'foto_stufe2', 'foto_stufe3', 'foto_stufe4', 'kugelschreiber', 'skateboard', 'skateboard_wand']);
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');
