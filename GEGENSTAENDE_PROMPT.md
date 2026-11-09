@@ -90,3 +90,14 @@ Der Sprechtext erscheint über Martys Kopf und kann den oberen Rand des Fotos ü
 | `assets/backgrounds/sprites/banane.png` | 16 × 8 | dieselbe Banane klein, sie liegt oben auf der Obstschale neben dem Fenster (Unterkante auf den Äpfeln) |
 | `assets/items/bananenschale.png` | 32 × 20 | **Bananenschale**: die leere, aufgeklappte Schale derselben Banane (entsteht, wenn Marty die Banane isst; nur Inventar) |
 | `assets/backgrounds/sprites/x_mikrowelle.png` | 18 × 13 | **Mikrowelle** auf der Arbeitsplatte rechts neben dem Fenster, von vorn: Tür mit dunklem Sichtfenster links, Bedienfeld rechts. Kein Gegenstand fürs Inventar, nur eine Klickfläche für einen Gag; sie steht fest im Raum |
+
+---
+
+# Prolog – Arbeitszimmer
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/items/diktiergeraet.png` | 32 × 20 | **Diktiergerät** der 80er-Jahre, Taschenformat, schräg von vorn: Kassettenfach mit Sichtfenster, kleiner Lautsprecher, Tasten an der Oberkante, rote Aufnahmetaste |
+| `assets/backgrounds/sprites/diktiergeraet.png` | 14 × 10 | dasselbe Gerät klein, liegt auf dem Schreibtisch neben der Schreibmaschine unter der Lampe |
+
+Das Raumbild wird später ein zweites Mal verwendet: Auf dem Rathausplatz steht das Gerät, mit einem Kabel an die Lautsprecheranlage angeschlossen, auf dem Boden. Es sollte deshalb auch ohne den Schreibtisch darunter gut aussehen (keine Tischkante, kein Schatten auf der Tischplatte im Bild). Ob eine Kassette eingelegt ist, zeigt das Bild nicht; es bleibt in beiden Fällen dasselbe.
