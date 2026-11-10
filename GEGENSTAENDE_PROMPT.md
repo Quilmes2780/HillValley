@@ -124,3 +124,49 @@ Diese Gegenstände tauchen erst in Kapitel 1 und 4 im Vorgarten auf. Sie können
 | `assets/backgrounds/sprites/wachsdose.png` | 10 × 8 | dieselbe Dose auf dem Asphalt neben dem Auto |
 | `assets/backgrounds/sprites/schluesselbund.png` | 8 × 10 | **Schlüsselbund** am Ring, hängt am Rückspiegel im Auto (nur Raumbild, Kapitel 4) |
 | `assets/items/sendeschluessel.png` | 32 × 20 | **Sendeschlüssel**: Docs besonderer Schlüssel aus dem Schlüsselbund, messingfarben, mit einem kleinen leuchtenden Kristall oder einer Platine im Griff (Kapitel 4, nur Inventar) |
+
+---
+
+# Prolog – Docs Labor (1986)
+
+Docs Werkstatt in einer Garage: Backsteinwand, viele Uhren, warmes Licht einer Hängelampe. Alles wirkt selbstgebaut und ein bisschen improvisiert.
+
+## Gegenstände im Prolog
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/items/hundefutter.png` | 32 × 20 | **Hundefutter**: Dose „Rind in Gelee“, Etikett mit Knochen (kein Markenname) |
+| `assets/backgrounds/sprites/hundefutter.png` | 12 × 12 | dieselbe Dose, steht im mittleren Fach des offenen Schranks |
+| `assets/items/wachstuch.png` | 32 × 20 | **Wachstuch**: zerknülltes Poliertuch, sandfarben mit Wachsflecken |
+| `assets/backgrounds/sprites/wachstuch.png` | 14 × 7 | dasselbe Tuch, liegt flach in Einsteins Körbchen (erscheint erst, wenn Einstein gefressen hat) |
+| `assets/items/docs_brief.png` | 32 × 20 | **Docs Brief**: Umschlag mit rotem Siegel |
+| `assets/backgrounds/sprites/brief.png` | 12 × 8 | derselbe Umschlag, liegt auf der Werkbank |
+| `assets/items/notizbuch.png` | 32 × 20 | **Notizbuch**: Docs dickes, abgegriffenes Notizbuch mit Spiralbindung und Zetteln, die herausschauen |
+| `assets/backgrounds/sprites/notizbuch.png` | 12 × 8 | dasselbe Buch, liegt auf der Werkbank |
+| `assets/items/mr_fusion.png` | 32 × 20 | **Mr. Fusion**: ein selbstgebautes „Küchenkraftwerk“, so groß wie eine Kaffeemaschine, Metallzylinder mit Deckel und Warnzeichen, leer. Eigener Entwurf, nicht das Filmgerät |
+| `assets/backgrounds/sprites/mr_fusion.png` | 12 × 16 | dasselbe Gerät, steht oben im Wandregal |
+
+## Feste Raumbilder
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/backgrounds/sprites/labor_schrank_zu.png` | 32 × 66 | die **geschlossenen Türen** des Metallschranks. Der Hintergrund zeigt den Schrank offen und leer; dieses Bild liegt darüber, solange er zu ist. Es muss deshalb den offenen Schrank genau abdecken |
+
+## Labor – spätere Kapitel
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/items/brecheisen.png` | 32 × 20 | **Brecheisen**, dunkles Metall, gebogenes Ende (Kapitel 3) |
+| `assets/backgrounds/sprites/brecheisen.png` | 6 × 28 | dasselbe Brecheisen, senkrecht an die Wand gelehnt |
+| `assets/backgrounds/sprites/sicherungskasten.png` | 24 × 30 | **Sicherungskasten** an der Wand oben rechts, geschlossen, mit Blitzsymbol |
+| `assets/backgrounds/sprites/sicherungskasten_offen.png` | 24 × 30 | derselbe Kasten offen: Sicherungen in zwei Reihen, eine Lücke oben links für die herausnehmbare Sicherung |
+| `assets/items/sicherung.png` | 32 × 20 | **30-Ampere-Sicherung**: flache Glas- oder Keramiksicherung mit Metallkappen (Kapitel 3) |
+| `assets/backgrounds/sprites/sicherung.png` | 10 × 5 | dieselbe Sicherung, steckt im offenen Kasten (4 Pixel vom linken, 3 vom oberen Rand des Kastens) |
+
+## Gags (feste Raumbilder, nichts davon kommt ins Inventar)
+
+| Datei | Größe | Inhalt |
+|---|---|---|
+| `assets/backgrounds/sprites/x_falle.png` | 22 × 12 | **summender Kasten** mit Warnstreifen und Kontrolllämpchen, auf dem Boden |
+| `assets/backgrounds/sprites/x_fleck.png` | 28 × 9 | **lila Fleck** auf dem Boden, glibberig, leicht glänzend |
+| `assets/backgrounds/sprites/x_fuetterer.png` | 18 × 20 | **Hundefütterer**: Docs Futter-Kanone auf einem Holzsockel, zielt Richtung Napf |
