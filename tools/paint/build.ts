@@ -111,7 +111,8 @@ const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'ar
   // Gegenstände
   'foto_stufe0', 'foto_stufe1', 'foto_stufe2', 'foto_stufe3', 'foto_stufe4', 'kugelschreiber', 'skateboard', 'skateboard_wand',
   'banane', 'bananenschale', 'x_mikrowelle', 'diktiergeraet',
-  'auto', 'zeitung', 'wachsdose', 'sendeschluessel']);
+  'auto', 'zeitung', 'wachsdose', 'sendeschluessel',
+  'hundefutter', 'wachstuch', 'docs_brief', 'notizbuch', 'mr_fusion']);
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');
