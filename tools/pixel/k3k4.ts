@@ -68,16 +68,7 @@ export function buildK3K4Backgrounds(dir: string): void {
   uhrwerk1885(dir);
 
   // Docs Labor 1986: neue Dinge für Kapitel 3 und 4
-  sprite(dir, 'brecheisen', 6, 28, (s) => {
-    s.rect(2, 0, 2, 26, C.grau3);
-    s.rect(0, 0, 3, 2, C.grau3);
-    s.rect(3, 25, 3, 3, C.grau3);
-  });
-  sprite(dir, 'sicherung', 10, 5, (s) => {
-    s.rect(0, 1, 10, 3, C.grau6);
-    s.rect(2, 0, 6, 5, C.blau8);
-    s.rect(4, 2, 2, 1, C.gelb2);
-  });
+  // Brecheisen und Sicherung hat der Nutzer gezeichnet; sie werden hier nicht mehr erzeugt.
   sprite(dir, 'gelber_brief', 11, 6, (s) => {
     s.rect(0, 0, 11, 6, C.gelb3);
     s.frame(0, 0, 11, 6, C.holz5);
