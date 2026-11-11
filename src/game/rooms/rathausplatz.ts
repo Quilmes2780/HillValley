@@ -314,7 +314,7 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'kowalski',
     name: 'hotspot.kowalski',
-    area: rect(170, 42, 32, 64),
+    area: rect(170, 46, 32, 60),
     walkTo: [204, 108],
     face: 'links',
     defaultVerb: 'redemit',
