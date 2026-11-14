@@ -191,12 +191,12 @@ export const stadtplan: RoomDef = {
             at: [296, 122],
             face: 'links',
           }),
-          target('plan_villa', rect(40, 80, 46, 40), 'say.k2.plan_villa', {
+          target('plan_villa', rect(232, 6, 45, 57), 'say.k2.plan_villa', {
             room: 'docs_labor',
             at: [287, 100],
             face: 'links',
           }),
-          target('plan_schule', rect(232, 6, 45, 57), 'say.k2.plan_schule', {
+          target('plan_schule', rect(40, 80, 46, 40), 'say.k2.plan_schule', {
             room: 'schule_flur',
             at: [300, 100],
             face: 'links',
