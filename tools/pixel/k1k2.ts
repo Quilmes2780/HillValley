@@ -8,19 +8,12 @@ function sprite(dir: string, name: string, w: number, h: number, paint: (c: Canv
 }
 
 function uhrwerkSprites(dir: string): void {
-  sprite(dir, 'chronopost_lampe', 8, 6, (s) => {
-    s.rect(0, 0, 8, 6, C.grau1);
-    s.rect(1, 1, 6, 4, C.neon);
-    s.rect(2, 1, 2, 1, C.weiss);
-  });
-  // Das Diktiergerät hat der Nutzer gezeichnet; es wird hier nicht mehr erzeugt.
+  // Lampe der Chronopost (Higgsfield) und Diktiergerät (Nutzer) werden hier nicht mehr erzeugt.
+  void dir;
 }
 
-function bandraum(dir: string): void {
-  sprite(dir, 'kabelrolle', 18, 12, (s) => {
-    s.poly([[4, 1], [14, 1], [17, 5], [14, 11], [4, 11], [1, 5]], C.orange1);
-    s.poly([[6, 3], [12, 3], [14, 6], [12, 9], [6, 9], [4, 6]], C.schwarz);
-  });
+function bandraum(_dir: string): void {
+  // Die Kabelrolle ist mit Higgsfield erzeugt und wird hier nicht mehr erzeugt.
 }
 
 function docsLabor1955(dir: string): void {
