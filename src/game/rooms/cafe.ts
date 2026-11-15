@@ -26,10 +26,10 @@ export const cafe: RoomDef = {
           {
             id: 'theke',
             name: 'hotspot.theke',
-            area: rect(70, 68, 170, 30),
+            area: rect(74, 66, 174, 31),
             walkTo: [120, 106],
             face: 'hinten',
-            sprite: { key: 'backgrounds/sprites/cafe_theke.png', x: 70, y: 68, depthY: 99 },
+            sprite: { key: 'backgrounds/sprites/cafe_theke.png', x: 74, y: 66, depthY: 99 },
             comments: { schauan: 'say.k2.cafe_theke' },
           },
           {
@@ -51,10 +51,10 @@ export const cafe: RoomDef = {
           {
             id: 'mixer',
             name: 'hotspot.mixer',
-            area: rect(186, 50, 18, 20),
-            walkTo: [196, 106],
+            // Der Mixer ist Teil des Hintergrunds (links auf der Theke).
+            area: rect(86, 44, 20, 24),
+            walkTo: [96, 106],
             face: 'hinten',
-            sprite: { key: 'backgrounds/sprites/mixer.png', x: 188, y: 50, depthY: 100 },
             comments: { schauan: 'say.k2.mixer_schau', benutze: 'say.k2.mixer_benutze' },
             useWith: {
               schraubenzieher: async (g) => {

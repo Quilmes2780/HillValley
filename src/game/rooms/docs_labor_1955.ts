@@ -5,11 +5,11 @@ import { pickup, rect } from './util';
 const helm = (leer: boolean): Hotspot => ({
   id: 'helm',
   name: 'hotspot.helm',
-  area: rect(90, 36, 26, 24),
+  area: rect(92, 38, 24, 24),
   walkTo: [103, 96],
   face: 'hinten',
   visible: (s) => Boolean(s.flags.spule_ausgebaut) === leer,
-  sprite: { key: leer ? 'backgrounds/sprites/helm_ohne_spule.png' : 'backgrounds/sprites/helm.png', x: 90, y: 38 },
+  sprite: { key: leer ? 'backgrounds/sprites/helm_ohne_spule.png' : 'backgrounds/sprites/helm.png', x: 88, y: 33 },
   comments: {
     schauan: leer ? 'say.k2.helm_leer' : 'say.k2.helm_schau',
     benutze: leer ? 'say.k2.helm_leer' : 'say.k2.helm_benutze',
@@ -75,11 +75,11 @@ export const docsLabor1955: RoomVariant = {
     {
       id: 'schraubenzieher',
       name: 'item.schraubenzieher.name',
-      area: rect(150, 54, 18, 8),
+      area: rect(136, 54, 19, 8),
       walkTo: [160, 96],
       face: 'hinten',
       visible: (s) => !s.flags.schraubenzieher_genommen,
-      sprite: { key: 'backgrounds/sprites/schraubenzieher.png', x: 152, y: 56 },
+      sprite: { key: 'backgrounds/sprites/schraubenzieher.png', x: 137, y: 56 },
       comments: { schauan: 'say.k2.schraubenzieher_schau' },
       verbs: {
         nimm: pickup((g) => {
@@ -91,11 +91,11 @@ export const docsLabor1955: RoomVariant = {
     {
       id: 'zigarrenkiste',
       name: 'item.zigarrenkiste.name',
-      area: rect(190, 50, 22, 12),
+      area: rect(196, 48, 24, 13),
       walkTo: [200, 96],
       face: 'hinten',
       visible: (s) => !s.flags.zigarrenkiste_genommen,
-      sprite: { key: 'backgrounds/sprites/zigarrenkiste.png', x: 192, y: 51 },
+      sprite: { key: 'backgrounds/sprites/zigarrenkiste.png', x: 197, y: 49 },
       comments: { schauan: 'say.k2.kiste_schau' },
       verbs: {
         nimm: pickup((g) => {

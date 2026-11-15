@@ -134,10 +134,10 @@ const verfolgung: Script = async (g) => {
     await g.walkTo([190, 112], 'biff_jung', 3);
     // Biff schaut nach hinten, nicht nach vorn: Er fliegt über die Ladekante.
     g.sfx('fall');
-    await g.hop('biff_jung', [222, 56], { ms: 650, arc: 34, spin: 3.6, ease: 'Sine.easeOut' });
+    await g.hop('biff_jung', [250, 62], { ms: 650, arc: 34, spin: 3.6, ease: 'Sine.easeOut' });
     g.setFlag('biff_im_mist');
     g.sfx('platsch');
-    g.burst(220, 52, FX.mist);
+    g.burst(250, 60, FX.mist);
     g.shake(300);
     await g.sayAs('biff_jung', 'say.k2.biff_mist');
     await g.say('say.k2.nach_mist');
@@ -165,11 +165,11 @@ const hotspots1955: readonly Hotspot[] = [
   {
     id: 'biffs_spind',
     name: 'hotspot.biffs_spind',
-    area: rect(258, 26, 22, 62),
-    walkTo: [268, 96],
+    area: rect(243, 24, 20, 64),
+    walkTo: [253, 96],
     face: 'hinten',
     defaultVerb: 'oeffne',
-    sprite: { key: 'backgrounds/sprites/spind_offen.png', x: 258, y: 26, when: (s) => !!s.flags.spind_offen },
+    sprite: { key: 'backgrounds/sprites/spind_offen.png', x: 242, y: 22, when: (s) => !!s.flags.spind_offen },
     comments: { schauan: 'say.k2.spind_schau' },
     verbs: {
       oeffne: async (g) => {
@@ -186,11 +186,11 @@ const hotspots1955: readonly Hotspot[] = [
   {
     id: 'mappe',
     name: 'item.mappe.name',
-    area: rect(260, 42, 18, 14),
-    walkTo: [268, 96],
+    area: rect(244, 54, 18, 22),
+    walkTo: [253, 96],
     face: 'hinten',
     visible: (s) => !!s.flags.spind_offen && !s.flags.mappe_genommen,
-    sprite: { key: 'backgrounds/sprites/mappe.png', x: 262, y: 44 },
+    sprite: { key: 'backgrounds/sprites/mappe.png', x: 242, y: 53 },
     comments: { schauan: 'say.k2.mappe_schau' },
     verbs: {
       nimm: pickup((g) => {
@@ -232,7 +232,7 @@ const hotspots1955: readonly Hotspot[] = [
   {
     id: 'strickland',
     name: 'hotspot.strickland',
-    area: rect(252, 58, 32, 52),
+    area: rect(237, 58, 32, 52),
     walkTo: [226, 112],
     face: 'rechts',
     defaultVerb: 'redemit',
@@ -274,7 +274,7 @@ export const schuleFlur: RoomDef = {
         scale: SCALE,
         actors: [
           { id: 'george_jung', x: 110, y: 108, face: 'rechts' },
-          { id: 'strickland', x: 268, y: 110, face: 'vorne', visible: (s) => !s.flags.strickland_weg },
+          { id: 'strickland', x: 253, y: 110, face: 'vorne', visible: (s) => !s.flags.strickland_weg },
         ],
         hotspots: hotspots1955,
       },

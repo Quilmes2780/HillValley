@@ -214,8 +214,8 @@ const EXTRAS: readonly Extra[] = [
     room: 'radioladen',
     era: 1955,
     add: [
-      spot('kiste', [232, 72, 24, 20], [244, 104], {
-        sprite: { name: 'kiste' },
+      spot('kiste', [232, 75, 36, 22], [250, 104], {
+        sprite: { name: 'kiste', x: 231, y: 74 },
         comments: { oeffne: 'kiste_oeffne', redemit: 'kiste_rede', gib: 'kiste_oeffne' },
       }),
     ],
@@ -224,8 +224,8 @@ const EXTRAS: readonly Extra[] = [
     room: 'cafe',
     era: 1955,
     add: [
-      spot('karte', [244, 30, 16, 22], [248, 106], {
-        sprite: { name: 'karte' },
+      spot('karte', [240, 31, 16, 20], [248, 106], {
+        sprite: { name: 'karte', x: 239, y: 30 },
         verbs: {
           benutze: async (g) => {
             await g.say(say('karte_bestellt'));
@@ -243,7 +243,7 @@ const EXTRAS: readonly Extra[] = [
   {
     room: 'rathausplatz',
     era: 1955,
-    add: [spot('goldie_plakat', [282, 66, 14, 20], [288, 96], { sprite: { name: 'aushang_blau' } })],
+    add: [spot('goldie_plakat', [280, 76, 12, 16], [288, 96], { sprite: { name: 'aushang_blau', x: 278, y: 72 } })],
   },
 
   // --- 1885 ------------------------------------------------------------------------------------
