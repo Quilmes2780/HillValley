@@ -1,10 +1,11 @@
 // Higgsfield-Bilder in Spielfiguren umwandeln: extract.cjs schneidet aus, compose.cjs legt Frames mit gemeinsamer Palette an, preview.cjs zeigt sie vergrößert.
 // Figuren aus einem KI-Bild mit einfarbigem Hintergrund ausschneiden und auf Spielgröße bringen.
-// node extract.cjs <bild.png> <zielhoehe> <ausgabe-präfix>
+// node extract.cjs <bild.png> <zielhoehe> <ausgabe-präfix> [each]
+// Mit "each" wird jede Figur einzeln auf die Zielhöhe gebracht (für Blätter, deren Figuren das Modell ungleich groß gezeichnet hat).
 // Schreibt <präfix>_<n>.json mit {w,h,px:[[r,g,b,a]...]} je Figur (von links nach rechts), noch ohne Palette.
 const { PNG } = require('pngjs');
 const fs = require('fs');
-const [, , file, targetH, prefix] = process.argv;
+const [, , file, targetH, prefix, mode] = process.argv;
 const p = PNG.sync.read(fs.readFileSync(file));
 const W = p.width, H = p.height, d = p.data;
 // Hintergrundfarbe: Median der Ecken
@@ -39,8 +40,9 @@ for (let s = 0; s < W * H; s++) {
 }
 // Figuren = große Bereiche; dünne, breite Linien (Bodenlinie) und Schrift verwerfen
 const figs = comps.filter((c) => c.n > W * H * 0.01 && (c.y1 - c.y0) > H * 0.3).sort((a, b) => (Math.abs(a.y1 - b.y1) > H * 0.15 ? a.y1 - b.y1 : a.x0 - b.x0));
-const scale = Number(targetH) / Math.max(...figs.map((f) => f.y1 - f.y0 + 1));
+const common = Number(targetH) / Math.max(...figs.map((f) => f.y1 - f.y0 + 1));
 figs.forEach((f, fi) => {
+  const scale = mode === 'each' ? Number(targetH) / (f.y1 - f.y0 + 1) : common;
   // Kleine abgetrennte Teile (z. B. Mützenabzeichen) in der Box mitnehmen
   const keep = new Set(comps.filter((c) => c.x0 >= f.x0 - 5 && c.x1 <= f.x1 + 5 && c.y0 >= f.y0 - 5 && c.y1 <= f.y1 + 5 && c.n > 30).map((c) => c.id));
   const ow = Math.ceil((f.x1 - f.x0 + 1) * scale), oh = Math.ceil((f.y1 - f.y0 + 1) * scale);

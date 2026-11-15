@@ -2,6 +2,7 @@
 // Augen, Blinzeln und Mundbewegung nach einer Gesichtsbeschreibung setzen.
 // node figur.cjs <streifen.png> <konfig.json> <ausgabeordner>
 // Streifen: 0 vorn, 1 Seite, 2 hinten, 3–10 Gehen Seite, 11–14 Gehen vorn, 15–18 Gehen hinten, 19–22 Bücken
+// (mit "walk": n in der Konfig hat das seitliche Gehen n statt 8 Bilder, alles danach rückt entsprechend)
 // Konfig: { name, eyeColor, lidColor, lipColor, openColor, front: { eyes, mouth, talk: [[...],[...],[...]] },
 //           side: { ...gleich }, portrait: [x0, y0], portraitBg }
 const { PNG } = require('pngjs');
@@ -29,10 +30,11 @@ strip([...Array(8).fill(sd.base), sd.blink, ...Array(3).fill(sd.base)], 'idle_si
 strip(fr.talk, 'talk_front');
 strip(sd.talk, 'talk_side');
 strip([frame(2)], 'idle_back');
-strip([3, 4, 5, 6, 7, 8, 9, 10].map(frame), 'walk_side');
-strip([11, 12, 13, 14].map(frame), 'walk_front');
-strip([15, 16, 17, 18].map(frame), 'walk_back');
-strip([sd.base, ...[20, 21, 22].map(frame)], 'pickup');
+const nw = cfg.walk || 8, k = (i) => frame(i + nw - 8);
+strip(Array.from({ length: nw }, (_, i) => frame(3 + i)), 'walk_side');
+strip([11, 12, 13, 14].map(k), 'walk_front');
+strip([15, 16, 17, 18].map(k), 'walk_back');
+strip([sd.base, ...[20, 21, 22].map(k)], 'pickup');
 const por = new PNG({ width: 22, height: 13 }); const [px, py] = cfg.portrait; const bg = cfg.portraitBg || [26, 24, 34];
 for (let y = 0; y < 13; y++) for (let x = 0; x < 22; x++) {
   const s = ((y + py) * 40 + x + px) * 4, t = (y * 22 + x) * 4; const a = fr.base.data[s + 3];
