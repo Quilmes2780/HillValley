@@ -127,7 +127,7 @@ const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'ar
   // Kapitel 3, mit Higgsfield erzeugt
   'streichhoelzer', 'bleistift', 'festprogramm', 'kuchen', 'herausforderung', 'knallfrosch', 'knallfrosch_brennend', 'fluxkompensator',
   'biffs_brief', 'nachricht', 'vergilbter_brief', 'saloon_theke', 'misthaufen', 'pferd', 'grundstein_auf',
-  'x_grog', 'x_aushang_sand', 'x_wanderer', 'x_insel', 'gelber_brief', 'flux_boden', 'brief_knitter', 'sicherung_fach']);
+  'x_grog', 'x_aushang_sand', 'x_wanderer', 'x_insel', 'gelber_brief', 'flux_boden', 'brief_knitter', 'sicherung_fach', 'zeitzug']);
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');
