@@ -155,7 +155,9 @@ run('titel', 'assets/ui/title.png', paintTitel, false);
 run('delorean', 'assets/characters/delorean/delorean.png', Sp.zeitwagen, true);
 run('zeitzug', 'assets/characters/zeitzug/zeitzug.png', Sp.zeitzug, true);
 /** Vom Nutzer gezeichnete Figuren: Alle ihre Animationen und das Porträt bleiben unangetastet. */
-const EIGENE_FIGUREN = new Set(['marty', 'lorraine', 'biff', 'einstein', 'kowalski', 'strickland', 'jennifer', 'doc_jung', 'george_jung', 'biff_jung', 'lou', 'goldie', 'haendler']);
+const EIGENE_FIGUREN = new Set(['marty', 'lorraine', 'biff', 'einstein', 'kowalski', 'strickland', 'jennifer', 'doc_jung', 'george_jung', 'biff_jung', 'lou', 'goldie', 'haendler',
+  // Kapitel 3, mit Higgsfield erzeugt
+  'doc', 'buford', 'clara', 'verne', 'jules', 'barkeeper', 'feuerwerker', 'maurer']);
 
 for (const id of FIGURE_IDS) {
   if (EIGENE_FIGUREN.has(id)) continue;
