@@ -34,10 +34,10 @@ export const saloon: RoomDef = {
           {
             id: 'theke',
             name: 'hotspot.theke',
-            area: rect(60, 68, 180, 30),
+            area: rect(66, 66, 186, 40),
             walkTo: [180, 106],
             face: 'hinten',
-            sprite: { key: 'backgrounds/sprites/saloon_theke.png', x: 60, y: 68, depthY: 99 },
+            sprite: { key: 'backgrounds/sprites/saloon_theke.png', x: 66, y: 65, depthY: 101 },
             comments: { schauan: 'say.k3.saloon_theke' },
           },
           {

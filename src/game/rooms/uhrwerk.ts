@@ -403,11 +403,11 @@ const hotspots1885: readonly Hotspot[] = [
   {
     id: 'sicherung_fach',
     name: 'item.sicherung.name',
-    area: rect(212, 70, 22, 12),
+    area: rect(214, 79, 25, 11),
     walkTo: [224, 96],
     face: 'hinten',
     visible: (s) => !!s.flags.sicherung_gesendet && !s.flags.sicherung_abgeholt,
-    sprite: { key: 'backgrounds/sprites/sicherung_fach.png', x: 217, y: 74 },
+    sprite: { key: 'backgrounds/sprites/sicherung_fach.png', x: 215, y: 81 },
     comments: { schauan: 'say.k3.fach_sicherung' },
     verbs: {
       nimm: pickup((g) => {

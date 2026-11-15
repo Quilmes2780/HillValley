@@ -123,7 +123,11 @@ const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'ar
   'x_motorrad', 'x_lautsprecher', 'x_aushang_rot', 'x_artikel', 'bueste',
   // Kapitel 2, mit Higgsfield erzeugt
   'brief_von_marty', 'schraubenzieher', 'zigarrenkiste', 'kupferspule', 'dollar', 'roehre', 'zettel', 'hausaufgabe', 'mappe', 'verstaerker',
-  'helm', 'helm_ohne_spule', 'cafe_theke', 'laden_theke', 'spind_offen', 'mistlaster', 'mist_beine', 'x_kiste', 'x_karte', 'x_aushang_blau']);
+  'helm', 'helm_ohne_spule', 'cafe_theke', 'laden_theke', 'spind_offen', 'mistlaster', 'mist_beine', 'x_kiste', 'x_karte', 'x_aushang_blau',
+  // Kapitel 3, mit Higgsfield erzeugt
+  'streichhoelzer', 'bleistift', 'festprogramm', 'kuchen', 'herausforderung', 'knallfrosch', 'knallfrosch_brennend', 'fluxkompensator',
+  'biffs_brief', 'nachricht', 'vergilbter_brief', 'saloon_theke', 'misthaufen', 'pferd', 'grundstein_auf',
+  'x_grog', 'x_aushang_sand', 'x_wanderer', 'x_insel', 'gelber_brief', 'flux_boden', 'brief_knitter', 'sicherung_fach']);
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');

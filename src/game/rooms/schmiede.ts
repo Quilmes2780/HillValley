@@ -38,11 +38,11 @@ export const schmiede: RoomDef = {
           {
             id: 'streichhoelzer',
             name: 'item.streichhoelzer.name',
-            area: rect(202, 52, 14, 10),
-            walkTo: [210, 96],
+            area: rect(211, 53, 18, 11),
+            walkTo: [220, 96],
             face: 'hinten',
             visible: (s) => !s.flags.streichhoelzer_genommen,
-            sprite: { key: 'backgrounds/sprites/streichhoelzer.png', x: 204, y: 53 },
+            sprite: { key: 'backgrounds/sprites/streichhoelzer.png', x: 211, y: 54 },
             comments: { schauan: 'say.k3.schmiede_streichhoelzer' },
             verbs: {
               nimm: pickup((g) => {
@@ -54,11 +54,11 @@ export const schmiede: RoomDef = {
           {
             id: 'bleistift',
             name: 'item.bleistift.name',
-            area: rect(228, 54, 16, 8),
+            area: rect(229, 56, 16, 8),
             walkTo: [236, 96],
             face: 'hinten',
             visible: (s) => !s.flags.bleistift_genommen,
-            sprite: { key: 'backgrounds/sprites/bleistift.png', x: 230, y: 57 },
+            sprite: { key: 'backgrounds/sprites/bleistift.png', x: 229, y: 58 },
             comments: { schauan: 'say.k3.schmiede_bleistift' },
             verbs: {
               nimm: pickup((g) => {

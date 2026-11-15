@@ -14,7 +14,7 @@ export const mietstall: RoomDef = {
         actors: [
           // Auf dem Pferd, bis der Knallfrosch kommt; danach tropfend neben dem Haufen.
           { id: 'buford', x: 222, y: 112, face: 'rechts', visible: (s) => !!s.flags.buford_im_mist },
-          { id: 'buford', x: 194, y: 84, face: 'rechts', visible: (s) => !!s.flags.buford_im_stall },
+          { id: 'buford', x: 198, y: 85, face: 'rechts', visible: (s) => !!s.flags.buford_im_stall },
         ],
         hotspots: [
           {
@@ -28,20 +28,20 @@ export const mietstall: RoomDef = {
           {
             id: 'misthaufen',
             name: 'hotspot.misthaufen',
-            area: rect(236, 72, 70, 34),
+            area: rect(244, 76, 74, 36),
             walkTo: [270, 112],
             face: 'hinten',
-            sprite: { key: 'backgrounds/sprites/misthaufen.png', x: 236, y: 72, depthY: 106 },
+            sprite: { key: 'backgrounds/sprites/misthaufen.png', x: 243, y: 74, depthY: 110 },
             comments: { schauan: 'say.k3.stall_mist' },
           },
           {
             id: 'pferd',
             name: 'hotspot.pferd',
-            area: rect(170, 54, 52, 44),
+            area: rect(176, 45, 70, 63),
             walkTo: [160, 106],
             face: 'rechts',
             visible: (s) => !s.flags.buford_im_mist,
-            sprite: { key: 'backgrounds/sprites/pferd.png', x: 170, y: 54, depthY: 98 },
+            sprite: { key: 'backgrounds/sprites/pferd.png', x: 172, y: 44, depthY: 108 },
             comments: { schauan: 'say.k3.stall_pferd', redemit: 'say.k3.stall_pferd_rede' },
             useWith: {
               knallfrosch: async (g) => {
@@ -81,7 +81,7 @@ export const mietstall: RoomDef = {
           {
             id: 'buford',
             name: 'hotspot.buford',
-            area: rect(178, 22, 32, 34),
+            area: rect(184, 20, 30, 42),
             walkTo: [160, 106],
             face: 'rechts',
             defaultVerb: 'redemit',

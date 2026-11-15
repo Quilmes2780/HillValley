@@ -251,8 +251,8 @@ const EXTRAS: readonly Extra[] = [
     room: 'saloon',
     era: 1885,
     add: [
-      spot('grog', [168, 54, 12, 12], [175, 104], {
-        sprite: { name: 'grog' },
+      spot('grog', [178, 53, 11, 17], [182, 106], {
+        sprite: { name: 'grog', x: 176, y: 52 },
         comments: { benutze: 'grog_nimm', nimm: 'grog_nimm' },
       }),
     ],
@@ -260,7 +260,7 @@ const EXTRAS: readonly Extra[] = [
   {
     room: 'mietstall',
     era: 1885,
-    add: [spot('marshal', [16, 52, 18, 24], [28, 96], { sprite: { name: 'aushang_sand' }, comments: { nimm: 'marshal_nimm' } })],
+    add: [spot('marshal', [8, 54, 16, 19], [28, 96], { sprite: { name: 'aushang_sand', x: 6, y: 52 }, comments: { nimm: 'marshal_nimm' } })],
     patch: {
       misthaufen: {
         verbs: {
@@ -277,8 +277,8 @@ const EXTRAS: readonly Extra[] = [
     room: 'festplatz',
     era: 1885,
     add: [
-      spot('wanderer', [288, 56, 14, 36], [290, 98], {
-        sprite: { name: 'wanderer' },
+      spot('wanderer', [300, 65, 19, 34], [290, 98], {
+        sprite: { name: 'wanderer', x: 298, y: 63 },
         verbs: {
           redemit: async (g) => {
             g.sfx('gitarre');
@@ -291,7 +291,7 @@ const EXTRAS: readonly Extra[] = [
   {
     room: 'stadtplan',
     era: 1885,
-    add: [spot('insel', [150, 126, 14, 10], [157, 130], { sprite: { name: 'insel' } })],
+    add: [spot('insel', [178, 104, 28, 26], [190, 132], { sprite: { name: 'insel', x: 168, y: 100 } })],
   },
   {
     room: 'abstellgleis',

@@ -62,11 +62,11 @@ export const festplatz: RoomDef = {
           {
             id: 'festprogramm',
             name: 'item.festprogramm.name',
-            area: rect(110, 50, 18, 22),
+            area: rect(109, 51, 20, 33),
             walkTo: [119, 96],
             face: 'hinten',
             visible: (s) => !s.flags.festprogramm_genommen,
-            sprite: { key: 'backgrounds/sprites/festprogramm.png', x: 112, y: 52 },
+            sprite: { key: 'backgrounds/sprites/festprogramm.png', x: 103, y: 50 },
             comments: { schauan: 'say.k3.fest_programm' },
             verbs: {
               nimm: pickup((g) => {

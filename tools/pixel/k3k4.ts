@@ -7,71 +7,14 @@ function sprite(dir: string, name: string, w: number, h: number, paint: (c: Canv
   c.save(`${dir}/backgrounds/sprites/${name}.png`);
 }
 
-function schmiede(dir: string): void {
-  sprite(dir, 'streichhoelzer', 10, 7, (s) => {
-    s.rect(0, 2, 10, 5, C.sand2);
-    s.frame(0, 2, 10, 5, C.holz3);
-    s.rect(2, 0, 1, 3, C.holz6);
-    s.set(2, 0, C.rot4);
-    s.rect(6, 0, 1, 3, C.holz6);
-    s.set(6, 0, C.rot4);
-  });
-  sprite(dir, 'bleistift', 12, 3, (s) => {
-    s.rect(0, 1, 10, 1, C.gelb1);
-    s.rect(0, 0, 2, 3, C.rot3);
-    s.rect(10, 1, 2, 1, C.schwarz);
-  });
-}
-
-function festplatz(dir: string): void {
-  sprite(dir, 'festprogramm', 14, 18, (s) => {
-    s.rect(0, 0, 14, 18, C.sand2);
-    s.frame(0, 0, 14, 18, C.holz4);
-    s.rect(2, 3, 10, 2, C.rot3);
-    for (let y = 7; y < 16; y += 2) s.rect(2, y, 9, 1, C.grau3);
-  });
-}
-
-function mietstall(dir: string): void {
-  sprite(dir, 'flux_boden', 16, 10, (s) => {
-    s.rect(0, 0, 16, 10, C.grau3);
-    s.frame(0, 0, 16, 10, C.grau1);
-    s.line(3, 8, 7, 2, C.neon);
-    s.line(13, 8, 9, 2, C.neon);
-    s.line(8, 2, 8, 7, C.neon);
-  });
-  sprite(dir, 'brief_knitter', 12, 8, (s) => {
-    s.poly([[0, 1], [11, 0], [11, 7], [1, 7]], C.weiss);
-    s.line(2, 3, 9, 2, C.grau3);
-    s.line(2, 5, 8, 5, C.grau3);
-  });
-}
-
-function uhrwerk1885(dir: string): void {
-  sprite(dir, 'sicherung_fach', 12, 6, (s) => {
-    s.rect(0, 1, 12, 4, C.grau6);
-    s.rect(2, 0, 8, 6, C.blau8);
-    s.rect(4, 2, 4, 2, C.gelb2);
-  });
+// Die kleinen Raumbilder von Kapitel 3 (Streichhölzer, Bleistift, Festprogramm, Fluxkompensator und
+// Brief am Boden, Sicherung im Fach, vergilbter Brief) sind mit Higgsfield erzeugt und werden hier nicht
+// mehr erzeugt. Brecheisen, Sicherung, Wachsdose und Schlüsselbund hat der Nutzer gezeichnet.
+export function buildK3K4Backgrounds(dir: string): void {
   sprite(dir, 'brief_fach', 14, 7, (s) => {
     s.rect(0, 0, 14, 7, C.weiss);
     s.frame(0, 0, 14, 7, C.neon);
     s.line(1, 1, 7, 4, C.grau4);
     s.line(12, 1, 7, 4, C.grau4);
   });
-}
-
-export function buildK3K4Backgrounds(dir: string): void {
-  schmiede(dir);
-  festplatz(dir);
-  mietstall(dir);
-  uhrwerk1885(dir);
-
-  // Docs Labor 1986: neue Dinge für Kapitel 3 und 4
-  // Brecheisen und Sicherung hat der Nutzer gezeichnet; sie werden hier nicht mehr erzeugt.
-  sprite(dir, 'gelber_brief', 11, 6, (s) => {
-    s.rect(0, 0, 11, 6, C.gelb3);
-    s.frame(0, 0, 11, 6, C.holz5);
-  });
-  // Wachsdose und Schlüsselbund hat der Nutzer gezeichnet; sie werden hier nicht mehr erzeugt.
 }

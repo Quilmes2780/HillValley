@@ -70,7 +70,7 @@ const GRUNDSTEIN_1986: Hotspot = {
   comments: { nimm: 'say.k3.grundstein_nimm' },
   sprite: {
     key: 'backgrounds/sprites/grundstein_auf.png',
-    x: 104,
+    x: 100,
     y: 80,
     when: (s) => !!s.flags.grundstein_aufgebrochen,
   },
@@ -137,11 +137,11 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'gelber_brief',
     name: 'item.vergilbter_brief.name',
-    area: rect(106, 82, 14, 8),
+    area: rect(105, 82, 13, 10),
     walkTo: [113, 96],
     face: 'hinten',
     visible: (s) => !!s.flags.grundstein_aufgebrochen && !s.flags.gelber_brief_genommen,
-    sprite: { key: 'backgrounds/sprites/gelber_brief.png', x: 108, y: 83 },
+    sprite: { key: 'backgrounds/sprites/gelber_brief.png', x: 105, y: 84 },
     comments: { schauan: 'say.k3.platz_brief_schau' },
     verbs: {
       nimm: async (g) => {
