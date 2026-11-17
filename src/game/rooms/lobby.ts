@@ -79,8 +79,8 @@ export const lobby: RoomDef = {
             face: 'hinten',
             sprite: {
               key: 'backgrounds/sprites/scanner_gruen.png',
-              x: 252,
-              y: 55,
+              x: 248,
+              y: 50,
               when: (s) => !!s.flags.aufzug_offen,
             },
             comments: { schauan: 'say.k5.scanner_schau', benutze: 'say.k5.scanner_finger', druecke: 'say.k5.scanner_finger' },
@@ -94,7 +94,7 @@ export const lobby: RoomDef = {
             face: 'hinten',
             defaultVerb: 'druecke',
             visible: (s) => !!s.flags.aufzug_offen,
-            sprite: { key: 'backgrounds/sprites/knopf_88.png', x: 216, y: 50 },
+            sprite: { key: 'backgrounds/sprites/knopf_88.png', x: 212, y: 46 },
             comments: { schauan: 'say.k5.knopf_schau' },
             verbs: {
               druecke: async (g) => {

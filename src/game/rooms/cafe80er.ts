@@ -72,11 +72,11 @@ export const cafe80er: RoomDef = {
           {
             id: 'glas',
             name: 'item.glas.name',
-            area: rect(212, 82, 10, 12),
+            area: rect(209, 76, 12, 18),
             walkTo: [200, 112],
             face: 'rechts',
             visible: (s) => !s.flags.glas_genommen,
-            sprite: { key: 'backgrounds/sprites/glas.png', x: 214, y: 84, depthY: 120 },
+            sprite: { key: 'backgrounds/sprites/glas.png', x: 210, y: 76, depthY: 120 },
             comments: { schauan: 'say.k5.glas_schau' },
             verbs: {
               nimm: async (g) => {

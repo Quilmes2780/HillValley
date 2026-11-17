@@ -70,15 +70,15 @@ const chuck = (x: number, y: number, walkTo: Pt): Hotspot =>
 
 const museumExtras: Pick<Extra, 'add'> = {
   add: [
-    spot('schwert', [236, 24, 12, 32], [242, 96], {
-      sprite: { name: 'schwert', x: 237, y: 25 },
+    spot('schwert', [226, 10, 13, 70], [232, 96], {
+      sprite: { name: 'schwert' },
       comments: { nimm: 'schwert_nimm' },
     }),
-    spot('hut', [292, 50, 26, 21], [300, 98], {
-      sprite: { name: 'vitrine', y: 50 },
+    spot('hut', [295, 40, 25, 20], [300, 98], {
+      sprite: { name: 'vitrine' },
       comments: { nimm: 'hut_nimm', oeffne: 'hut_nimm' },
     }),
-    spot('kristall', [292, 71, 26, 21], [300, 98], { comments: { nimm: 'kristall_nimm' } }),
+    spot('kristall', [295, 60, 25, 22], [300, 98], { comments: { nimm: 'kristall_nimm' } }),
   ],
 };
 
@@ -304,14 +304,14 @@ const EXTRAS: readonly Extra[] = [
     room: 'turmplatz',
     era: 2015,
     add: [
-      spot('mond', [36, 4, 24, 24], [48, 96], { sprite: { name: 'mond' } }),
-      spot('haendler', [34, 66, 20, 46], [64, 114], {
+      spot('mond', [70, 0, 38, 34], [48, 96], { sprite: { name: 'mond' } }),
+      spot('haendler', [28, 66, 35, 46], [64, 114], {
         sprite: { name: 'haendler', depthY: 112 },
         defaultVerb: 'redemit',
         comments: { redemit: 'haendler_rede', gib: 'haendler_gib' },
       }),
-      spot('kino', [274, 52, 22, 36], [285, 96], { sprite: { name: 'kino' }, comments: { nimm: 'kino_nimm' } }),
-      spot('holo', [112, 52, 14, 20], [118, 96], { sprite: { name: 'holo' }, comments: { redemit: 'holo_rede' } }),
+      spot('kino', [274, 50, 30, 42], [285, 96], { sprite: { name: 'kino' }, comments: { nimm: 'kino_nimm' } }),
+      spot('holo', [112, 52, 19, 32], [118, 96], { sprite: { name: 'holo' }, comments: { redemit: 'holo_rede' } }),
     ],
     patch: { schwebeauto: { comments: { benutze: say('schwebeauto_benutze'), oeffne: say('schwebeauto_benutze') } } },
   },
@@ -319,7 +319,7 @@ const EXTRAS: readonly Extra[] = [
     room: 'cafe80er',
     era: 2015,
     add: [
-      spot('wasserglas', [62, 50, 8, 10], [66, 106], {
+      spot('wasserglas', [63, 47, 9, 12], [66, 106], {
         sprite: { name: 'wasserglas' },
         verbs: {
           schauan: async (g) => {
@@ -330,13 +330,13 @@ const EXTRAS: readonly Extra[] = [
           },
         },
       }),
-      spot('shake', [74, 48, 8, 12], [78, 106], {
+      spot('shake', [82, 39, 9, 20], [78, 106], {
         sprite: { name: 'shake' },
         comments: { nimm: 'shake_nimm', benutze: 'shake_nimm' },
       }),
-      spot('pluesch', [132, 46, 18, 14], [141, 106], { sprite: { name: 'pluesch' }, comments: { redemit: 'pluesch_rede', nimm: 'pluesch_nimm' } }),
-      spot('pillen', [150, 52, 10, 8], [155, 106], { sprite: { name: 'pillen' }, comments: { nimm: 'pillen_nimm', benutze: 'pillen_nimm' } }),
-      spot('hoverboard', [254, 52, 10, 36], [259, 106], {
+      spot('pluesch', [106, 40, 30, 20], [141, 106], { sprite: { name: 'pluesch' }, comments: { redemit: 'pluesch_rede', nimm: 'pluesch_nimm' } }),
+      spot('pillen', [146, 48, 8, 11], [155, 106], { sprite: { name: 'pillen' }, comments: { nimm: 'pillen_nimm', benutze: 'pillen_nimm' } }),
+      spot('hoverboard', [248, 53, 19, 47], [259, 106], {
         sprite: { name: 'hoverboard' },
         comments: { nimm: 'hoverboard_benutze', benutze: 'hoverboard_benutze' },
       }),
@@ -352,8 +352,8 @@ const EXTRAS: readonly Extra[] = [
     room: 'lobby',
     era: 2015,
     add: [
-      spot('schacht', [42, 14, 16, 10], [50, 96], { sprite: { name: 'schacht' }, comments: { oeffne: 'schacht_oeffne' } }),
-      spot('schuhe', [44, 84, 12, 5], [50, 96], { sprite: { name: 'schuhe' }, comments: { nimm: 'schuhe_nimm' } }),
+      spot('schacht', [37, 7, 29, 20], [50, 96], { sprite: { name: 'schacht' }, comments: { oeffne: 'schacht_oeffne' } }),
+      spot('schuhe', [37, 83, 21, 13], [50, 96], { sprite: { name: 'schuhe' }, comments: { nimm: 'schuhe_nimm' } }),
       spot('chuck_lobby', [275, 40, 26, 48], [288, 96], { comments: { redemit: 'chuck_rede', nimm: 'chuck_nimm' } }),
     ],
     patch: { aufzug: { comments: { ziehe: say('aufzug_gefuehl') } } },
@@ -362,8 +362,8 @@ const EXTRAS: readonly Extra[] = [
     room: 'gasse',
     era: 2015,
     add: [
-      spot('origami', [90, 110, 10, 8], [95, 118], { sprite: { name: 'origami' }, comments: { nimm: 'origami_nimm' } }),
-      spot('direktor', [150, 18, 18, 24], [159, 96], { sprite: { name: 'aushang_neon' } }),
+      spot('origami', [82, 108, 20, 22], [95, 118], { sprite: { name: 'origami' }, comments: { nimm: 'origami_nimm' } }),
+      spot('direktor', [118, 32, 28, 26], [159, 96], { sprite: { name: 'aushang_neon' } }),
     ],
   },
 ];

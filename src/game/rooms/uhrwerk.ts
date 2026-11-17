@@ -236,11 +236,11 @@ const hotspots1986: readonly Hotspot[] = [
   {
     id: 'brief_2015',
     name: 'item.brief_2015.name',
-    area: rect(213, 75, 27, 13),
+    area: rect(213, 78, 27, 14),
     walkTo: [224, 96],
     face: 'hinten',
     visible: (s) => !!s.flags.schluessel_eingesetzt && !s.flags.brief_2015_genommen,
-    sprite: { key: 'backgrounds/sprites/brief_fach.png', x: 219, y: 78 },
+    sprite: { key: 'backgrounds/sprites/brief_fach.png', x: 215, y: 82 },
     comments: { schauan: 'say.k4.fach_blinkt' },
     verbs: {
       nimm: async (g) => {
