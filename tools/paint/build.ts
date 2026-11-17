@@ -112,6 +112,8 @@ const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'ar
   'uhrwerk_1955', 'rathausplatz_1955', 'docs_labor_1955', 'cafe_1955', 'radioladen_1955', 'schule_flur_1955', 'strasse_1955', 'stadtplan_1955',
   // Hintergründe 1885, mit Higgsfield neu gezeichnet
   'abstellgleis_1885', 'festplatz_1885', 'mietstall_1885', 'saloon_1885', 'schmiede_1885', 'stadtplan_1885', 'uhrwerk_1885',
+  // Hintergründe 2015, mit Higgsfield neu gezeichnet
+  'lobby_2015', 'buero_2015', 'cafe80er_2015', 'gasse_2015', 'museum_2015', 'museum_2015_geheilt', 'turmplatz_2015', 'turmplatz_2015_geheilt',
   // Gegenstände
   'foto_stufe0', 'foto_stufe1', 'foto_stufe2', 'foto_stufe3', 'foto_stufe4', 'kugelschreiber', 'skateboard', 'skateboard_wand',
   'banane', 'bananenschale', 'x_mikrowelle', 'diktiergeraet',
