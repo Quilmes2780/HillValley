@@ -98,14 +98,14 @@ const normal: RoomVariant = {
     {
       id: 'kofferraum',
       name: 'hotspot.kofferraum',
-      area: rect(96, 56, 30, 28),
+      area: rect(96, 46, 30, 38),
       walkTo: [112, 98],
       face: 'hinten',
       defaultVerb: 'oeffne',
       sprite: {
         key: 'backgrounds/sprites/kofferraum_offen.png',
-        x: 100,
-        y: 62,
+        x: 104,
+        y: 36,
         depthY: 90,
         when: (s) => !!s.flags.kofferraum_offen,
       },
@@ -130,11 +130,11 @@ const normal: RoomVariant = {
     {
       id: 'klebeband',
       name: 'item.klebeband.name',
-      area: rect(100, 62, 18, 12),
+      area: rect(113, 49, 13, 12),
       walkTo: [112, 98],
       face: 'hinten',
       visible: (s) => !!s.flags.kofferraum_offen && !s.flags.klebeband_genommen,
-      sprite: { key: 'backgrounds/sprites/klebeband.png', x: 102, y: 64, depthY: 91 },
+      sprite: { key: 'backgrounds/sprites/klebeband.png', x: 116, y: 50, depthY: 91 },
       comments: { schauan: 'say.k5.klebeband_schau' },
       verbs: {
         nimm: async (g) => {

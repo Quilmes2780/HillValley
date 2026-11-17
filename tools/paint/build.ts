@@ -133,7 +133,9 @@ const EIGENE_BILDER = new Set(['titel', 'martys_zimmer_1986', 'kueche_1986', 'ar
   // Kapitel 4 und 5, mit Higgsfield erzeugt
   'muenze_2015', 'glas', 'freikarte', 'klebeband', 'folie', 'brief_brix', 'brief_2015', 'aufzug_zu', 'hover_mistlaster', 'brix_beine',
   'x_mond', 'x_haendler', 'x_kino', 'x_holo', 'x_wasserglas', 'x_shake', 'x_pluesch', 'x_pillen', 'x_hoverboard', 'x_schwert', 'x_vitrine',
-  'x_schacht', 'x_schuhe', 'x_origami', 'x_aushang_neon']);
+  'x_schacht', 'x_schuhe', 'x_origami', 'x_aushang_neon',
+  // Zeitwagen im Museum mit offenem Kofferraum und Chuck, mit Higgsfield erzeugt
+  'delorean', 'kofferraum_offen', 'x_topf']);
 
 const args = process.argv.slice(2);
 const force = args.includes('--force');
