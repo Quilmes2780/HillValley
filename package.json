@@ -11,6 +11,7 @@
     "paint": "tsx tools/paint/build.ts",
     "pixel": "tsx tools/pixel/build.ts",
     "audio": "tsx tools/audio/build.ts",
+    "loesungsbuch": "node tools/loesungsbuch/screens.cjs && node tools/loesungsbuch/build.cjs",
     "test": "playwright test",
     "test:schnell": "playwright test -c playwright.schnell.config.ts"
   },

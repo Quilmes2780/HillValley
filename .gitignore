@@ -9,3 +9,7 @@ playwright-report/
 
 # Referenzbilder für Higgsfield, nur lokal
 referenzen/
+
+# Zwischenstände des Lösungsbuchs
+tools/loesungsbuch/.screens/
+tools/loesungsbuch/.build/
