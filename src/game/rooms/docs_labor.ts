@@ -405,14 +405,14 @@ export const docsLabor: RoomDef = {
           {
             id: 'sicherungskasten',
             name: 'hotspot.sicherungskasten',
-            area: rect(235, 14, 22, 30),
+            area: rect(235, 16, 20, 26),
             walkTo: [248, 96],
             face: 'hinten',
             defaultVerb: 'oeffne',
             sprite: {
               key: 'backgrounds/sprites/sicherungskasten.png',
               x: 235,
-              y: 14,
+              y: 16,
               when: (s) => !s.flags.sicherungskasten_offen,
             },
             comments: { schauan: 'say.k3.labor_kasten' },
@@ -431,11 +431,11 @@ export const docsLabor: RoomDef = {
           {
             id: 'kasten_innen',
             name: 'hotspot.sicherungskasten',
-            area: rect(235, 14, 22, 30),
+            area: rect(235, 16, 20, 26),
             walkTo: [248, 96],
             face: 'hinten',
             visible: (s) => !!s.flags.sicherungskasten_offen,
-            sprite: { key: 'backgrounds/sprites/sicherungskasten_offen.png', x: 235, y: 14 },
+            sprite: { key: 'backgrounds/sprites/sicherungskasten_offen.png', x: 235, y: 16 },
             comments: { schauan: 'say.k3.labor_kasten_innen' },
             verbs: {
               schliesse: async (g) => {
@@ -446,11 +446,11 @@ export const docsLabor: RoomDef = {
           {
             id: 'sicherung',
             name: 'item.sicherung.name',
-            area: rect(237, 16, 14, 8),
+            area: rect(236, 18, 12, 7),
             walkTo: [248, 96],
             face: 'hinten',
             visible: (s) => !!s.flags.sicherungskasten_offen && !s.flags.sicherung_genommen,
-            sprite: { key: 'backgrounds/sprites/sicherung.png', x: 239, y: 17 },
+            sprite: { key: 'backgrounds/sprites/sicherung.png', x: 237, y: 19 },
             comments: { schauan: 'say.k3.labor_sicherung_schau' },
             verbs: {
               nimm: async (g) => {
